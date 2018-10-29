@@ -20,7 +20,34 @@ __urls__ = {'darkc0de':
                 'https://crackstation.net/files/crackstation.txt.gz',
             'crackstation-human-only':
                 'https://crackstation.net/files/crackstation-human-only.txt.gz',
-
+            'Weakpass 2.0':
+                'http://www.mediafire.com/file/q8u95nni5nrxuoc/weakpass_2.7z',
+            'Weakpass 2.0 wifi':
+                'http://www.mediafire.com/file/d5eyflor7gkftf5/weakpass_2_wifi.7z',
+            'Weakpass 2.0 policy':
+                'http://www.mediafire.com/file/uj824lip85rdqo4/weakpass_2p.7z',
+            'Weakpass 1.0':
+                'http://www.mediafire.com/file/k7ulswoloauzsu5/weakpass_1.gz',
+            'Weakpass 1.0 wifi':
+                'http://www.mediafire.com/file/42rsua4dr7r01tr/weakpass_wifi_1.gz',
+            'Weakpass':
+                'http://www.mediafire.com/file/d96hha7y7hwwd6a/weakpass.gz',
+            'SecLists':
+                'https://github.com/danielmiessler/SecLists/archive/master.zip',
+            'HashesOrg':
+                'http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz',
+            'MegaCracker':
+                'http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz',
+            'Sqlmap':
+                'http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz',
+            'Hashkiller Passwords':
+                'http://home.btconnect.com/md5decrypter/hashkiller-dict.rar',
+            'WordlistBySheez_v8':
+                'http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z',
+            'HyperionOnHackForumsNetRELEASE':
+                'http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz',
+            'Backtrack_big_password_library':
+                'http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz'
             }
 
 
@@ -54,6 +81,7 @@ def banner():
 
 def fetch_torrent(url, path):
     pass
+
 
 def fetch_file(url, path):
     print("[*] downloading {0}".format(path.split('/')[-1]))
@@ -104,7 +132,7 @@ def download_wordlists(code):
 def print_wordlists():
     index = 1
     print("[+] available wordlists")
-    print("    > 0   - all wordlists")
+    print("    > 0  - all wordlists")
     for i in __urls__:
         print("    > {0}  - {1}".format(index, i))
         index += 1
