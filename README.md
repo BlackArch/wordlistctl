@@ -13,10 +13,23 @@ In the latest version of the Blackarch Linux it has been added to
 ## Usage
 
 ```
-[ noptrix@blackarch-dev ~/blackarch/repos/sploitctl ]$ ./wordlistctl -H
---==[ wordlistctl by blackarch.org ]==--
+[ noptrix@blackarch-dev ~/blackarch/repos/sploitctl ]$ ./wordlistctl -h
+--==[ wordlistctl.py by blackarch.org ]==--
 
-TO BE FILLED
+usage:
+  wordlistctl.py -f <arg> | -d <arg> | <misc>
+
+options:
+
+  -f <num>   - download chosen wordlist
+             - ? to list wordlists
+  -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
+  -s <regex> - wordlist to search using <regex> in base directory
+
+misc:
+
+  -v         - print version of wordlistctl and exit
+  -h         - print this help and exit
 
 ```
 

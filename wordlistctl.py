@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
 __author__ = 'Sepehrdad Sh'
-__organization__ = 'Blackarch.org'
+__organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.1alpha'
+__version__ = '0.2alpha'
 __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
 
-__urls__ = {'darkc0de':
+__urls__ = {
+            'darkc0de':
                 'https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt',
             'rockyou':
                 'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz',
@@ -59,12 +60,13 @@ def usage():
     __usage__ = "usage:\n"
     __usage__ += "  {0} -f <arg> | -d <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
-    __usage__ += "  -f <num>  - download chosen wordlist\n"
-    __usage__ += "            - ? to list wordlists\n"
-    __usage__ += "  -d <dir>  - wordlists base directory (default: {1})\n\n"
+    __usage__ += "  -f <num>   - download chosen wordlist\n"
+    __usage__ += "             - ? to list wordlists\n"
+    __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
+    __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n\n"
     __usage__ += "misc:\n\n"
-    __usage__ += "  -v        - print version of wordlistctl and exit\n"
-    __usage__ += "  -h        - print this help and exit\n"
+    __usage__ += "  -v         - print version of wordlistctl and exit\n"
+    __usage__ += "  -h         - print this help and exit\n"
 
     print(__usage__.format(__project__, __wordlist_path__))
 
@@ -138,6 +140,17 @@ def print_wordlists():
         index += 1
 
 
+def search_dir(regex):
+    print('[+] searching for {0} in {1}'.format(regex, __wordlist_path__))
+    os.chdir(__wordlist_path__)
+    files = glob.glob("{0}".format(str(regex)))
+    if files.__len__() <= 0:
+        print("[-] wordlist not found")
+        return
+    for file in files:
+        print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
+
+
 def check_dir(dir_name):
     try:
 
@@ -154,11 +167,12 @@ def check_dir(dir_name):
 
 
 def main(argv):
+    global __wordlist_path__
     banner()
 
     try:
 
-        opts, args = getopt.getopt(argv[1:], "hvf:d:")
+        opts, args = getopt.getopt(argv[1:], "hvf:d:s:")
 
     except Exception as ex:
 
@@ -180,12 +194,16 @@ def main(argv):
                 return 0
             elif opt == '-d':
                 check_dir(arg)
+                __wordlist_path__ = arg
             elif opt == '-f':
                 if arg == '?':
                     print_wordlists()
                     return 0
                 else:
                     return download_wordlists(arg)
+            elif opt == '-s':
+                search_dir(arg)
+                return 0
 
     except KeyboardInterrupt:
 
@@ -206,6 +224,7 @@ if __name__ == '__main__':
         import os
         import getopt
         import requests
+        import glob
         from tqdm import tqdm
 
     except Exception as ex:
