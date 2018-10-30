@@ -58,7 +58,7 @@ def printerr(string, ex):
 
 def usage():
     __usage__ = "usage:\n"
-    __usage__ += "  {0} -f <arg> | -d <arg> | <misc>\n\n"
+    __usage__ += "  {0} -f <arg> | -s <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
@@ -81,10 +81,6 @@ def banner():
     print(__str_banner__)
 
 
-def fetch_torrent(url, path):
-    pass
-
-
 def fetch_file(url, path):
     print("[*] downloading {0}".format(path.split('/')[-1]))
 
@@ -98,6 +94,52 @@ def fetch_file(url, path):
             fp.write(data)
         fp.close()
 
+    except Exception as ex:
+
+        printerr("Error while downloading {0}".format(url), ex)
+        os.remove(path)
+
+
+def fetch_torrent(url, path):
+    magnet = False
+    if str(url).startswith('magnet:?'):
+        magnet = True
+    handle = None
+
+    try:
+
+        session = libtorrent.session({'listen_interfaces': '0.0.0.0:6881'})
+
+        if magnet:
+            handle = libtorrent.add_magnet_uri(session, url,
+                                               {'save_path': path, 'storage_mode': libtorrent.storage_mode_t(2),
+                                                'paused': False, 'auto_managed': True, 'duplicate_is_error': True}
+                                               )
+            session.start_dht()
+            print('[*] downloading metadata')
+            while not handle.has_metadata():
+                time.sleep(1)
+            print('[+] downloaded metadata')
+        else:
+            if os.path.isfile(url):
+                handle = session.add_torrent({'ti': libtorrent.torrent_info(url), 'save_path': path})
+            else:
+                printerr("[-] {0} not found".format(url), '')
+                exit(-1)
+
+        print("[*] downloading {0}".format(handle.name()))
+
+        while not handle.is_seed():
+            s = handle.status()
+            print('\r  %.2f%% complete (down: %.1f kB/s up: %.1f kB/s peers: %d) %s' % (
+                s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000, s.num_peers, s.state), end=' ')
+            sys.stdout.flush()
+            time.sleep(1)
+
+        print('\n[+] {0} completed'.format(handle.name()))
+    except KeyboardInterrupt:
+
+        return
     except Exception as ex:
 
         printerr("Error while downloading {0}".format(url), ex)
@@ -226,6 +268,8 @@ if __name__ == '__main__':
         import requests
         import glob
         from tqdm import tqdm
+        import libtorrent
+        import time
 
     except Exception as ex:
 

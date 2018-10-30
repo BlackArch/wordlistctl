@@ -17,7 +17,7 @@ In the latest version of the Blackarch Linux it has been added to
 --==[ wordlistctl.py by blackarch.org ]==--
 
 usage:
-  wordlistctl.py -f <arg> | -d <arg> | <misc>
+  wordlistctl.py -f <arg> | -s <arg> | <misc>
 
 options:
 
