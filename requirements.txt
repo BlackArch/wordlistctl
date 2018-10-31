@@ -1,2 +1,5 @@
 requests
 tqdm
+libarchive
+libtorrent
+unrar

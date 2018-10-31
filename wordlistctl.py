@@ -53,7 +53,7 @@ __urls__ = {
 
 
 def printerr(string, ex):
-    print("{0} {1}".format(string, ex), file=sys.stderr)
+    print("[-] {0} {1}".format(string, ex), file=sys.stderr)
 
 
 def usage():
@@ -81,8 +81,39 @@ def banner():
     print(__str_banner__)
 
 
+def decompress_gz(input, output):
+	try:
+
+		print("[*] decompressing {0}".format(os.path.abspath(input).split('/')[-1]))
+		infile = gzip.GzipFile(input, 'rb')
+		outfile = open("{0}/{1}".format(output, (input.split('/')[-1]).split('.gz')[:-1]))
+	    copyfileobj(infile, outfile)
+	    outfile.close()
+	    print("[+] decompressing {0} completed".format(os.path.abspath(input).split('/')[-1]))
+	except Exception as ex:
+
+		printerr('Error while decompressing {0}'.format(os.path.abspath(input).split('/')[-1]), ex)
+		return -1
+
+
+def decompress(input, output):
+    infile = os.path.abspath(input)
+    try:
+
+        print("[*] decompressing {0}".format(infile.split('/')[-1]))
+        os.chdir(output)
+        libarchive.extract_file(infile) # TODO add rar and gz support
+        print("[+] decompressing {0} completed".format(infile.split('/')[-1]))
+        return 0
+    except Exception as ex:
+
+        printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), ex)
+        return -1
+
+
 def fetch_file(url, path):
-    print("[*] downloading {0}".format(path.split('/')[-1]))
+    infile = path.split('/')[-1]
+    print("[*] downloading {0}".format(infile))
 
     try:
 
@@ -93,7 +124,7 @@ def fetch_file(url, path):
         for data in tqdm(iterable=rq.iter_content(chunk_size=chunk_size), total=total_size / chunk_size, unit='KB'):
             fp.write(data)
         fp.close()
-
+        print("[+] downloading {0} completed".format(infile))
     except Exception as ex:
 
         printerr("Error while downloading {0}".format(url), ex)
@@ -136,7 +167,7 @@ def fetch_torrent(url, path):
             sys.stdout.flush()
             time.sleep(1)
 
-        print('\n[+] {0} completed'.format(handle.name()))
+        print('\n[+] downloading {0} completed'.format(handle.name()))
     except KeyboardInterrupt:
 
         return
@@ -214,7 +245,7 @@ def main(argv):
 
     try:
 
-        opts, args = getopt.getopt(argv[1:], "hvf:d:s:")
+        opts, args = getopt.getopt(argv[1:], "hvf:d:s:a:")
 
     except Exception as ex:
 
@@ -246,6 +277,9 @@ def main(argv):
             elif opt == '-s':
                 search_dir(arg)
                 return 0
+            elif opt == '-a':
+                decompress(arg, __wordlist_path__)
+                return 0
 
     except KeyboardInterrupt:
 
@@ -269,7 +303,11 @@ if __name__ == '__main__':
         import glob
         from tqdm import tqdm
         import libtorrent
+        import libarchive
         import time
+        import gzip
+        import unrar
+    	from shutil import copyfileobj
 
     except Exception as ex:
 
