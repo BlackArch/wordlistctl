@@ -9,47 +9,47 @@ __project__ = 'wordlistctl.py'
 __wordlist_path__ = '/usr/share/wordlists'
 
 __urls__ = {
-            'darkc0de':
-                'https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt',
-            'rockyou':
-                'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz',
-            'cain-and-abel':
-                'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt',
-            'john-the-ripper':
-                'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt',
-            'crackstation':
-                'https://crackstation.net/files/crackstation.txt.gz',
-            'crackstation-human-only':
-                'https://crackstation.net/files/crackstation-human-only.txt.gz',
-            'Weakpass 2.0':
-                'http://www.mediafire.com/file/q8u95nni5nrxuoc/weakpass_2.7z',
-            'Weakpass 2.0 wifi':
-                'http://www.mediafire.com/file/d5eyflor7gkftf5/weakpass_2_wifi.7z',
-            'Weakpass 2.0 policy':
-                'http://www.mediafire.com/file/uj824lip85rdqo4/weakpass_2p.7z',
-            'Weakpass 1.0':
-                'http://www.mediafire.com/file/k7ulswoloauzsu5/weakpass_1.gz',
-            'Weakpass 1.0 wifi':
-                'http://www.mediafire.com/file/42rsua4dr7r01tr/weakpass_wifi_1.gz',
-            'Weakpass':
-                'http://www.mediafire.com/file/d96hha7y7hwwd6a/weakpass.gz',
-            'SecLists':
-                'https://github.com/danielmiessler/SecLists/archive/master.zip',
-            'HashesOrg':
-                'http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz',
-            'MegaCracker':
-                'http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz',
-            'Sqlmap':
-                'http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz',
-            'Hashkiller Passwords':
-                'http://home.btconnect.com/md5decrypter/hashkiller-dict.rar',
-            'WordlistBySheez_v8':
-                'http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z',
-            'HyperionOnHackForumsNetRELEASE':
-                'http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz',
-            'Backtrack_big_password_library':
-                'http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz'
-            }
+    'darkc0de':
+        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt',
+    'rockyou':
+        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz',
+    'cain-and-abel':
+        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt',
+    'john-the-ripper':
+        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt',
+    'crackstation':
+        'https://crackstation.net/files/crackstation.txt.gz',
+    'crackstation-human-only':
+        'https://crackstation.net/files/crackstation-human-only.txt.gz',
+    'Weakpass 2.0':
+        'http://www.mediafire.com/file/q8u95nni5nrxuoc/weakpass_2.7z',
+    'Weakpass 2.0 wifi':
+        'http://www.mediafire.com/file/d5eyflor7gkftf5/weakpass_2_wifi.7z',
+    'Weakpass 2.0 policy':
+        'http://www.mediafire.com/file/uj824lip85rdqo4/weakpass_2p.7z',
+    'Weakpass 1.0':
+        'http://www.mediafire.com/file/k7ulswoloauzsu5/weakpass_1.gz',
+    'Weakpass 1.0 wifi':
+        'http://www.mediafire.com/file/42rsua4dr7r01tr/weakpass_wifi_1.gz',
+    'Weakpass':
+        'http://www.mediafire.com/file/d96hha7y7hwwd6a/weakpass.gz',
+    'SecLists':
+        'https://github.com/danielmiessler/SecLists/archive/master.zip',
+    'HashesOrg':
+        'http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz',
+    'MegaCracker':
+        'http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz',
+    'Sqlmap':
+        'http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz',
+    'Hashkiller Passwords':
+        'http://home.btconnect.com/md5decrypter/hashkiller-dict.rar',
+    'WordlistBySheez_v8':
+        'http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z',
+    'HyperionOnHackForumsNetRELEASE':
+        'http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz',
+    'Backtrack_big_password_library':
+        'http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz'
+}
 
 
 def printerr(string, ex):
@@ -81,33 +81,51 @@ def banner():
     print(__str_banner__)
 
 
-def decompress_gz(input, output):
-	try:
+def decompress_gb(input, output):
+    infile = None
+    __outfile__ = os.path.splitext(os.path.basename(input))[0]
+    print(__outfile__)
+    try:
+        if input.endswith('.gz'):
+            infile = gzip.GzipFile(input, 'rb')
+        elif input.endswith('.bz2'):
+            infile = bz2.BZ2File(input, 'rb')
+        else:
+            printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), '')
+            return -1
+        print("[*] decompressing {0}".format(os.path.abspath(input).split('/')[-1]))
+        outfile = open("{0}/{1}".format(output, __outfile__), 'wb')
+        copyfileobj(infile, outfile)
+        outfile.close()
+        print("[+] decompressing {0} completed".format(os.path.abspath(input).split('/')[-1]))
+    except Exception as ex:
 
-		print("[*] decompressing {0}".format(os.path.abspath(input).split('/')[-1]))
-		infile = gzip.GzipFile(input, 'rb')
-		outfile = open("{0}/{1}".format(output, (input.split('/')[-1]).split('.gz')[:-1]))
-	    copyfileobj(infile, outfile)
-	    outfile.close()
-	    print("[+] decompressing {0} completed".format(os.path.abspath(input).split('/')[-1]))
-	except Exception as ex:
-
-		printerr('Error while decompressing {0}'.format(os.path.abspath(input).split('/')[-1]), ex)
-		return -1
+        printerr('Error while decompressing {0}'.format(os.path.abspath(input).split('/')[-1]), ex)
+        return -1
 
 
 def decompress(input, output):
-    infile = os.path.abspath(input)
+    __infile__ = os.path.abspath(input)
+    infile = None
     try:
-
-        print("[*] decompressing {0}".format(infile.split('/')[-1]))
-        os.chdir(output)
-        libarchive.extract_file(infile) # TODO add rar and gz support
-        print("[+] decompressing {0} completed".format(infile.split('/')[-1]))
+        if __infile__.endswith('.tar.gz') or __infile__.endswith('.tar.bz'):
+            infile = tarfile.TarFile(__infile__, 'r')
+        elif __infile__.endswith('.rar'):
+            infile = rarfile.RarFile(__infile__, 'r')
+        elif __infile__.endswith('.zip'):
+            infile = zipfile.ZipFile(__infile__, 'r')
+        elif __infile__.endswith('.gz') or __infile__.endswith('.bz2'):
+            return decompress_gb(input, output)
+        else:
+            printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), '')
+            return -1
+        print("[*] decompressing {0}".format(__infile__.split('/')[-1]))
+        infile.extractall(output)
+        print("[+] decompressing {0} completed".format(__infile__.split('/')[-1]))
         return 0
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), ex)
+        printerr('Error while decompressing {0}'.format(__infile__.split('/')[-1]), ex)
         return -1
 
 
@@ -245,7 +263,7 @@ def main(argv):
 
     try:
 
-        opts, args = getopt.getopt(argv[1:], "hvf:d:s:a:")
+        opts, args = getopt.getopt(argv[1:], "hvf:d:s:")
 
     except Exception as ex:
 
@@ -277,9 +295,6 @@ def main(argv):
             elif opt == '-s':
                 search_dir(arg)
                 return 0
-            elif opt == '-a':
-                decompress(arg, __wordlist_path__)
-                return 0
 
     except KeyboardInterrupt:
 
@@ -303,11 +318,13 @@ if __name__ == '__main__':
         import glob
         from tqdm import tqdm
         import libtorrent
-        import libarchive
         import time
         import gzip
-        import unrar
-    	from shutil import copyfileobj
+        import rarfile
+        import zipfile
+        import bz2
+        import tarfile
+        from shutil import copyfileobj
 
     except Exception as ex:
 

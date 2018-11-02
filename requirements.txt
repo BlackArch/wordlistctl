@@ -1,5 +1,4 @@
+rarfile
 requests
 tqdm
-libarchive
 libtorrent
-unrar
