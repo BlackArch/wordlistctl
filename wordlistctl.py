@@ -7,53 +7,13 @@ __version__ = '0.2alpha'
 __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
-
-__urls__ = {
-    'darkc0de':
-        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt',
-    'rockyou':
-        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz',
-    'cain-and-abel':
-        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt',
-    'john-the-ripper':
-        'https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt',
-    'crackstation':
-        'https://crackstation.net/files/crackstation.txt.gz',
-    'crackstation-human-only':
-        'https://crackstation.net/files/crackstation-human-only.txt.gz',
-    'Weakpass 2.0':
-        'http://www.mediafire.com/file/q8u95nni5nrxuoc/weakpass_2.7z',
-    'Weakpass 2.0 wifi':
-        'http://www.mediafire.com/file/d5eyflor7gkftf5/weakpass_2_wifi.7z',
-    'Weakpass 2.0 policy':
-        'http://www.mediafire.com/file/uj824lip85rdqo4/weakpass_2p.7z',
-    'Weakpass 1.0':
-        'http://www.mediafire.com/file/k7ulswoloauzsu5/weakpass_1.gz',
-    'Weakpass 1.0 wifi':
-        'http://www.mediafire.com/file/42rsua4dr7r01tr/weakpass_wifi_1.gz',
-    'Weakpass':
-        'http://www.mediafire.com/file/d96hha7y7hwwd6a/weakpass.gz',
-    'SecLists':
-        'https://github.com/danielmiessler/SecLists/archive/master.zip',
-    'HashesOrg':
-        'http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz',
-    'MegaCracker':
-        'http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz',
-    'Sqlmap':
-        'http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz',
-    'Hashkiller Passwords':
-        'http://home.btconnect.com/md5decrypter/hashkiller-dict.rar',
-    'WordlistBySheez_v8':
-        'http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z',
-    'HyperionOnHackForumsNetRELEASE':
-        'http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz',
-    'Backtrack_big_password_library':
-        'http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz'
-}
+__urls__ = {}
+__categories__ = {}
+__sites__ = {}
 
 
 def printerr(string, ex):
-    print("[-] {0} {1}".format(string, ex), file=sys.stderr)
+    print("[-] {0}: {1}".format(string, ex), file=sys.stderr)
 
 
 def usage():
@@ -209,6 +169,25 @@ def fetch_torrent(url, path):
         os.remove(path)
 
 
+def download_wordlist(config):
+    try:
+
+        if config['protocol'] == 'http':
+            fetch_file(config['url'], "{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
+        elif config['protocol'] == 'torrent':
+            fetch_file(config['url'], "{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
+            fetch_torrent("{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]), __wordlist_path__)
+            os.remove("{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
+        elif config['protocol'] == 'magnet':
+            fetch_file(config['url'], __wordlist_path__)
+        else:
+            raise ValueError('invalid protocol')
+    except Exception as ex:
+
+        printerr('unable to download wordlist', ex)
+        return -1
+
+
 def download_wordlists(code):
     __wordlist_id__ = 0
 
@@ -223,10 +202,10 @@ def download_wordlists(code):
             raise IndexError
         elif __wordlist_id__ == 0:
             for i in __urls__:
-                fetch_file(__urls__[i], "{0}/{1}".format(__wordlist_path__, __urls__[i].split('/')[-1]))
+                download_wordlist(__urls__[i])
         else:
             i = list(__urls__.keys())[__wordlist_id__ - 1]
-            fetch_file(__urls__[i], "{0}/{1}".format(__wordlist_path__, __urls__[i].split('/')[-1]))
+            download_wordlist(__urls__[i])
 
     except Exception as ex:
 
@@ -271,8 +250,27 @@ def check_dir(dir_name):
         exit(-1)
 
 
+def load_json(input):
+    try:
+
+        return json.load(open(input, 'r'))
+    except Exception as ex:
+
+        printerr('unable to load {0}'.format(input), ex)
+        return {}
+
+
 def main(argv):
     global __wordlist_path__
+    global __urls__
+    global __categories__
+    global __sites__
+    __urls_file_name__ = '{0}/urls.json'.format(os.path.dirname(os.path.realpath(__file__)))
+    __sites_file_name__ = '{0}/sites.json'.format(os.path.dirname(os.path.realpath(__file__)))
+    __categories_file_name__ = '{0}/categories.json'.format(os.path.dirname(os.path.realpath(__file__)))
+    __urls__ = load_json(__urls_file_name__)
+    __categories__ = load_json(__categories_file_name__)
+    __sites__ = load_json(__sites_file_name__)
     banner()
 
     try:
@@ -339,6 +337,7 @@ if __name__ == '__main__':
         import lzma
         import rarfile
         from shutil import copyfileobj
+        import json
 
     except Exception as ex:
 

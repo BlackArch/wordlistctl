@@ -1,0 +1,64 @@
+{
+    "darkc0de": {"protocol": "http",
+      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt"},
+
+    "rockyou": {"protocol": "http",
+      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz"},
+
+    "cain-and-abel": {"protocol": "http",
+      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt"},
+
+    "john-the-ripper":{"protocol": "http",
+      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt"},
+
+    "crackstation":{"protocol": "torrent",
+      "url": "https://crackstation.net/downloads/crackstation.txt.gz.torrent"},
+
+    "crackstation-human-only":{"protocol": "torrent",
+      "url": "https://crackstation.net/downloads/crackstation-human-only.txt.gz.torrent"},
+
+    "Weakpass 2.0":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_2.torrent"},
+
+    "Weakpass 2.0 A":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_2a.torrent"},
+
+    "Weakpass 2.0 wifi":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_2_wifi.torrent"},
+
+    "Weakpass 2.0 policy":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_2p.torrent"},
+
+    "Weakpass 1.0":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_1.torrent"},
+
+    "Weakpass 1.0 wifi":{"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass_wifi_1.torrent"},
+
+    "Weakpass": {"protocol": "torrent",
+      "url": "https://weakpass.com/torrent/weakpass.torrent"},
+
+    "SecLists":{"protocol": "http",
+      "url": "https://github.com/danielmiessler/SecLists/archive/master.zip"},
+
+    "HashesOrg":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz"},
+
+    "MegaCracker":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz"},
+
+    "Sqlmap":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz"},
+
+    "Hashkiller Passwords":{"protocol": "http",
+      "url": "http://home.btconnect.com/md5decrypter/hashkiller-dict.rar"},
+
+    "WordlistBySheez_v8":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z"},
+
+    "HyperionOnHackForumsNetRELEASE":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz"},
+
+    "Backtrack_big_password_library":{"protocol": "http",
+      "url": "http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz"}
+}
