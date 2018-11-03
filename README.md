@@ -17,7 +17,7 @@ In the latest version of the Blackarch Linux it has been added to
 --==[ wordlistctl.py by blackarch.org ]==--
 
 usage:
-  wordlistctl.py -f <num>  [options] | -s <arg> | <misc>
+  wordlistctl.py -f <num>  [options] | -s <arg> | -S <arg> | <misc>
 
 options:
 
@@ -26,6 +26,7 @@ options:
              - h to show options
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
   -s <regex> - wordlist to search using <regex> in base directory
+  -S <str>   - wordlist to search using str in sites
 
 misc:
 

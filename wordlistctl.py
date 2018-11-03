@@ -26,13 +26,14 @@ def printerr(string, ex):
 
 def usage():
     __usage__ = "usage:\n"
-    __usage__ += "  {0} -f <num>  [options] | -s <arg> | <misc>\n\n"
+    __usage__ += "  {0} -f <num>  [options] | -s <arg> | -S <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
     __usage__ += "             - h to show options\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
-    __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n\n"
+    __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
+    __usage__ += "  -S <str>   - wordlist to search using str in sites\n\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"
@@ -248,7 +249,7 @@ def print_wordlists():
 
 
 def search_dir(regex):
-    print('[+] searching for {0} in {1}'.format(regex, __wordlist_path__))
+    print('[*] searching for {0} in {1}'.format(regex, __wordlist_path__))
     os.chdir(__wordlist_path__)
     files = glob.glob("{0}".format(str(regex)))
     if files.__len__() <= 0:
@@ -256,6 +257,27 @@ def search_dir(regex):
         return
     for file in files:
         print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
+
+
+def search_weakpass(string):
+    try:
+        __items__ = {}
+        print('[*] searching for {0} in weakpass.com'.format(string))
+        page = requests.get('https://weakpass.com/wordlist')
+        html = BeautifulSoup(page.text, 'html.parser')
+        tbody = html.tbody
+        for i in tbody.find_all('tr'):
+            __items__[i.find_all('td')[0].a.text] = i.find_all('td')[5].a['href']
+
+        for i in __items__.keys():
+            if i.lower().__contains__(string):
+                print('[+] wordlist found: https://weakpass.com{0}'.format(__items__[i]))
+    except KeyboardInterrupt:
+        pass
+    except Exception as ex:
+
+        printerr('Error while searching', ex)
+        return -1
 
 
 def check_dir(dir_name):
@@ -291,7 +313,7 @@ def arg_parse(argv):
     __arg__ = None
 
     try:
-        opts, args = getopt.getopt(argv[1:], "hvXUrd:f:s:")
+        opts, args = getopt.getopt(argv[1:], "hvXUrd:f:s:S:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -325,6 +347,9 @@ def arg_parse(argv):
                 __remove__ = True
             elif opt == '-U':
                 __operation__ = update_config
+            elif opt == '-S':
+                __operation__ = search_weakpass
+                __arg__ = arg
     except Exception as ex:
 
         printerr("Error while parsing arguments", ex)
@@ -417,6 +442,7 @@ if __name__ == '__main__':
         import rarfile
         from shutil import copyfileobj
         import json
+        from bs4 import BeautifulSoup
 
     except Exception as ex:
 
