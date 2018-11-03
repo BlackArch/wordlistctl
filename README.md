@@ -17,19 +17,22 @@ In the latest version of the Blackarch Linux it has been added to
 --==[ wordlistctl.py by blackarch.org ]==--
 
 usage:
-  wordlistctl.py -f <arg> | -s <arg> | <misc>
+  wordlistctl.py -f <num>  [options] | -s <arg> | <misc>
 
 options:
 
   -f <num>   - download chosen wordlist
              - ? to list wordlists
+             - h to show options
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
   -s <regex> - wordlist to search using <regex> in base directory
 
 misc:
 
+  -U         - update config files
   -v         - print version of wordlistctl and exit
   -h         - print this help and exit
+
 
 ```
 
