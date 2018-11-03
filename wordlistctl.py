@@ -7,24 +7,34 @@ __version__ = '0.2alpha'
 __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
+__urls_file_name__ = ''
+__sites_file_name__ = ''
+__categories_file_name__ = ''
 __urls__ = {}
 __categories__ = {}
 __sites__ = {}
+__decompress__ = False
+__remove__ = False
 
 
 def printerr(string, ex):
-    print("[-] {0}: {1}".format(string, ex), file=sys.stderr)
+    if ex == '':
+        print("[-] {0}".format(string), file=sys.stderr)
+    else:
+        print("[-] {0}: {1}".format(string, ex), file=sys.stderr)
 
 
 def usage():
     __usage__ = "usage:\n"
-    __usage__ += "  {0} -f <arg> | -s <arg> | <misc>\n\n"
+    __usage__ += "  {0} -f <num>  [options] | -s <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
+    __usage__ += "             - h to show options\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n\n"
     __usage__ += "misc:\n\n"
+    __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"
     __usage__ += "  -h         - print this help and exit\n"
 
@@ -117,6 +127,10 @@ def fetch_file(url, path):
             fp.write(data)
         fp.close()
         print("[+] downloading {0} completed".format(infile))
+        if __decompress__ and (not infile.endswith('.torrent')):
+            if decompress(infile, __wordlist_path__) != -1 and __remove__:
+                    os.remove(infile)
+
     except Exception as ex:
 
         printerr("Error while downloading {0}".format(url), ex)
@@ -160,6 +174,10 @@ def fetch_torrent(url, path):
             time.sleep(1)
 
         print('\n[+] downloading {0} completed'.format(handle.name()))
+
+        if __decompress__:
+            if decompress(handle.name(), __wordlist_path__) != -1 and __remove__:
+                os.remove(handle.name())
     except KeyboardInterrupt:
 
         return
@@ -172,14 +190,16 @@ def fetch_torrent(url, path):
 def download_wordlist(config):
     try:
 
+        __filename__ = config['url'].split('/')[-1]
+        __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
         if config['protocol'] == 'http':
-            fetch_file(config['url'], "{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
+            fetch_file(config['url'], __file_path__)
         elif config['protocol'] == 'torrent':
-            fetch_file(config['url'], "{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
-            fetch_torrent("{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]), __wordlist_path__)
-            os.remove("{0}/{1}".format(__wordlist_path__, config['url'].split('/')[-1]))
+            fetch_file(config['url'], __file_path__)
+            fetch_torrent(__file_path__, __wordlist_path__)
+            os.remove(__file_path__)
         elif config['protocol'] == 'magnet':
-            fetch_file(config['url'], __wordlist_path__)
+            fetch_torrent(config['url'], __wordlist_path__)
         else:
             raise ValueError('invalid protocol')
     except Exception as ex:
@@ -194,12 +214,15 @@ def download_wordlists(code):
     check_dir(__wordlist_path__)
 
     try:
-
         __wordlist_id__ = int(code)
-        if __wordlist_id__ >= __urls__.__len__() + 1:
-            raise IndexError
-        elif __wordlist_id__ < 0:
-            raise IndexError
+    except:
+        printerr('{0} is not a valid option'.format(code), '')
+        return -1
+
+    try:
+
+        if (__wordlist_id__ >= __urls__.__len__() + 1) or __wordlist_id__ < 0:
+            raise IndexError('{0} is not a valid option'.format(code))
         elif __wordlist_id__ == 0:
             for i in __urls__:
                 download_wordlist(__urls__[i])
@@ -260,64 +283,120 @@ def load_json(input):
         return {}
 
 
-def main(argv):
+def arg_parse(argv):
     global __wordlist_path__
-    global __urls__
-    global __categories__
-    global __sites__
-    __urls_file_name__ = '{0}/urls.json'.format(os.path.dirname(os.path.realpath(__file__)))
-    __sites_file_name__ = '{0}/sites.json'.format(os.path.dirname(os.path.realpath(__file__)))
-    __categories_file_name__ = '{0}/categories.json'.format(os.path.dirname(os.path.realpath(__file__)))
-    __urls__ = load_json(__urls_file_name__)
-    __categories__ = load_json(__categories_file_name__)
-    __sites__ = load_json(__sites_file_name__)
-    banner()
+    global __decompress__
+    global __remove__
+    __operation__ = None
+    __arg__ = None
 
     try:
+        opts, args = getopt.getopt(argv[1:], "hvXUrd:f:s:")
 
-        opts, args = getopt.getopt(argv[1:], "hvf:d:s:")
-
-    except Exception as ex:
-
-        printerr("Error while parsing arguments", ex)
-        return -1
-
-    if opts.__len__() <= 0:
-        usage()
-        return 0
-
-    try:
+        if opts.__len__() <= 0:
+            __operation__ = usage
+            return __operation__, __arg__
 
         for opt, arg in opts:
             if opt == '-h':
-                usage()
-                return 0
+                __operation__ = usage
             elif opt == '-v':
-                version()
-                return 0
+                __operation__ = version
             elif opt == '-d':
                 check_dir(arg)
                 __wordlist_path__ = arg
             elif opt == '-f':
                 if arg == '?':
-                    print_wordlists()
-                    return 0
+                    __operation__ = print_wordlists
+                elif arg == 'h':
+                    __usage__ = "options:\n\n"
+                    __usage__ += "  -X         - decompress wordlist\n"
+                    __usage__ += "  -r         - remove compressed file after decompression\n"
+                    print(__usage__)
                 else:
-                    return download_wordlists(arg)
+                    __operation__ = download_wordlists
+                    __arg__ = arg
             elif opt == '-s':
-                search_dir(arg)
-                return 0
-
-    except KeyboardInterrupt:
-
-        return 0
-
+                __operation__ = search_dir
+                __arg__ = arg
+            elif opt == '-X':
+                __decompress__ = True
+            elif opt == '-r':
+                __remove__ = True
+            elif opt == '-U':
+                __operation__ = update_config
     except Exception as ex:
 
         printerr("Error while parsing arguments", ex)
-        return -1
+    finally:
+        return __operation__, __arg__
 
-    return 0
+
+def update_config():
+    global __urls__
+    global __categories__
+    global __sites__
+    __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
+    files = [__sites_file_name__, __urls_file_name__, __categories_file_name__]
+    try:
+
+        print('[*] updating config files')
+        for i in files:
+            if os.path.isfile(i):
+                os.remove(i)
+            fetch_file('{0}/{1}'.format(__base_url__, os.path.basename(i)), i)
+        load_config()
+        print('[+] updating config files completed')
+    except Exception as ex:
+
+        printerr('Error while updating', ex)
+        exit(-1)
+
+
+def load_config():
+    global __urls__
+    global __categories__
+    global __sites__
+    files = [__sites_file_name__, __urls_file_name__, __categories_file_name__]
+    try:
+
+        for i in files:
+            if not os.path.isfile(i):
+                raise FileNotFoundError('Config files not found please update')
+        __urls__ = load_json(__urls_file_name__)
+        __sites__ = load_json(__sites_file_name__)
+        __categories__ = load_json(__categories_file_name__)
+    except Exception as ex:
+
+        printerr('Error while loading config files', ex)
+        exit(-1)
+
+
+def main(argv):
+    global __urls_file_name__
+    global __categories_file_name__
+    global __sites_file_name__
+    banner()
+    __base_name__ = os.path.dirname(os.path.realpath(__file__))
+    __urls_file_name__ = '{0}/urls.json'.format(__base_name__)
+    __sites_file_name__ = '{0}/sites.json'.format(__base_name__)
+    __categories_file_name__ = '{0}/categories.json'.format(__base_name__)
+
+    __operation__, __arg__ = arg_parse(argv)
+
+    try:
+        if __operation__ is not update_config:
+            load_config()
+        if __operation__ is not None:
+            if __arg__ is not None:
+                __operation__(__arg__)
+            else:
+                __operation__()
+        else:
+            raise ValueError
+        return 0
+    except:
+        return -1
 
 
 if __name__ == '__main__':
