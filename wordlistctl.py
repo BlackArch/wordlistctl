@@ -81,48 +81,62 @@ def banner():
     print(__str_banner__)
 
 
-def decompress_gb(input, output):
-    infile = None
-    __outfile__ = os.path.splitext(os.path.basename(input))[0]
-    print(__outfile__)
+def decompress_gbl(input, output):
+    __filename__ = os.path.basename(input)
     try:
+
+        infile = None
+        __outfile__ = os.path.splitext(os.path.basename(input))[0]
         if input.endswith('.gz'):
             infile = gzip.GzipFile(input, 'rb')
         elif input.endswith('.bz2'):
             infile = bz2.BZ2File(input, 'rb')
+        elif input.endswith('.lzma') or input.endswith('.xz'):
+            infile = lzma.LZMAFile(input, 'rb')
         else:
-            printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), '')
-            return -1
-        print("[*] decompressing {0}".format(os.path.abspath(input).split('/')[-1]))
+            raise ValueError('unknown file type')
+        print("[*] decompressing {0}".format(__filename__))
         outfile = open("{0}/{1}".format(output, __outfile__), 'wb')
         copyfileobj(infile, outfile)
         outfile.close()
-        print("[+] decompressing {0} completed".format(os.path.abspath(input).split('/')[-1]))
+        print("[+] decompressing {0} completed".format(__filename__))
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(os.path.abspath(input).split('/')[-1]), ex)
+        printerr('Error while decompressing {0}'.format(__filename__), ex)
+        return -1
+
+
+def decompress_archive(input, output):
+    __filename__ = os.path.basename(input)
+    try:
+
+        os.chdir(output)
+        print("[*] decompressing {0}".format(__filename__))
+        if os.path.splitext(__filename__)[1] in '.rar':
+            infile = rarfile.RarFile(input)
+            infile.extractall()
+        else:
+            libarchive.extract_file(input)
+        print("[+] decompressing {0} completed".format(__filename__))
+    except Exception as ex:
+
+        printerr('Error while decompressing {0}'.format(__filename__), ex)
         return -1
 
 
 def decompress(input, output):
     __infile__ = os.path.abspath(input)
-    infile = None
+    __filename__ = os.path.basename(__infile__)
     try:
-        if __infile__.endswith('.tar.gz') or __infile__.endswith('.tar.bz'):
-            infile = tarfile.TarFile(__infile__, 'r')
-        elif __infile__.endswith('.rar'):
-            infile = rarfile.RarFile(__infile__, 'r')
-        elif __infile__.endswith('.zip'):
-            infile = zipfile.ZipFile(__infile__, 'r')
-        elif __infile__.endswith('.gz') or __infile__.endswith('.bz2'):
-            return decompress_gb(input, output)
+
+        if os.path.splitext(__filename__)[1] in ('.zip', '.rar', '.7z', '.tar'):
+            return decompress_archive(input, output)
+        elif os.path.splitext(__filename__)[1] in ('.gz', '.bz', '.bz2', '.xz', '.lzma'):
+            if os.path.splitext(__filename__)[0].endswith('.tar'):
+                return decompress_archive(input, output)
+            return decompress_gbl(input, output)
         else:
-            printerr('Error while decompressing {0}'.format(infile.split('/')[-1]), '')
-            return -1
-        print("[*] decompressing {0}".format(__infile__.split('/')[-1]))
-        infile.extractall(output)
-        print("[+] decompressing {0} completed".format(__infile__.split('/')[-1]))
-        return 0
+            raise ValueError('unknown file type')
     except Exception as ex:
 
         printerr('Error while decompressing {0}'.format(__infile__.split('/')[-1]), ex)
@@ -318,12 +332,12 @@ if __name__ == '__main__':
         import glob
         from tqdm import tqdm
         import libtorrent
+        import libarchive
         import time
         import gzip
-        import rarfile
-        import zipfile
         import bz2
-        import tarfile
+        import lzma
+        import rarfile
         from shutil import copyfileobj
 
     except Exception as ex:

@@ -1,3 +1,4 @@
+libarchive-c
 rarfile
 requests
 tqdm
