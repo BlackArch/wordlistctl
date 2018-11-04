@@ -8,11 +8,9 @@ __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
 __urls_file_name__ = ''
-__sites_file_name__ = ''
 __categories_file_name__ = ''
 __urls__ = {}
 __categories__ = {}
-__sites__ = {}
 __decompress__ = False
 __remove__ = False
 
@@ -271,7 +269,26 @@ def search_weakpass(string):
 
         for i in __items__.keys():
             if i.lower().__contains__(string):
-                print('[+] wordlist found: https://weakpass.com{0}'.format(__items__[i]))
+                print('[+] wordlist {0} found: https://weakpass.com{1}'.format(i, __items__[i]))
+    except KeyboardInterrupt:
+        pass
+    except Exception as ex:
+
+        printerr('Error while searching', ex)
+        return -1
+
+
+def search_sites(string):
+    try:
+        print('[*] searching for {0} in urls.json'.format(string))
+        count = 0
+        for i in __urls__.keys():
+            if i.lower().__contains__(string):
+                print('[+] wordlist {0} found: {1}'.format(i, __urls__[i]['url']))
+                count += 1
+
+        if count == 0:
+            search_weakpass(string)
     except KeyboardInterrupt:
         pass
     except Exception as ex:
@@ -348,7 +365,7 @@ def arg_parse(argv):
             elif opt == '-U':
                 __operation__ = update_config
             elif opt == '-S':
-                __operation__ = search_weakpass
+                __operation__ = search_sites
                 __arg__ = arg
     except Exception as ex:
 
@@ -360,9 +377,8 @@ def arg_parse(argv):
 def update_config():
     global __urls__
     global __categories__
-    global __sites__
     __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
-    files = [__sites_file_name__, __urls_file_name__, __categories_file_name__]
+    files = [__urls_file_name__, __categories_file_name__]
     try:
 
         print('[*] updating config files')
@@ -381,15 +397,13 @@ def update_config():
 def load_config():
     global __urls__
     global __categories__
-    global __sites__
-    files = [__sites_file_name__, __urls_file_name__, __categories_file_name__]
+    files = [__urls_file_name__, __categories_file_name__]
     try:
 
         for i in files:
             if not os.path.isfile(i):
                 raise FileNotFoundError('Config files not found please update')
         __urls__ = load_json(__urls_file_name__)
-        __sites__ = load_json(__sites_file_name__)
         __categories__ = load_json(__categories_file_name__)
     except Exception as ex:
 
@@ -400,11 +414,9 @@ def load_config():
 def main(argv):
     global __urls_file_name__
     global __categories_file_name__
-    global __sites_file_name__
     banner()
     __base_name__ = os.path.dirname(os.path.realpath(__file__))
     __urls_file_name__ = '{0}/urls.json'.format(__base_name__)
-    __sites_file_name__ = '{0}/sites.json'.format(__base_name__)
     __categories_file_name__ = '{0}/categories.json'.format(__base_name__)
 
     __operation__, __arg__ = arg_parse(argv)

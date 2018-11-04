@@ -1,64 +1,5374 @@
 {
-    "darkc0de": {"protocol": "http",
-      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt"},
-
-    "rockyou": {"protocol": "http",
-      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz"},
-
-    "cain-and-abel": {"protocol": "http",
-      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt"},
-
-    "john-the-ripper":{"protocol": "http",
-      "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt"},
-
-    "crackstation":{"protocol": "torrent",
-      "url": "https://crackstation.net/downloads/crackstation.txt.gz.torrent"},
-
-    "crackstation-human-only":{"protocol": "torrent",
-      "url": "https://crackstation.net/downloads/crackstation-human-only.txt.gz.torrent"},
-
-    "Weakpass 2.0":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_2.torrent"},
-
-    "Weakpass 2.0 A":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_2a.torrent"},
-
-    "Weakpass 2.0 wifi":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_2_wifi.torrent"},
-
-    "Weakpass 2.0 policy":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_2p.torrent"},
-
-    "Weakpass 1.0":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_1.torrent"},
-
-    "Weakpass 1.0 wifi":{"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass_wifi_1.torrent"},
-
-    "Weakpass": {"protocol": "torrent",
-      "url": "https://weakpass.com/torrent/weakpass.torrent"},
-
-    "SecLists":{"protocol": "http",
-      "url": "https://github.com/danielmiessler/SecLists/archive/master.zip"},
-
-    "HashesOrg":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz"},
-
-    "MegaCracker":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz"},
-
-    "Sqlmap":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz"},
-
-    "Hashkiller Passwords":{"protocol": "http",
-      "url": "http://home.btconnect.com/md5decrypter/hashkiller-dict.rar"},
-
-    "WordlistBySheez_v8":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z"},
-
-    "HyperionOnHackForumsNetRELEASE":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz"},
-
-    "Backtrack_big_password_library":{"protocol": "http",
-      "url": "http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz"}
+    "darkc0de": {
+        "protocol": "http",
+        "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/darkc0de.txt"
+    },
+    "rockyou": {
+        "protocol": "http",
+        "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz"
+    },
+    "cain-and-abel": {
+        "protocol": "http",
+        "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt"
+    },
+    "john-the-ripper": {
+        "protocol": "http",
+        "url": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt"
+    },
+    "crackstation": {
+        "protocol": "torrent",
+        "url": "https://crackstation.net/downloads/crackstation.txt.gz.torrent"
+    },
+    "crackstation-human-only": {
+        "protocol": "torrent",
+        "url": "https://crackstation.net/downloads/crackstation-human-only.txt.gz.torrent"
+    },
+    "SecLists": {
+        "protocol": "http",
+        "url": "https://github.com/danielmiessler/SecLists/archive/master.zip"
+    },
+    "HashesOrg": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/vi4y1kfs4semt9a/HashesOrg.gz"
+    },
+    "MegaCracker": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/14vvacvc5qtu8ba/MegaCracker.txt.gz"
+    },
+    "Sqlmap": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/0k71k1g39mcxgwu/sqlmap.txt.gz"
+    },
+    "Hashkiller Passwords": {
+        "protocol": "http",
+        "url": "http://home.btconnect.com/md5decrypter/hashkiller-dict.rar"
+    },
+    "WordlistBySheez_v8": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/8oazhwqzexid771/WordlistBySheez_v8.7z"
+    },
+    "HyperionOnHackForumsNetRELEASE": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/118gd6bkcnn9j58/HyperionOnHackForumsNetRELEASE.txt.gz"
+    },
+    "Backtrack_big_password_library": {
+        "protocol": "http",
+        "url": "http://www.mediafire.com/file/cml6ge2fppa4jiu/Backtrack_big_password_library.gz"
+    },
+    "weakpass_2a": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/weakpass_2a.torrent"
+    },
+    "weakpass_2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/weakpass_2.torrent"
+    },
+    "DCHTPassv1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1257.torrent"
+    },
+    "Nummer_DB": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1314.torrent"
+    },
+    "only_latin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1315.torrent"
+    },
+    "b0n3z-sorted-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1326.torrent"
+    },
+    "antipublic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1857.torrent"
+    },
+    "hk_hlm_founds": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1256.torrent"
+    },
+    "b0n3z": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1310.torrent"
+    },
+    "Md5decrypt-awesome-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1319.torrent"
+    },
+    "InsideProFull": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_465.torrent"
+    },
+    "passcape_comp": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_727.torrent"
+    },
+    "kac": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1304.torrent"
+    },
+    "Super_mega_dic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1243.torrent"
+    },
+    "uniq18": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1858.torrent"
+    },
+    "uniq": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_664.torrent"
+    },
+    "passwords_collection": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1187.torrent"
+    },
+    "rp4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_914.torrent"
+    },
+    "MIX_logins-email-2016": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1741.torrent"
+    },
+    "rp2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_901.torrent"
+    },
+    "passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_432.torrent"
+    },
+    "Wordlist_82_million": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1195.torrent"
+    },
+    "lolwtfhax": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1211.torrent"
+    },
+    "hashkiller": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_906.torrent"
+    },
+    "wordlist_by_Sheez_v6": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1327.torrent"
+    },
+    "MECA Passlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1210.torrent"
+    },
+    "naxxatoe-dict-total-new-unsorted": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1323.torrent"
+    },
+    "eNtr0pY_ALL_sort_uniq": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1186.torrent"
+    },
+    "ErrorNeo_mixed_raw_v_0": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1299.torrent"
+    },
+    "Hashcat_pot": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1301.torrent"
+    },
+    "real_english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_904.torrent"
+    },
+    "WordList-Collection-clean": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1321.torrent"
+    },
+    "HYPER-WORDLIST-DIC": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1309.torrent"
+    },
+    "hashkiller_output": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_694.torrent"
+    },
+    "231_Mio_PWs_min_8_digits": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_312.torrent"
+    },
+    "hashash": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1303.torrent"
+    },
+    "M3G_THI_CTH_WORDLIST_CLEANED": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_647.torrent"
+    },
+    "wordlist_by_Kakoluk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1300.torrent"
+    },
+    "mega_slovar": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_387.torrent"
+    },
+    "real-pass_login": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1711.torrent"
+    },
+    "SkullSecurityComp": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_671.torrent"
+    },
+    "collection": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1249.torrent"
+    },
+    "random_social_usernamesupd": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_670.torrent"
+    },
+    "domains": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_688.torrent"
+    },
+    "adobe_users": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_920.torrent"
+    },
+    "BestByChesteRock#1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1696.torrent"
+    },
+    "dazzlepod": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_545.torrent"
+    },
+    "most_security": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1214.torrent"
+    },
+    "10_million_password_list_top_1000000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_50.torrent"
+    },
+    "linkedin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_567.torrent"
+    },
+    "gmail": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_908.torrent"
+    },
+    "gmail-alleged": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_18.torrent"
+    },
+    "gmail_out_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_717.torrent"
+    },
+    "member_login": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1099.torrent"
+    },
+    "sqlmap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1136.torrent"
+    },
+    "antichat": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_518.torrent"
+    },
+    "rp3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_730.torrent"
+    },
+    "mailpassname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1708.torrent"
+    },
+    "gamigo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_559.torrent"
+    },
+    "mailpass_17": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1709.torrent"
+    },
+    "wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_497.torrent"
+    },
+    "words_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1192.torrent"
+    },
+    "soundcloud_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_699.torrent"
+    },
+    "Custom-WPA": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_490.torrent"
+    },
+    "xsplit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_687.torrent"
+    },
+    "Misc": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_824.torrent"
+    },
+    "huge": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_731.torrent"
+    },
+    "3,000,000+ combo list": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1221.torrent"
+    },
+    "mail": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_21.torrent"
+    },
+    "mail_out_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_722.torrent"
+    },
+    "aminno_member": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1098.torrent"
+    },
+    "NetZwerg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_510.torrent"
+    },
+    "mangled": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_511.torrent"
+    },
+    "wordlist-final": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_600.torrent"
+    },
+    "aminno_member_email_parsed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1100.torrent"
+    },
+    "wordlist2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1240.torrent"
+    },
+    "UltimatePasswordsList": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_338.torrent"
+    },
+    "enwiki-20140502-all-titles_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_678.torrent"
+    },
+    "vb_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1172.torrent"
+    },
+    "wordpress_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_695.torrent"
+    },
+    "roblox_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_689.torrent"
+    },
+    "AllRounder": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_692.torrent"
+    },
+    "Super-WPA": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_500.torrent"
+    },
+    "UT2004": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1190.torrent"
+    },
+    "TinyButMighty": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_696.torrent"
+    },
+    "10_million_password_list_top_100000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_49.torrent"
+    },
+    "Argon_Wordlist_v2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1088.torrent"
+    },
+    "International1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_749.torrent"
+    },
+    "wordlist_www": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1092.torrent"
+    },
+    "email_logins": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1086.torrent"
+    },
+    "1,4_Mio_most_common_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_308.torrent"
+    },
+    "Sprashivairu": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_712.torrent"
+    },
+    "Wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1094.torrent"
+    },
+    "Common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_498.torrent"
+    },
+    "human3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_962.torrent"
+    },
+    "wpalist-clean_37_Mio": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_458.torrent"
+    },
+    "human1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_892.torrent"
+    },
+    "davajj_ultimate_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_594.torrent"
+    },
+    "big": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1606.torrent"
+    },
+    "wordlist-by-darkircop": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1302.torrent"
+    },
+    "USA_logins-email-2015": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1743.torrent"
+    },
+    "lulzsec": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1184.torrent"
+    },
+    "logins": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1068.torrent"
+    },
+    "vkontakte": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_911.torrent"
+    },
+    "all": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_170.torrent"
+    },
+    "clean_v2_out_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1702.torrent"
+    },
+    "English": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_837.torrent"
+    },
+    "realpass3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1714.torrent"
+    },
+    "yandex-alleged": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_45.torrent"
+    },
+    "logins_en_ru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1087.torrent"
+    },
+    "leaked_email_2014": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1707.torrent"
+    },
+    "MusicBrainz_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_698.torrent"
+    },
+    "bfield": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_555.torrent"
+    },
+    "kippo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1185.torrent"
+    },
+    "1000000pass_yandex-ru_out_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_709.torrent"
+    },
+    "mailru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_913.torrent"
+    },
+    "gawker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_557.torrent"
+    },
+    "cracklib-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_350.torrent"
+    },
+    "Cracklib": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_470.torrent"
+    },
+    "Thematic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_467.torrent"
+    },
+    "ThematicSummary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_473.torrent"
+    },
+    "instagram_hashtags": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_701.torrent"
+    },
+    "vk_nickname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1171.torrent"
+    },
+    "theargon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1091.torrent"
+    },
+    "Ashley_Madison": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_53.torrent"
+    },
+    "InsideProFound": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_493.torrent"
+    },
+    "thedefinitvepasswordlist(complete)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1093.torrent"
+    },
+    "yahoo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_44.torrent"
+    },
+    "human4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_915.torrent"
+    },
+    "freerainbowtables": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_912.torrent"
+    },
+    "WordList843": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_466.torrent"
+    },
+    "Computer related": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_821.torrent"
+    },
+    "GDict": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_476.torrent"
+    },
+    "681a79de": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1208.torrent"
+    },
+    "facebook-first": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1061.torrent"
+    },
+    "b6a9f16a": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1235.torrent"
+    },
+    "familii": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_711.torrent"
+    },
+    "facebook-firstnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_8.torrent"
+    },
+    "phpbb": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_25.torrent"
+    },
+    "general": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_489.torrent"
+    },
+    "rockyou-75": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_89.torrent"
+    },
+    "cleared_primary_passlis_v2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1311.torrent"
+    },
+    "imdb_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_676.torrent"
+    },
+    "facebook-last": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1065.torrent"
+    },
+    "email-pass games": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1213.torrent"
+    },
+    "facebook-lastnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_9.torrent"
+    },
+    "International2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_748.torrent"
+    },
+    "1222532f": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1201.torrent"
+    },
+    "openlibrary_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_673.torrent"
+    },
+    "webhost000(thechief)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1095.torrent"
+    },
+    "forbes_users": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_919.torrent"
+    },
+    "medium": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1607.torrent"
+    },
+    "1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1239.torrent"
+    },
+    "InsideProMini": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_506.torrent"
+    },
+    "md5this-06": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1710.torrent"
+    },
+    "dictionary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1812.torrent"
+    },
+    "Russian_domains": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_917.torrent"
+    },
+    "Mats(999k)edited": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_326.torrent"
+    },
+    "mupass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_905.torrent"
+    },
+    "human2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1058.torrent"
+    },
+    "rockyou-70": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_88.torrent"
+    },
+    "6d58207a": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1227.torrent"
+    },
+    "bigdict": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_499.torrent"
+    },
+    "Names_net": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1076.torrent"
+    },
+    "enjin_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_700.torrent"
+    },
+    "vk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_726.torrent"
+    },
+    "misc2013": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_460.torrent"
+    },
+    "combocanem765927USERPASS": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1204.torrent"
+    },
+    "FacebookWords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_479.torrent"
+    },
+    "fanfiction": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_691.torrent"
+    },
+    "xaf2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_471.torrent"
+    },
+    "German": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_840.torrent"
+    },
+    "190000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1194.torrent"
+    },
+    "aha": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_568.torrent"
+    },
+    "cracklib": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_351.torrent"
+    },
+    "stratfor": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_554.torrent"
+    },
+    "2,275,000 password list": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_310.torrent"
+    },
+    "Tech and science": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_822.torrent"
+    },
+    "rockyou-65": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_87.torrent"
+    },
+    "realpass2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1713.torrent"
+    },
+    "d5a9ec3f": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1216.torrent"
+    },
+    "b5fb43b6": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1206.torrent"
+    },
+    "ThisIsItPWLFINAL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_336.torrent"
+    },
+    "yandexru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_910.torrent"
+    },
+    "music_songs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_980.torrent"
+    },
+    "Ragnarok Online 2003": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1176.torrent"
+    },
+    "enwiktionary-20140522-all-titles_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_677.torrent"
+    },
+    "realpass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1238.torrent"
+    },
+    "372481d4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1196.torrent"
+    },
+    "102842": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1224.torrent"
+    },
+    "bad_5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1179.torrent"
+    },
+    "83124311": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1234.torrent"
+    },
+    "hackforums": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_703.torrent"
+    },
+    "PASSWORDWORDLIST": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_638.torrent"
+    },
+    "_hugedb": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_628.torrent"
+    },
+    "delicious_takoyaki": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_702.torrent"
+    },
+    "ffgbeach": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_553.torrent"
+    },
+    "rockyou-60": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_86.torrent"
+    },
+    "eb30e455": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1217.torrent"
+    },
+    "xag2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_463.torrent"
+    },
+    "dico": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1266.torrent"
+    },
+    "supercommon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_445.torrent"
+    },
+    "282939": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1205.torrent"
+    },
+    "xac2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_472.torrent"
+    },
+    "german-dic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1596.torrent"
+    },
+    "bad_6": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1175.torrent"
+    },
+    "milw0rm": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_544.torrent"
+    },
+    "rootkit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_566.torrent"
+    },
+    "116000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1203.torrent"
+    },
+    "10_million_password_list_top_10000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_48.torrent"
+    },
+    "3d2c6707": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1229.torrent"
+    },
+    "Combo18e": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1223.torrent"
+    },
+    "InsideOtherByChesteRock": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1705.torrent"
+    },
+    "polska-wordlist2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1609.torrent"
+    },
+    "surname2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_719.torrent"
+    },
+    "5497a0c7": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1193.torrent"
+    },
+    "c046a38b": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1226.torrent"
+    },
+    "super pwl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_444.torrent"
+    },
+    "geonames_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_672.torrent"
+    },
+    "Word02": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_514.torrent"
+    },
+    "Abbreviation": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_820.torrent"
+    },
+    "rockyou-55": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_85.torrent"
+    },
+    "f04d073b": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1228.torrent"
+    },
+    "Army": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1289.torrent"
+    },
+    "Email_Pass_Mutil_hoster_14122015": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1218.torrent"
+    },
+    "encyclopedia1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_898.torrent"
+    },
+    "vk_surnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1170.torrent"
+    },
+    "ThC PWL (81k)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_335.torrent"
+    },
+    "ebooks": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_897.torrent"
+    },
+    "0": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_478.torrent"
+    },
+    "BestByChesteRock3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1701.torrent"
+    },
+    "passwordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_584.torrent"
+    },
+    "cain": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_4.torrent"
+    },
+    "CainandAbel": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_495.torrent"
+    },
+    "_Words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_611.torrent"
+    },
+    "name": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_708.torrent"
+    },
+    "xaa2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_481.torrent"
+    },
+    "xab2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_513.torrent"
+    },
+    "10k_most_common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_52.torrent"
+    },
+    "Some_passw_28": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_602.torrent"
+    },
+    "BIG-WPA-LIST-2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_475.torrent"
+    },
+    "top_domains": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_918.torrent"
+    },
+    "Best64ByChesteRock": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1695.torrent"
+    },
+    "blackhat": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1173.torrent"
+    },
+    "mEga PWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_384.torrent"
+    },
+    "mixed 660k PWs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_390.torrent"
+    },
+    "fe2a5103": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1215.torrent"
+    },
+    "b5791f06": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1225.torrent"
+    },
+    "tuscl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_37.torrent"
+    },
+    "vk_names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1169.torrent"
+    },
+    "tetrisfriends_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_685.torrent"
+    },
+    "net": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_462.torrent"
+    },
+    "rockyou-50": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_84.torrent"
+    },
+    "xad2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_503.torrent"
+    },
+    "42500m": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1236.torrent"
+    },
+    "cinnescape": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1177.torrent"
+    },
+    "Elitepwl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_321.torrent"
+    },
+    "Other PWL [1]": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_332.torrent"
+    },
+    "leets": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_383.torrent"
+    },
+    "music_artists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_979.torrent"
+    },
+    "InsideProMicro": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_480.torrent"
+    },
+    "Surnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1077.torrent"
+    },
+    "54fbb463": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1207.torrent"
+    },
+    "surnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1835.torrent"
+    },
+    "BestByChesteRock2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1700.torrent"
+    },
+    "MAJYPWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_325.torrent"
+    },
+    "allwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1260.torrent"
+    },
+    "3333333333": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1233.torrent"
+    },
+    "plain-text": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_907.torrent"
+    },
+    "walla": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_571.torrent"
+    },
+    "Gamers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1180.torrent"
+    },
+    "0vhfirstpass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1183.torrent"
+    },
+    "English_large_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_119.torrent"
+    },
+    "english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_63.torrent"
+    },
+    "Fabfreeforums": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1182.torrent"
+    },
+    "dictionaries": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_900.torrent"
+    },
+    "common_roots": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1135.torrent"
+    },
+    "misc-dictionary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_389.torrent"
+    },
+    "actress-characters_nopunct_nospace_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_707.torrent"
+    },
+    "whitefox": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_556.torrent"
+    },
+    "world_poker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_43.torrent"
+    },
+    "randompastebin1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_548.torrent"
+    },
+    "instagram_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_690.torrent"
+    },
+    "unix-fresh-scanner": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_550.torrent"
+    },
+    "rockyou-45": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_82.torrent"
+    },
+    "used": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1785.torrent"
+    },
+    "inet-mac": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_374.torrent"
+    },
+    "Culture": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_810.torrent"
+    },
+    "cities": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_807.torrent"
+    },
+    "[COMBO] NEW": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1198.torrent"
+    },
+    "happybirthdaytoeq": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_365.torrent"
+    },
+    "30k": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1202.torrent"
+    },
+    "English_small_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_123.torrent"
+    },
+    "lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_502.torrent"
+    },
+    "lower3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_517.torrent"
+    },
+    "facebook-lastfirst": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1064.torrent"
+    },
+    "nmap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1137.torrent"
+    },
+    "music_misc": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_981.torrent"
+    },
+    "TwoWord": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_485.torrent"
+    },
+    "facebook-names-unique": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_10.torrent"
+    },
+    "music_albums": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_978.torrent"
+    },
+    "abc": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_570.torrent"
+    },
+    "Popular-Russia": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1735.torrent"
+    },
+    "3wifi-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1798.torrent"
+    },
+    "29e5152a": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1230.torrent"
+    },
+    "gaming": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_561.torrent"
+    },
+    "final-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1799.torrent"
+    },
+    "pron": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_29.torrent"
+    },
+    "mayhem": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_572.torrent"
+    },
+    "world_of_warcraft_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_684.torrent"
+    },
+    "numpass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1694.torrent"
+    },
+    "mini-pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1727.torrent"
+    },
+    "finnish-unknown": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_14.torrent"
+    },
+    "mini": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1608.torrent"
+    },
+    "awakened-lands": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1096.torrent"
+    },
+    "HOT_PwList": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_322.torrent"
+    },
+    "BIG-WPA-LIST-1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_468.torrent"
+    },
+    "Knuth_big": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_733.torrent"
+    },
+    "rockyou-40": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_81.torrent"
+    },
+    "acdc's dictionary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1325.torrent"
+    },
+    "3360-Common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1718.torrent"
+    },
+    "Smerks pwL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_334.torrent"
+    },
+    "facebook-firstlast": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1063.torrent"
+    },
+    "facebook-f": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_6.torrent"
+    },
+    "host pwlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_369.torrent"
+    },
+    "Businessname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1272.torrent"
+    },
+    "host n leet": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_368.torrent"
+    },
+    "films": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_977.torrent"
+    },
+    "porn-unknown": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_27.torrent"
+    },
+    "unknown-porn": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_39.torrent"
+    },
+    "john": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_67.torrent"
+    },
+    "singles": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_31.torrent"
+    },
+    "tyte pwl(8500)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_448.torrent"
+    },
+    "22750": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1219.torrent"
+    },
+    "Movies": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1537.torrent"
+    },
+    "50k_names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_682.torrent"
+    },
+    "tomsawyer": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_562.torrent"
+    },
+    "Italian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_853.torrent"
+    },
+    "bad_3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1181.torrent"
+    },
+    "dates01011900-31312020": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_655.torrent"
+    },
+    "Finnish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_843.torrent"
+    },
+    "patreon_email": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1166.torrent"
+    },
+    "2PWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_313.torrent"
+    },
+    "WordList768": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_515.torrent"
+    },
+    "en_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_779.torrent"
+    },
+    "Italian_large_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_139.torrent"
+    },
+    "en_GB_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_786.torrent"
+    },
+    "facadecomputer-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1749.torrent"
+    },
+    "sony-restless-beauty": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_35.torrent"
+    },
+    "payas0 host": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_433.torrent"
+    },
+    "FacebookUsernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_474.torrent"
+    },
+    "Danny PWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_320.torrent"
+    },
+    "en_US_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_791.torrent"
+    },
+    "rockyou-35": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_80.torrent"
+    },
+    "02bc69bc": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1209.torrent"
+    },
+    "3785b57c": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1220.torrent"
+    },
+    "ALL-DICTIONARIES": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_315.torrent"
+    },
+    "sony-delboca": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_33.torrent"
+    },
+    "NORM&R": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_330.torrent"
+    },
+    "Some_passw_26": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_583.torrent"
+    },
+    "usenet-m": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_453.torrent"
+    },
+    "usenet-machines": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1556.torrent"
+    },
+    "encyclopedia2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_899.torrent"
+    },
+    "Common_small": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_818.torrent"
+    },
+    "Unix": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1552.torrent"
+    },
+    "random": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_440.torrent"
+    },
+    "Classic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_814.torrent"
+    },
+    "russian_users": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1069.torrent"
+    },
+    "weekend": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1212.torrent"
+    },
+    "lineupodd37": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_662.torrent"
+    },
+    "blackstar": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_569.torrent"
+    },
+    "lineup37": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_659.torrent"
+    },
+    "dirb_best1050": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1127.torrent"
+    },
+    "Finnish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_127.torrent"
+    },
+    "best1050": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_57.torrent"
+    },
+    "usenet-login_ids": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1286.torrent"
+    },
+    "usenet-l": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_452.torrent"
+    },
+    "14k_ru_out_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_718.torrent"
+    },
+    "Criminal and junk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_812.torrent"
+    },
+    "ICQ-Popular": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1290.torrent"
+    },
+    "hotmail": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_902.torrent"
+    },
+    "wifimaps-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1801.torrent"
+    },
+    "Names_pet": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1080.torrent"
+    },
+    "myspace": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_22.torrent"
+    },
+    "webster-dictionary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_486.torrent"
+    },
+    "web2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_483.torrent"
+    },
+    "words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_613.torrent"
+    },
+    "Knuth": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1282.torrent"
+    },
+    "enwikibooks-20140606-all-titles_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_675.torrent"
+    },
+    "5desk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1331.torrent"
+    },
+    "titles": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_963.torrent"
+    },
+    "starin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1232.torrent"
+    },
+    "rockyou-30": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_79.torrent"
+    },
+    "10_million_password_list_top_1000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_47.torrent"
+    },
+    "routerscan_wordlist_20150530": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_714.torrent"
+    },
+    "kali2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_381.torrent"
+    },
+    "Danish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_852.torrent"
+    },
+    "hellfire": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_558.torrent"
+    },
+    "Norwegian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_847.torrent"
+    },
+    "2of4brif": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1328.torrent"
+    },
+    "Suomifutisnet": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1174.torrent"
+    },
+    "English_tiny_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_126.torrent"
+    },
+    "English_extra_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_114.torrent"
+    },
+    "lower2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_488.torrent"
+    },
+    "Danish_large_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_105.torrent"
+    },
+    "casio": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_573.torrent"
+    },
+    "actors": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_967.torrent"
+    },
+    "burnett_top_1024": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1145.torrent"
+    },
+    "randompastebin3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_667.torrent"
+    },
+    "common-4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1450.torrent"
+    },
+    "Cities": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1444.torrent"
+    },
+    "usenet-n": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_454.torrent"
+    },
+    "length06": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_606.torrent"
+    },
+    "06": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_752.torrent"
+    },
+    "usenet-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1557.torrent"
+    },
+    "MostCommonPass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1587.torrent"
+    },
+    "danish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1592.torrent"
+    },
+    "ud": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1784.torrent"
+    },
+    "ipmi_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1144.torrent"
+    },
+    "names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_417.torrent"
+    },
+    "Names_last": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1081.torrent"
+    },
+    "megabeast": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1139.torrent"
+    },
+    "sonyleaked": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_549.torrent"
+    },
+    "TOP-630-passwords-2009": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1291.torrent"
+    },
+    "Minix": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1536.torrent"
+    },
+    "List": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_324.torrent"
+    },
+    "jargon2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_377.torrent"
+    },
+    "voodo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_456.torrent"
+    },
+    "faithwriters": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_494.torrent"
+    },
+    "opnkorea": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_552.torrent"
+    },
+    "faithwriters-nocount": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_64.torrent"
+    },
+    "bad_2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1178.torrent"
+    },
+    "American": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_833.torrent"
+    },
+    "unix-dictionary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1551.torrent"
+    },
+    "passwords_youporn2012": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_73.torrent"
+    },
+    "passwords_youporn2012_raw": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_74.torrent"
+    },
+    "Englex": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_732.torrent"
+    },
+    "cow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1779.torrent"
+    },
+    "10_million_password_list_top_500": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_51.torrent"
+    },
+    "coyotecult-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1275.torrent"
+    },
+    "honeynet": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_19.torrent"
+    },
+    "NAMES": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_329.torrent"
+    },
+    "Some_passw_23": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_633.torrent"
+    },
+    "Dic-for-BR-Names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1466.torrent"
+    },
+    "GNU": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1511.torrent"
+    },
+    "unix_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1150.torrent"
+    },
+    "Digits": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_815.torrent"
+    },
+    "Japanese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_835.torrent"
+    },
+    "BIG-WPA-LIST-3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_507.torrent"
+    },
+    "Midgets bigger common PWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_327.torrent"
+    },
+    "fr_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_792.torrent"
+    },
+    "BigAssPassList": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1756.torrent"
+    },
+    "rockyou-25": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_78.torrent"
+    },
+    "23000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_311.torrent"
+    },
+    "32044": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_314.torrent"
+    },
+    "otherpwl2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_428.torrent"
+    },
+    "Hosts": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1512.torrent"
+    },
+    "lista-password": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1725.torrent"
+    },
+    "kali": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_380.torrent"
+    },
+    "klichki": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1632.torrent"
+    },
+    "passwords2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1800.torrent"
+    },
+    "fl_rudump": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_669.torrent"
+    },
+    "soundtracks": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_973.torrent"
+    },
+    "mini-qwerty": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1728.torrent"
+    },
+    "burnett_top_500": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1130.torrent"
+    },
+    "French": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_830.torrent"
+    },
+    "quotes": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_976.torrent"
+    },
+    "Dates": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_464.torrent"
+    },
+    "otherpwl5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_430.torrent"
+    },
+    "CaseMutation": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_461.torrent"
+    },
+    "carders": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_5.torrent"
+    },
+    "GoldenPass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1723.torrent"
+    },
+    "wordlist_top_500PswMangled": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1277.torrent"
+    },
+    "online_brute": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1847.torrent"
+    },
+    "Japanese_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_142.torrent"
+    },
+    "finnish-www": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_15.torrent"
+    },
+    "xah6": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_469.torrent"
+    },
+    "towns_us": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_802.torrent"
+    },
+    "500-worst-passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1.torrent"
+    },
+    "rockyou-20": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_77.torrent"
+    },
+    "pt_BR_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_783.torrent"
+    },
+    "Polish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_149.torrent"
+    },
+    "line37": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_660.torrent"
+    },
+    "Polish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_836.torrent"
+    },
+    "GoodByChesteRock": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1703.torrent"
+    },
+    "names_all": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1826.torrent"
+    },
+    "twitter_32m": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1237.torrent"
+    },
+    "prosap-hotel": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1188.torrent"
+    },
+    "TOP-Passwords-Rdp": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1288.torrent"
+    },
+    "hosts-tx": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_370.torrent"
+    },
+    "commons": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_349.torrent"
+    },
+    "da_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_781.torrent"
+    },
+    "aGoodpwl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_345.torrent"
+    },
+    "opisrael": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_581.torrent"
+    },
+    "Bible": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1365.torrent"
+    },
+    "French_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_128.torrent"
+    },
+    "Cracker-Toolz-Top-1000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1721.torrent"
+    },
+    "xae2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_482.torrent"
+    },
+    "conficker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_60.torrent"
+    },
+    "twitter-banned": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_97.torrent"
+    },
+    "pl_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_778.torrent"
+    },
+    "Places": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_744.torrent"
+    },
+    "mindo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1777.torrent"
+    },
+    "nl_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_796.torrent"
+    },
+    "common-passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1454.torrent"
+    },
+    "default_pass_for_services_unhash": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1151.torrent"
+    },
+    "music": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_399.torrent"
+    },
+    "length08": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_625.torrent"
+    },
+    "DefPass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_666.torrent"
+    },
+    "books_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_674.torrent"
+    },
+    "08": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_758.torrent"
+    },
+    "it_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_800.torrent"
+    },
+    "elitehacker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_359.torrent"
+    },
+    "cizijmena": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1575.torrent"
+    },
+    "length07": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_615.torrent"
+    },
+    "07": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_764.torrent"
+    },
+    "rockyou-15": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_76.torrent"
+    },
+    "Religion": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_817.torrent"
+    },
+    "sunrise": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_563.torrent"
+    },
+    "commonnum": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_348.torrent"
+    },
+    "opsea": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_560.torrent"
+    },
+    "books_nopunct_nospace_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_723.torrent"
+    },
+    "pt_PT_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_799.torrent"
+    },
+    "RouterScan_PopularPasswords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1748.torrent"
+    },
+    "10_million_password_list_top_100": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_46.torrent"
+    },
+    "small_first": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1062.torrent"
+    },
+    "small_last": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1066.torrent"
+    },
+    "movies2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_394.torrent"
+    },
+    "adobe100": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_56.torrent"
+    },
+    "dansk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1593.torrent"
+    },
+    "hosts": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_371.torrent"
+    },
+    "Rapidgator": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1222.torrent"
+    },
+    "wordlist_dic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1265.torrent"
+    },
+    "wl_fr": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1270.torrent"
+    },
+    "best110": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_58.torrent"
+    },
+    "places": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_806.torrent"
+    },
+    "tiny_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1590.torrent"
+    },
+    "sv_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_777.torrent"
+    },
+    "actresses": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_965.torrent"
+    },
+    "beale": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1363.torrent"
+    },
+    "01": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1679.torrent"
+    },
+    "89b6c191": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1199.torrent"
+    },
+    "de_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_789.torrent"
+    },
+    "dictionary_russian_big_translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1615.torrent"
+    },
+    "klichki-latin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1629.torrent"
+    },
+    "multi_vendor_cctv_dvr_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1128.torrent"
+    },
+    "phrases": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_436.torrent"
+    },
+    "common-3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1449.torrent"
+    },
+    "web1_4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1715.torrent"
+    },
+    "Keyboard": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_816.torrent"
+    },
+    "Dutch": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_842.torrent"
+    },
+    "Criminal": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1460.torrent"
+    },
+    "advlamer-sequences": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1719.torrent"
+    },
+    "french-wordlist-sans_accent": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1258.torrent"
+    },
+    "religion": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_441.torrent"
+    },
+    "junk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_379.torrent"
+    },
+    "hr_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_785.torrent"
+    },
+    "1900-2005": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1681.torrent"
+    },
+    "L33t": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_826.torrent"
+    },
+    "hak5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_484.torrent"
+    },
+    "hak5-nocount": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_66.torrent"
+    },
+    "up37": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_661.torrent"
+    },
+    "german1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1599.torrent"
+    },
+    "nicecommon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_418.torrent"
+    },
+    "xom": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_459.torrent"
+    },
+    "rockyou-10": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_75.torrent"
+    },
+    "kjbible": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1527.torrent"
+    },
+    "rus_surnames_date099_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_651.torrent"
+    },
+    "Brizilian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_829.torrent"
+    },
+    "Bomb": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1368.torrent"
+    },
+    "translit_rus": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1844.torrent"
+    },
+    "[COMBO] Mail - Pass (Sql) 30858": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1200.torrent"
+    },
+    "Unabr_dict": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_339.torrent"
+    },
+    "Some_passw_12": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_587.torrent"
+    },
+    "DICT": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_605.torrent"
+    },
+    "facebook-phished": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_12.torrent"
+    },
+    "Some_passw_21": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_582.torrent"
+    },
+    "Spanish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_832.torrent"
+    },
+    "Antworth": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1356.torrent"
+    },
+    "french-wordlist-accent": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1262.torrent"
+    },
+    "french": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1268.torrent"
+    },
+    "Pad": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_333.torrent"
+    },
+    "otherpwl4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_429.torrent"
+    },
+    "phishPWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_435.torrent"
+    },
+    "fi_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_782.torrent"
+    },
+    "spanish-dic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1672.torrent"
+    },
+    "common-passwords-2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1280.torrent"
+    },
+    "bible": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_3.torrent"
+    },
+    "Common_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_738.torrent"
+    },
+    "Datas_ddmmgggg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1684.torrent"
+    },
+    "toker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1738.torrent"
+    },
+    "common_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1142.torrent"
+    },
+    "rus_surnames_first_letter": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_654.torrent"
+    },
+    "splashdata_2014": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_91.torrent"
+    },
+    "KeyboardCombo6": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1525.torrent"
+    },
+    "tr_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_798.torrent"
+    },
+    "pbs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_24.torrent"
+    },
+    "sony-greece-pins": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_34.torrent"
+    },
+    "randompastebin2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_656.torrent"
+    },
+    "os": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1782.torrent"
+    },
+    "Danish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_106.torrent"
+    },
+    "fasttrack": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1143.torrent"
+    },
+    "placesss": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_438.torrent"
+    },
+    "nb_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_787.torrent"
+    },
+    "english-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1497.torrent"
+    },
+    "Malename": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1292.torrent"
+    },
+    "6000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_742.torrent"
+    },
+    "pw01": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1736.torrent"
+    },
+    "length05": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_621.torrent"
+    },
+    "05": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_770.torrent"
+    },
+    "passwords_clarkson_82": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_71.torrent"
+    },
+    "Names_women": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_741.torrent"
+    },
+    "dns1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1467.torrent"
+    },
+    "dns2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1468.torrent"
+    },
+    "dns5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1471.torrent"
+    },
+    "Midgets common PWL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_328.torrent"
+    },
+    "best15": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_59.torrent"
+    },
+    "name_surname_ru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1640.torrent"
+    },
+    "devices-passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1263.torrent"
+    },
+    "male-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_385.torrent"
+    },
+    "DefUserNames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_665.torrent"
+    },
+    "itswapshop": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1312.torrent"
+    },
+    "Czech_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_103.torrent"
+    },
+    "es_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_795.torrent"
+    },
+    "Czech": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_828.torrent"
+    },
+    "sony-autotrader": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_32.torrent"
+    },
+    "Mru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_747.torrent"
+    },
+    "sl_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_801.torrent"
+    },
+    "Literature": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1532.torrent"
+    },
+    "policy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1846.torrent"
+    },
+    "Music_rock": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_746.torrent"
+    },
+    "Crl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1463.torrent"
+    },
+    "Norwegian_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_148.torrent"
+    },
+    "unknown-dating": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_38.torrent"
+    },
+    "cs_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_780.torrent"
+    },
+    "n_french": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_409.torrent"
+    },
+    "norwegia": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_420.torrent"
+    },
+    "African": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_831.torrent"
+    },
+    "Afrikaans_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_99.torrent"
+    },
+    "french-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1508.torrent"
+    },
+    "phish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_434.torrent"
+    },
+    "rus_surnames_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_653.torrent"
+    },
+    "rockyou-5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_83.torrent"
+    },
+    "CRL": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1464.torrent"
+    },
+    "Cracking-Illyz-By-Scrappy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1722.torrent"
+    },
+    "Some_passw_27": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_589.torrent"
+    },
+    "Swedish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_848.torrent"
+    },
+    "top_shortlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_96.torrent"
+    },
+    "My-Passys": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1730.torrent"
+    },
+    "telnet_cisco_default_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1131.torrent"
+    },
+    "us-zipcodes": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_451.torrent"
+    },
+    "rus_surnames_date19002020_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_648.torrent"
+    },
+    "zipcodes": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1570.torrent"
+    },
+    "FEMALE-N": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1580.torrent"
+    },
+    "Spanish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_160.torrent"
+    },
+    "spanish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1674.torrent"
+    },
+    "spanish_2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1675.torrent"
+    },
+    "Dutch_clean_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_107.torrent"
+    },
+    "fern-wifi_common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1133.torrent"
+    },
+    "fast-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_364.torrent"
+    },
+    "music-cl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_395.torrent"
+    },
+    "n_common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_406.torrent"
+    },
+    "Music": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_743.torrent"
+    },
+    "09": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_761.torrent"
+    },
+    "classical": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1445.torrent"
+    },
+    "colleges": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1446.torrent"
+    },
+    "common-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1452.torrent"
+    },
+    "spanish_67233": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1676.torrent"
+    },
+    "snmp_default_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1148.torrent"
+    },
+    "4letters": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1330.torrent"
+    },
+    "Names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1078.torrent"
+    },
+    "ghostbin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1197.torrent"
+    },
+    "jargon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1520.torrent"
+    },
+    "italian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1605.torrent"
+    },
+    "Names_men": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_735.torrent"
+    },
+    "czech2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1577.torrent"
+    },
+    "Koran": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1529.torrent"
+    },
+    "czech": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1576.torrent"
+    },
+    "league": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1244.torrent"
+    },
+    "usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1744.torrent"
+    },
+    "Foldoc": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1279.torrent"
+    },
+    "Cis": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1443.torrent"
+    },
+    "17": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1680.torrent"
+    },
+    "music-ja": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_397.torrent"
+    },
+    "Croatian_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_101.torrent"
+    },
+    "devices-logins": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1259.torrent"
+    },
+    "Drugs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1285.torrent"
+    },
+    "numbers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_421.torrent"
+    },
+    "Australian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_854.torrent"
+    },
+    "Croatian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_856.torrent"
+    },
+    "wp": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1786.torrent"
+    },
+    "movie-ch": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_391.torrent"
+    },
+    "movie-characters": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_392.torrent"
+    },
+    "imena_i_slova_s_ciframi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1627.torrent"
+    },
+    "tims-password-list": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1737.torrent"
+    },
+    "youtube_names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1067.torrent"
+    },
+    "Hungarian_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_137.torrent"
+    },
+    "german": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_65.torrent"
+    },
+    "Hungarian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_844.torrent"
+    },
+    "hungarian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1603.torrent"
+    },
+    "netflix": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_23.torrent"
+    },
+    "ethnolog": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_361.torrent"
+    },
+    "wordpress_attacks_july2014": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_98.torrent"
+    },
+    "mestint-wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1534.torrent"
+    },
+    "short": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1542.torrent"
+    },
+    "Datas_mmddgggg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1690.torrent"
+    },
+    "http_default_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1141.torrent"
+    },
+    "science": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_443.torrent"
+    },
+    "composers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_968.torrent"
+    },
+    "fox-from-lulzsec": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_16.torrent"
+    },
+    "rus_names_date099_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_649.torrent"
+    },
+    "04": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_769.torrent"
+    },
+    "lv_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_790.torrent"
+    },
+    "Portuguese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_851.torrent"
+    },
+    "names-rus": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1637.torrent"
+    },
+    "kb_change_rus": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1813.torrent"
+    },
+    "Dutch_extra_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_109.torrent"
+    },
+    "n_other": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_411.torrent"
+    },
+    "other-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_427.torrent"
+    },
+    "estonian-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1595.torrent"
+    },
+    "wp_es": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1789.torrent"
+    },
+    "Cartoons": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1273.torrent"
+    },
+    "uunet-si": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_455.torrent"
+    },
+    "knittinglove": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_710.torrent"
+    },
+    "uunet-sites": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1559.torrent"
+    },
+    "facebook-pastebay": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_11.torrent"
+    },
+    "English_large_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_118.torrent"
+    },
+    "ONEUP&R": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_331.torrent"
+    },
+    "Some_passw_25": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_637.torrent"
+    },
+    "Special": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_736.torrent"
+    },
+    "common-1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1448.torrent"
+    },
+    "special_english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1545.torrent"
+    },
+    "rus_names_translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1832.torrent"
+    },
+    "root_userpass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1134.torrent"
+    },
+    "10": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_762.torrent"
+    },
+    "statistics": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1548.torrent"
+    },
+    "wp_fr": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1790.torrent"
+    },
+    "chromeplay": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1191.torrent"
+    },
+    "music-co": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_396.torrent"
+    },
+    "n_swed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_416.torrent"
+    },
+    "unix": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_449.torrent"
+    },
+    "uniqpass_preview": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_508.torrent"
+    },
+    "country": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1458.torrent"
+    },
+    "frequent": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1509.torrent"
+    },
+    "special-hacker": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1544.torrent"
+    },
+    "key86": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1724.torrent"
+    },
+    "Zodiac": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1739.torrent"
+    },
+    "31337_speak": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1261.torrent"
+    },
+    "Turkish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_167.torrent"
+    },
+    "Turkish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_834.torrent"
+    },
+    "bacteria": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1278.torrent"
+    },
+    "Swedish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_166.torrent"
+    },
+    "myths-le": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_401.torrent"
+    },
+    "rus_cities_translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1828.torrent"
+    },
+    "365": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1267.torrent"
+    },
+    "Italian_small_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_141.torrent"
+    },
+    "rus_names_date19002020_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_657.torrent"
+    },
+    "Russian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_839.torrent"
+    },
+    "directors": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_969.torrent"
+    },
+    "internet-ftp_sites": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1518.torrent"
+    },
+    "Logins-RDP": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1740.torrent"
+    },
+    "English_small_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_122.torrent"
+    },
+    "Brithumor": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1287.torrent"
+    },
+    "python": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_439.torrent"
+    },
+    "1000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_745.torrent"
+    },
+    "yandex": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1084.torrent"
+    },
+    "Congress": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_318.torrent"
+    },
+    "music-sh": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_398.torrent"
+    },
+    "n_norweg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_410.torrent"
+    },
+    "1000000cl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_713.torrent"
+    },
+    "producers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_972.torrent"
+    },
+    "congress": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1457.torrent"
+    },
+    "shows": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1543.torrent"
+    },
+    "ceskajmena": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1572.torrent"
+    },
+    "NAMEyyyy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1639.torrent"
+    },
+    "oz": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_431.torrent"
+    },
+    "towns_ca": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_805.torrent"
+    },
+    "Latin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_850.torrent"
+    },
+    "cinematographers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_971.torrent"
+    },
+    "KeyboardCombo3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1522.torrent"
+    },
+    "scv4-from-vpn24": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_30.torrent"
+    },
+    "us_cities": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_40.torrent"
+    },
+    "password-permutations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_70.torrent"
+    },
+    "actresses_nopunct_nospace_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_724.torrent"
+    },
+    "towns_gb": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_804.torrent"
+    },
+    "Actor": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1337.torrent"
+    },
+    "NAMEyy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1638.torrent"
+    },
+    "keyba8": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1706.torrent"
+    },
+    "Latin_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_145.torrent"
+    },
+    "n_stati2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_412.torrent"
+    },
+    "splashdata_2015": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_92.torrent"
+    },
+    "chars": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1440.torrent"
+    },
+    "dns4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1470.torrent"
+    },
+    "rus_eng": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1655.torrent"
+    },
+    "Datas_gggggggg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1687.torrent"
+    },
+    "8-5-2006-googlecachepasswords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1750.torrent"
+    },
+    "8-5-2006-googlecachepasswords2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1751.torrent"
+    },
+    "tr_rus_noun_fem": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1840.torrent"
+    },
+    "n_statis": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_413.torrent"
+    },
+    "numbers2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_422.torrent"
+    },
+    "eharmony": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_564.torrent"
+    },
+    "Some_passw_24": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_620.torrent"
+    },
+    "Music_groups": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_734.torrent"
+    },
+    "KeyboardCombo5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1524.torrent"
+    },
+    "kb_rus_noun_male": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1820.torrent"
+    },
+    "db2_default_pass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1132.torrent"
+    },
+    "LCarrol": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1271.torrent"
+    },
+    "Famous": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1276.torrent"
+    },
+    "famous": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_363.torrent"
+    },
+    "lcarrol": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_382.torrent"
+    },
+    "n_actor2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_402.torrent"
+    },
+    "n_actors": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_403.torrent"
+    },
+    "actor-givenname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1335.torrent"
+    },
+    "actor-surname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1336.torrent"
+    },
+    "english-proper-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1481.torrent"
+    },
+    "english-upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1490.torrent"
+    },
+    "given-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1510.torrent"
+    },
+    "germanl1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1601.torrent"
+    },
+    "123_NAME_321_000": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1610.torrent"
+    },
+    "old_gold": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1781.torrent"
+    },
+    "dirb_names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1147.torrent"
+    },
+    "ArabicNames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1284.torrent"
+    },
+    "German_large_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_131.torrent"
+    },
+    "Boerse PW Liste": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_316.torrent"
+    },
+    "meecos german pwl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_386.torrent"
+    },
+    "n_surna2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_414.torrent"
+    },
+    "rus_names_fin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_658.torrent"
+    },
+    "Shakespeare": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_740.torrent"
+    },
+    "03": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_776.torrent"
+    },
+    "fr_emoji": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_784.torrent"
+    },
+    "designers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_964.torrent"
+    },
+    "writers": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_966.torrent"
+    },
+    "3letters": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1329.torrent"
+    },
+    "dns3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1469.torrent"
+    },
+    "KeyboardCombo4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1523.torrent"
+    },
+    "maleNames-password": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1726.torrent"
+    },
+    "wpchit_bg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1787.torrent"
+    },
+    "wp_de": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1788.torrent"
+    },
+    "patreon_Twitter": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1168.torrent"
+    },
+    "German_large_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_133.torrent"
+    },
+    "Viet74K": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_344.torrent"
+    },
+    "numbers3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_423.torrent"
+    },
+    "automobile": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_715.torrent"
+    },
+    "11": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_763.torrent"
+    },
+    "Chinese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_838.torrent"
+    },
+    "KeyboardCombo7": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1313.torrent"
+    },
+    "songs_translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1834.torrent"
+    },
+    "n_family": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_407.torrent"
+    },
+    "Some_passw_18": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_603.torrent"
+    },
+    "twitter_usernames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_686.torrent"
+    },
+    "Swahili": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_841.torrent"
+    },
+    "editors": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_970.torrent"
+    },
+    "keywords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_975.torrent"
+    },
+    "indian-cities": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1514.torrent"
+    },
+    "sports": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1546.torrent"
+    },
+    "medak": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1586.torrent"
+    },
+    "2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1620.torrent"
+    },
+    "Password-Names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1731.torrent"
+    },
+    "wp_ru": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1791.torrent"
+    },
+    "kb_rus_noun_fem": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1818.torrent"
+    },
+    "Swahili_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_162.torrent"
+    },
+    "n_anglos": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_404.torrent"
+    },
+    "n_femal2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_408.torrent"
+    },
+    "n_surnam": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_415.torrent"
+    },
+    "rus_mat": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_650.torrent"
+    },
+    "en_emoji": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_788.torrent"
+    },
+    "towns_mx": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_808.torrent"
+    },
+    "Fungi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_827.torrent"
+    },
+    "Animals": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1354.torrent"
+    },
+    "ASSurnames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1360.torrent"
+    },
+    "IranianNames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1519.torrent"
+    },
+    "rus_latin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1656.torrent"
+    },
+    "rus_names_kb_chage": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1831.torrent"
+    },
+    "songs_kb": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1833.torrent"
+    },
+    "tripple": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1845.torrent"
+    },
+    "IndianNames": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1074.torrent"
+    },
+    "patreon_FB": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1165.torrent"
+    },
+    "patreon_Youtube": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1167.torrent"
+    },
+    "asteroid": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1281.torrent"
+    },
+    "German_small_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_136.torrent"
+    },
+    "USStates": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_337.torrent"
+    },
+    "crl-name": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_352.torrent"
+    },
+    "internal": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_375.torrent"
+    },
+    "tolkien": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_447.torrent"
+    },
+    "us-count": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_450.torrent"
+    },
+    "uplay": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_546.torrent"
+    },
+    "02": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_772.torrent"
+    },
+    "12": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_773.torrent"
+    },
+    "towns_nl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_803.torrent"
+    },
+    "International_curse": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_813.torrent"
+    },
+    "Hindu": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_855.torrent"
+    },
+    "cartoon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1436.torrent"
+    },
+    "crl-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1462.torrent"
+    },
+    "dvou-hesla": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1579.torrent"
+    },
+    "german-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1597.torrent"
+    },
+    "germanl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1600.torrent"
+    },
+    "NAMEddmmyy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1635.torrent"
+    },
+    "NAMEddmmyyyy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1636.torrent"
+    },
+    "Unisex": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1666.torrent"
+    },
+    "tr_rus_noun_mul": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1843.torrent"
+    },
+    "English_tiny_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_125.torrent"
+    },
+    "french-wordlist-MAJUSCULE": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1264.torrent"
+    },
+    "enfuck324": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1293.torrent"
+    },
+    "German_small_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_135.torrent"
+    },
+    "Swedish_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_165.torrent"
+    },
+    "ColorsLCASE": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_317.torrent"
+    },
+    "dogs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_355.torrent"
+    },
+    "dogterms": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_356.torrent"
+    },
+    "drugssports": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_358.torrent"
+    },
+    "movies": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_393.torrent"
+    },
+    "numbers4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_424.torrent"
+    },
+    "numbers5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_425.torrent"
+    },
+    "tech": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_446.torrent"
+    },
+    "Basic_Spanish_List": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_54.torrent"
+    },
+    "odd37": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_663.torrent"
+    },
+    "proverbs_wordlists": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_679.torrent"
+    },
+    "authors_nopunct_nospace": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_721.torrent"
+    },
+    "13": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_768.torrent"
+    },
+    "towns_de": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_809.torrent"
+    },
+    "Russian_curse": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_811.torrent"
+    },
+    "top_1000_usa_femalenames_english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_94.torrent"
+    },
+    "top_1000_usa_malenames_english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_95.torrent"
+    },
+    "aol_search_phrases": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_982.torrent"
+    },
+    "UTF8": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1316.torrent"
+    },
+    "7letter-lastname": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1332.torrent"
+    },
+    "algae": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1339.torrent"
+    },
+    "books_of_the_bible": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1369.torrent"
+    },
+    "Cars": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1435.torrent"
+    },
+    "cartoons": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1438.torrent"
+    },
+    "chinese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1442.torrent"
+    },
+    "comic_strips": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1447.torrent"
+    },
+    "computer-companies": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1456.torrent"
+    },
+    "days-of-week-multiple-languages": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1465.torrent"
+    },
+    "Domains": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1473.torrent"
+    },
+    "internet-domains": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1517.torrent"
+    },
+    "Oxford_Colleges": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1539.torrent"
+    },
+    "estonian-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1594.torrent"
+    },
+    "ddmmyyNAME": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1611.torrent"
+    },
+    "ddmmyyyyNAME": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1612.torrent"
+    },
+    "ru_rzts_unsort": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1662.torrent"
+    },
+    "t1_rzts_sort_part_1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1667.torrent"
+    },
+    "date_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1693.torrent"
+    },
+    "Password-Names1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1732.torrent"
+    },
+    "Password-Names2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1733.torrent"
+    },
+    "USA_domains-email-2015": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1742.torrent"
+    },
+    "pinyin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1783.torrent"
+    },
+    "kb_rus_noun_mul": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1821.torrent"
+    },
+    "months_all": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1822.torrent"
+    },
+    "months_all_wo_short": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1823.torrent"
+    },
+    "rus_cities_kbchange": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1827.torrent"
+    },
+    "Somali": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1001.torrent"
+    },
+    "Romanian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1002.torrent"
+    },
+    "Ossetian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1003.torrent"
+    },
+    "Slovene": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1004.torrent"
+    },
+    "Swati": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1005.torrent"
+    },
+    "Uzbek": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1006.torrent"
+    },
+    "Vietnamese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1007.torrent"
+    },
+    "Malagasy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1009.torrent"
+    },
+    "Serbian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1010.torrent"
+    },
+    "Navajo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1011.torrent"
+    },
+    "Yiddish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1012.torrent"
+    },
+    "Turkmen": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1013.torrent"
+    },
+    "Urdu": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1014.torrent"
+    },
+    "Welsh": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1017.torrent"
+    },
+    "Malayalam": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1018.torrent"
+    },
+    "Romansh": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1019.torrent"
+    },
+    "Croatian_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_102.torrent"
+    },
+    "Mongolian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1020.torrent"
+    },
+    "Wolof": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1021.torrent"
+    },
+    "Panjabi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1022.torrent"
+    },
+    "Western Frisian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1023.torrent"
+    },
+    "Sanskrit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1024.torrent"
+    },
+    "Tibetan": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1025.torrent"
+    },
+    "Pashto": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1026.torrent"
+    },
+    "Oriya": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1028.torrent"
+    },
+    "Occitan": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1029.torrent"
+    },
+    "Northern Sami": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1030.torrent"
+    },
+    "Maltese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1031.torrent"
+    },
+    "Malay": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1032.torrent"
+    },
+    "Tonga": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1033.torrent"
+    },
+    "Volapuk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1035.torrent"
+    },
+    "Maori": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1036.torrent"
+    },
+    "Persian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1037.torrent"
+    },
+    "Marathi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1038.torrent"
+    },
+    "Czech_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_104.torrent"
+    },
+    "Norwegian Nynorsk": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1040.torrent"
+    },
+    "Yoruba": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1041.torrent"
+    },
+    "Slovak": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1042.torrent"
+    },
+    "Quechua": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1043.torrent"
+    },
+    "Nepali": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1044.torrent"
+    },
+    "Tamil": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1045.torrent"
+    },
+    "Uighur": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1046.torrent"
+    },
+    "Telugu": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1047.torrent"
+    },
+    "Thai": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1048.torrent"
+    },
+    "Sindhi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1049.torrent"
+    },
+    "Luxembourgish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1050.torrent"
+    },
+    "Tatar": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1051.torrent"
+    },
+    "Macedonian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1052.torrent"
+    },
+    "Sardinian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1053.torrent"
+    },
+    "Tajik": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1054.torrent"
+    },
+    "Tagalog": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1055.torrent"
+    },
+    "Pali": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1056.torrent"
+    },
+    "Walloon": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1057.torrent"
+    },
+    "lyricsbook": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1059.torrent"
+    },
+    "elyrics": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1060.torrent"
+    },
+    "international_names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1070.torrent"
+    },
+    "Russian_first": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1071.torrent"
+    },
+    "Russian_last": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1073.torrent"
+    },
+    "Dutch_clean_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_108.torrent"
+    },
+    "Dutch_extra_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_110.torrent"
+    },
+    "English_extra_acronym": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_111.torrent"
+    },
+    "English_extra_alnum": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_112.torrent"
+    },
+    "catala": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1129.torrent"
+    },
+    "English_extra_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_113.torrent"
+    },
+    "hci_oracle_passwords": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1146.torrent"
+    },
+    "English_extra_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_115.torrent"
+    },
+    "English_large_acronym": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_116.torrent"
+    },
+    "English_large_alnum": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_117.torrent"
+    },
+    "English_large_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_120.torrent"
+    },
+    "English_small_alnum": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_121.torrent"
+    },
+    "English_small_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_124.torrent"
+    },
+    "dump-ctf365": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1269.torrent"
+    },
+    "Aeneid": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1274.torrent"
+    },
+    "Acronyms": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1283.torrent"
+    },
+    "French_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_129.torrent"
+    },
+    "british": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1294.torrent"
+    },
+    "file-locations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_13.torrent"
+    },
+    "German_large_alnum": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_130.torrent"
+    },
+    "German_large_idioms": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_132.torrent"
+    },
+    "German_large_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_134.torrent"
+    },
+    "Hungarian_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_138.torrent"
+    },
+    "Italian_large_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_140.torrent"
+    },
+    "Japanese_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_143.torrent"
+    },
+    "Latin_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_144.torrent"
+    },
+    "Latin_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_146.torrent"
+    },
+    "Latin_upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_147.torrent"
+    },
+    "Russian_koi8_extra_cslang": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_150.torrent"
+    },
+    "Russian_koi8_small_acronym": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_151.torrent"
+    },
+    "Russian_koi8_small_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_152.torrent"
+    },
+    "Russian_koi8_small_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_153.torrent"
+    },
+    "Russian_koi8_small_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_154.torrent"
+    },
+    "Russian_windows1251_extra_cslang": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_155.torrent"
+    },
+    "Russian_windows1251_small_acronym": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_156.torrent"
+    },
+    "Russian_windows1251_small_cap": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_157.torrent"
+    },
+    "Russian_windows1251_small_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_158.torrent"
+    },
+    "Russian_windows1251_small_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_159.torrent"
+    },
+    "Swahili_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_163.torrent"
+    },
+    "Swahili_upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_164.torrent"
+    },
+    "Turkish_mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_168.torrent"
+    },
+    "Yiddish_lower": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_169.torrent"
+    },
+    "alypaa": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_2.torrent"
+    },
+    "phpmyadmin-locations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_26.torrent"
+    },
+    "porno": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_28.torrent"
+    },
+    "Country": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_319.torrent"
+    },
+    "VB [1]": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_340.torrent"
+    },
+    "Viet11K": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_341.torrent"
+    },
+    "Viet22K": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_342.torrent"
+    },
+    "Viet39K": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_343.torrent"
+    },
+    "drugs": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_357.torrent"
+    },
+    "sonybmg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_36.torrent"
+    },
+    "fable": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_362.torrent"
+    },
+    "hindu-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_366.torrent"
+    },
+    "html": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_372.torrent"
+    },
+    "iliad": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_373.torrent"
+    },
+    "microalg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_388.torrent"
+    },
+    "n_chines": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_405.torrent"
+    },
+    "web-extensions": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_41.torrent"
+    },
+    "norse": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_419.torrent"
+    },
+    "web-mutations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_42.torrent"
+    },
+    "odyssey": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_426.torrent"
+    },
+    "rocknroll": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_442.torrent"
+    },
+    "mixed": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_477.torrent"
+    },
+    "argon-outher": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_504.torrent"
+    },
+    "wpa": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_509.torrent"
+    },
+    "UserPassJay": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_55.torrent"
+    },
+    "dsl": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_565.torrent"
+    },
+    "8dig5miluplow2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_588.torrent"
+    },
+    "8dig10miluplow2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_590.torrent"
+    },
+    "8dig5milup": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_592.torrent"
+    },
+    "8dig10miluplow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_593.torrent"
+    },
+    "8dig10millow2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_595.torrent"
+    },
+    "8dig10miluplow3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_597.torrent"
+    },
+    "8dig10millow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_598.torrent"
+    },
+    "10dig5miluplow4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_599.torrent"
+    },
+    "8dig5milup2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_604.torrent"
+    },
+    "8dig10milup2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_607.torrent"
+    },
+    "10dig10milup": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_608.torrent"
+    },
+    "10dig5milup3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_610.torrent"
+    },
+    "10dig1miluplowtried": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_617.torrent"
+    },
+    "10millionupperlowernum1-9spec": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_619.torrent"
+    },
+    "10dig5milup2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_622.torrent"
+    },
+    "10dig5miluplow2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_623.torrent"
+    },
+    "8dig5miluplow3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_624.torrent"
+    },
+    "10dig5milup1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_626.torrent"
+    },
+    "10dig10miluplow4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_629.torrent"
+    },
+    "8dig10milup": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_630.torrent"
+    },
+    "10dig10milup2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_631.torrent"
+    },
+    "10dig5miluplow3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_634.torrent"
+    },
+    "8dig5milup3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_636.torrent"
+    },
+    "10dig10miluplow2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_639.torrent"
+    },
+    "8dig5miluplow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_643.torrent"
+    },
+    "10dig10miluplow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_644.torrent"
+    },
+    "10dig10miluplow3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_645.torrent"
+    },
+    "10dig5miluplow": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_646.torrent"
+    },
+    "mubix_izmy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_68.torrent"
+    },
+    "16": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_750.torrent"
+    },
+    "20": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_751.torrent"
+    },
+    "27": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_753.torrent"
+    },
+    "25": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_754.torrent"
+    },
+    "15": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_755.torrent"
+    },
+    "21": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_756.torrent"
+    },
+    "24": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_757.torrent"
+    },
+    "26": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_760.torrent"
+    },
+    "19": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_765.torrent"
+    },
+    "14": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_766.torrent"
+    },
+    "28": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_767.torrent"
+    },
+    "22": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_771.torrent"
+    },
+    "23": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_774.torrent"
+    },
+    "18": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_775.torrent"
+    },
+    "sr_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_793.torrent"
+    },
+    "ru_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_794.torrent"
+    },
+    "el_wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_797.torrent"
+    },
+    "Russian2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_846.torrent"
+    },
+    "Belarusian (Classical Spelling)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_849.torrent"
+    },
+    "Belarusian (Modern Spelling)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_857.torrent"
+    },
+    "Assamese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_858.torrent"
+    },
+    "Abkhaz": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_859.torrent"
+    },
+    "Chuvash": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_860.torrent"
+    },
+    "Bengali": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_862.torrent"
+    },
+    "Armenian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_864.torrent"
+    },
+    "Afrikaans": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_866.torrent"
+    },
+    "Church Slavonic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_867.torrent"
+    },
+    "Bashkir": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_868.torrent"
+    },
+    "Corsican": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_869.torrent"
+    },
+    "Bambara": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_870.torrent"
+    },
+    "Burmese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_872.torrent"
+    },
+    "Azerbaijani": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_873.torrent"
+    },
+    "Cornish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_874.torrent"
+    },
+    "Basque": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_875.torrent"
+    },
+    "Chechen": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_876.torrent"
+    },
+    "Bulgarian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_877.torrent"
+    },
+    "Bihari": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_878.torrent"
+    },
+    "Belarusian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_879.torrent"
+    },
+    "Aragonese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_880.torrent"
+    },
+    "Avaric": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_881.torrent"
+    },
+    "Amharic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_882.torrent"
+    },
+    "Arabic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_883.torrent"
+    },
+    "Albanian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_884.torrent"
+    },
+    "Bosnian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_885.torrent"
+    },
+    "Aymara": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_886.torrent"
+    },
+    "Divehi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_887.torrent"
+    },
+    "Breton": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_888.torrent"
+    },
+    "Catalan": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_889.torrent"
+    },
+    "musiccircle": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_893.torrent"
+    },
+    "mirpesen": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_894.torrent"
+    },
+    "hotlyrics": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_895.torrent"
+    },
+    "Javanese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_921.torrent"
+    },
+    "Hindi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_922.torrent"
+    },
+    "Korean": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_923.torrent"
+    },
+    "Kurdish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_924.torrent"
+    },
+    "Georgian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_925.torrent"
+    },
+    "Haitian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_926.torrent"
+    },
+    "Lingala": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_927.torrent"
+    },
+    "Komi": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_928.torrent"
+    },
+    "Icelandic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_929.torrent"
+    },
+    "top_1000_usa_familynames_english": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_93.torrent"
+    },
+    "Lao": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_931.torrent"
+    },
+    "Interlingue": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_933.torrent"
+    },
+    "Irish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_934.torrent"
+    },
+    "Gaelic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_935.torrent"
+    },
+    "Greek": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_936.torrent"
+    },
+    "Interlingua": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_937.torrent"
+    },
+    "Esperanto": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_938.torrent"
+    },
+    "Ido": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_939.torrent"
+    },
+    "Igbo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_940.torrent"
+    },
+    "Latvian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_941.torrent"
+    },
+    "Guarani": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_944.torrent"
+    },
+    "Kirghiz": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_945.torrent"
+    },
+    "Galician": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_946.torrent"
+    },
+    "Gujarati": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_947.torrent"
+    },
+    "Faroese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_948.torrent"
+    },
+    "Lithuanian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_950.torrent"
+    },
+    "Indonesian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_951.torrent"
+    },
+    "Kalaallisut": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_952.torrent"
+    },
+    "Kinyarwanda": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_953.torrent"
+    },
+    "Limburgish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_954.torrent"
+    },
+    "Kannada": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_955.torrent"
+    },
+    "Estonian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_956.torrent"
+    },
+    "Hebrew": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_957.torrent"
+    },
+    "Kazakh": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_959.torrent"
+    },
+    "Khmer": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_960.torrent"
+    },
+    "latin": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_991.torrent"
+    },
+    "Sundanese": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_995.torrent"
+    },
+    "Sinhala": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_997.torrent"
+    },
+    "Ukrainian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_998.torrent"
+    },
+    "Manx": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_999.torrent"
+    },
+    "Abbr": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1333.torrent"
+    },
+    "american-english-homophones": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1340.torrent"
+    },
+    "american-proper-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1341.torrent"
+    },
+    "american-upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1344.torrent"
+    },
+    "american-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1345.torrent"
+    },
+    "animals": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1355.torrent"
+    },
+    "Arthur": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1359.torrent"
+    },
+    "bible-withcount": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1364.torrent"
+    },
+    "biology": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1367.torrent"
+    },
+    "Booze": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1370.torrent"
+    },
+    "british-abbreviations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1372.torrent"
+    },
+    "british-proper-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1375.torrent"
+    },
+    "british-upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1378.torrent"
+    },
+    "british-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1383.torrent"
+    },
+    "british_z-abbreviations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1394.torrent"
+    },
+    "british_z-proper-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1395.torrent"
+    },
+    "british_z-upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1398.torrent"
+    },
+    "british_z-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1403.torrent"
+    },
+    "canadian-abbreviations": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1414.torrent"
+    },
+    "canadian-proper-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1417.torrent"
+    },
+    "canadian-upper": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1420.torrent"
+    },
+    "canadian-words": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1425.torrent"
+    },
+    "charlema": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1439.torrent"
+    },
+    "chinese-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1441.torrent"
+    },
+    "common-base": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1451.torrent"
+    },
+    "common": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1455.torrent"
+    },
+    "dosref": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1474.torrent"
+    },
+    "Emil-hesla154": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1477.torrent"
+    },
+    "king_arthur": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1526.torrent"
+    },
+    "Languages": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1530.torrent"
+    },
+    "Microalgae": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1535.torrent"
+    },
+    "oz_homophones": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1540.torrent"
+    },
+    "shakespeare-names": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1541.torrent"
+    },
+    "trek": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1550.torrent"
+    },
+    "variant": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1560.torrent"
+    },
+    "variant_0": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1561.torrent"
+    },
+    "variant_1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1562.torrent"
+    },
+    "variant_2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1563.torrent"
+    },
+    "websters-two_word": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1566.torrent"
+    },
+    "world_heritage": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1568.torrent"
+    },
+    "yiddish": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1569.torrent"
+    },
+    "akvaristika": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1571.torrent"
+    },
+    "chemik": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1573.torrent"
+    },
+    "chemiksp": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1574.torrent"
+    },
+    "filozof": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1581.torrent"
+    },
+    "hafan": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1583.torrent"
+    },
+    "latina": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1584.torrent"
+    },
+    "lecivky": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1585.torrent"
+    },
+    "myslivost": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1588.torrent"
+    },
+    "pan-prstenu": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1589.torrent"
+    },
+    "dictionary_russian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1613.torrent"
+    },
+    "dictionary_russian_big": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1614.torrent"
+    },
+    "familii-rus": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1622.torrent"
+    },
+    "familii-traslit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1623.torrent"
+    },
+    "stolicy": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1624.torrent"
+    },
+    "stranu-mira-cyrillic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1625.torrent"
+    },
+    "strany-mira-translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1626.torrent"
+    },
+    "k1_rzts_sort_part_1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1628.torrent"
+    },
+    "klichki-rus": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1630.torrent"
+    },
+    "Klichki-Zivotnyh-RU": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1631.torrent"
+    },
+    "Muzkie_imena_familii_Cyrillic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1633.torrent"
+    },
+    "Muzkie_imena_familii_Translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1634.torrent"
+    },
+    "rus-mini": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1643.torrent"
+    },
+    "Russian (Full)": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1644.torrent"
+    },
+    "Russian-KOI8": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1645.torrent"
+    },
+    "Russian-Mini-OEM": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1646.torrent"
+    },
+    "Russian-Mini": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1647.torrent"
+    },
+    "russian": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1648.torrent"
+    },
+    "russian2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1650.torrent"
+    },
+    "russian_31799": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1651.torrent"
+    },
+    "russian_name": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1652.torrent"
+    },
+    "russkie-maty": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1653.torrent"
+    },
+    "Russsian_Cyrillic_Dic": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1654.torrent"
+    },
+    "ru_rzts_sort_part_1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1657.torrent"
+    },
+    "ru_rzts_sort_part_2": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1658.torrent"
+    },
+    "ru_rzts_sort_part_3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1659.torrent"
+    },
+    "ru_rzts_sort_part_4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1660.torrent"
+    },
+    "ru_rzts_sort_part_5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1661.torrent"
+    },
+    "Female": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1663.torrent"
+    },
+    "Male": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1664.torrent"
+    },
+    "read": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1665.torrent"
+    },
+    "umenshitelnye-imena": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1668.torrent"
+    },
+    "zenskie-muzkie-imena": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1669.torrent"
+    },
+    "readme": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1670.torrent"
+    },
+    "spain_name": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1671.torrent"
+    },
+    "turkey_name": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1677.torrent"
+    },
+    "Datas_dd": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1683.torrent"
+    },
+    "Datas_DDzydfhmGGGG": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1685.torrent"
+    },
+    "Datas_gggg-gggg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1686.torrent"
+    },
+    "Datas_mm-dd-gggg": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1688.torrent"
+    },
+    "Datas_mm": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1689.torrent"
+    },
+    "Datas_zydfhmDDGGGG": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1691.torrent"
+    },
+    "InsideCoreByChesteRock": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1704.torrent"
+    },
+    "Pasword-number": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1734.torrent"
+    },
+    "AD Wordlist 3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1752.torrent"
+    },
+    "AD_Wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1753.torrent"
+    },
+    "Anti-Oxpass": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1754.torrent"
+    },
+    "Belhh111": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1755.torrent"
+    },
+    "Fucklist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1757.torrent"
+    },
+    "long list": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1758.torrent"
+    },
+    "Main Wordlist": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1759.torrent"
+    },
+    "Mature combo list": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1760.torrent"
+    },
+    "meh": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1761.torrent"
+    },
+    "modded word lis01t": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1762.torrent"
+    },
+    "nigga wigga": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1763.torrent"
+    },
+    "Secondary": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1764.torrent"
+    },
+    "Stupid Number combo": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1765.torrent"
+    },
+    "user passes projekt 1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1766.torrent"
+    },
+    "Wordlist 05-April-2003": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1767.torrent"
+    },
+    "Wordlist 38": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1768.torrent"
+    },
+    "wordlist1": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1769.torrent"
+    },
+    "wordlist10": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1770.torrent"
+    },
+    "Wordlist1324": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1771.torrent"
+    },
+    "wordlist3": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1773.torrent"
+    },
+    "wordlist4": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1774.torrent"
+    },
+    "wordlist5": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1775.torrent"
+    },
+    "wordlist7": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1776.torrent"
+    },
+    "potm": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1778.torrent"
+    },
+    "cracked": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1780.torrent"
+    },
+    "TOP-100-Adobe": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1794.torrent"
+    },
+    "kb_rus_adj_fem": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1814.torrent"
+    },
+    "kb_rus_adj_male": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1815.torrent"
+    },
+    "kb_rus_adj_it": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1816.torrent"
+    },
+    "kb_rus_adj_mul": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1817.torrent"
+    },
+    "kb_rus_noun_it": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1819.torrent"
+    },
+    "months_short": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1824.torrent"
+    },
+    "rus_months_en": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1829.torrent"
+    },
+    "rus_months_translit": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1830.torrent"
+    },
+    "tr_rus_adj_fem": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1836.torrent"
+    },
+    "tr_rus_adj_it": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1837.torrent"
+    },
+    "tr_rus_adj_male": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1838.torrent"
+    },
+    "tr_rus_adj_mul": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1839.torrent"
+    },
+    "tr_rus_noun_it": {
+        "protocol": "torrent",
+        "url": "https://weakpass.com/torrent/wordlist_1841.torrent"
+    }
 }
