@@ -112,14 +112,29 @@ def decompress(input, output):
         return -1
 
 
+def resolve_mediafire(link):
+    resolved = ''
+    try:
+        page = requests.get(link)
+        html = BeautifulSoup(page.text, 'html.parser')
+        for i in html.find_all('a'):
+            if str(i.text).startswith('Download ('):
+                resolved = i['href']
+    except:
+        pass
+    finally:
+        return resolved
+
+
 def fetch_file(url, path):
     infile = path.split('/')[-1]
     print("[*] downloading {0}".format(infile))
-
+    str_url = url
     try:
-
+        if str(url).startswith('http://www.mediafire.com/file/'):
+            str_url = resolve_mediafire(url)
         chunk_size = 1024
-        rq = requests.get(url, stream=True)
+        rq = requests.get(str_url, stream=True)
         total_size = int(rq.headers['content-length'])
         fp = open(path, 'wb')
         for data in tqdm(iterable=rq.iter_content(chunk_size=chunk_size), total=total_size / chunk_size, unit='KB'):
