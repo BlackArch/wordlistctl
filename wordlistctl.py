@@ -34,7 +34,7 @@ def usage():
     __usage__ += "  -c <num>   - change wordlists category\n"
     __usage__ += "             - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
-    __usage__ += "  -S <regex>   - wordlist to search using <regex> in sites\n\n"
+    __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"

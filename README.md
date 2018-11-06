@@ -28,7 +28,7 @@ options:
   -c <num>   - change wordlists category
              - ? to list wordlists categories
   -s <regex> - wordlist to search using <regex> in base directory
-  -S <regex>   - wordlist to search using <regex> in sites
+  -S <regex> - wordlist to search using <regex> in sites
 
 misc:
 
