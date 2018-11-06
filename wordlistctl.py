@@ -235,13 +235,13 @@ def download_wordlists(code):
     try:
         __wordlist_id__ = int(code)
     except:
-        printerr('{0} is not a valid option'.format(code), '')
+        printerr('{0} is not a valid number'.format(code), '')
         return -1
 
     try:
 
         if (__wordlist_id__ >= __urls__.__len__() + 1) or __wordlist_id__ < 0:
-            raise IndexError('{0} is not a valid option'.format(code))
+            raise IndexError('{0} is not a valid wordlist id'.format(code))
         elif __wordlist_id__ == 0:
             if __category__ == '':
                 for i in __urls__:
@@ -336,18 +336,22 @@ def load_json(input):
 def change_category(code):
     global __category__
     global __categories__
+    __category_id__ = 0
     if __categories__.__len__() <= 0:
         load_config()
+
     try:
         __category_id__ = int(code)
-        if (__category_id__ >= __categories__.__len__()) or __category_id__ < 0:
-            raise IndexError('{0} is not a valid option'.format(code))
-        __category__ = list(__categories__.keys())[__category_id__]
-    except IndexError as ex:
-        printerr('{0} is not a valid category'.format(code), ex)
-        exit(-1)
     except:
-        printerr('{0} is not a valid category'.format(code), '')
+        printerr('{0} is not a valid number'.format(code), '')
+        exit(-1)
+
+    try:
+        if (__category_id__ >= __categories__.__len__()) or __category_id__ < 0:
+            raise IndexError('{0} is not a valid category id'.format(code))
+        __category__ = list(__categories__.keys())[__category_id__]
+    except Exception as ex:
+        printerr('Error while changing category', ex)
         exit(-1)
 
 
@@ -489,9 +493,10 @@ def main(argv):
             else:
                 __operation__()
         else:
-            raise ValueError
+            raise ValueError("no operation selected")
         return 0
-    except:
+    except Exception as ex:
+        printerr("Error while running operation", ex)
         return -1
 
 
