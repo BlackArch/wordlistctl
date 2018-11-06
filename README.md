@@ -1,7 +1,7 @@
 ## Description
 
 Script to fetch, install, update and search wordlist archives from websites
-offering wordlists.
+offering wordlists with more than 1800 wordlists available.
 
 In the latest version of the Blackarch Linux it has been added to
 **/usr/share/wordlists/** directory.
@@ -13,7 +13,7 @@ In the latest version of the Blackarch Linux it has been added to
 ## Usage
 
 ```
-[ noptrix@blackarch-dev ~/blackarch/repos/sploitctl ]$ ./wordlistctl -h
+[ sepehrdad@blackarch-dev ~/blackarch/repos/wordlistctl ]$ ./wordlistctl -h
 --==[ wordlistctl.py by blackarch.org ]==--
 
 usage:
@@ -25,8 +25,10 @@ options:
              - ? to list wordlists
              - h to show options
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
+  -c <num>   - change wordlists category
+             - ? to list wordlists categories
   -s <regex> - wordlist to search using <regex> in base directory
-  -S <str>   - wordlist to search using str in sites
+  -S <str>   - wordlist to search using <str> in sites
 
 misc:
 
