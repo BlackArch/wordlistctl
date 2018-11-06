@@ -3,7 +3,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.2alpha'
+__version__ = '0.2'
 __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -13,6 +13,7 @@ __urls__ = {}
 __categories__ = {}
 __decompress__ = False
 __remove__ = False
+__category__ = ''
 
 
 def printerr(string, ex):
@@ -30,8 +31,10 @@ def usage():
     __usage__ += "             - ? to list wordlists\n"
     __usage__ += "             - h to show options\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
+    __usage__ += "  -c <num>   - change wordlists category\n"
+    __usage__ += "             - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
-    __usage__ += "  -S <str>   - wordlist to search using str in sites\n\n"
+    __usage__ += "  -S <str>   - wordlist to search using <str> in sites\n\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"
@@ -108,7 +111,7 @@ def decompress(input, output):
             raise ValueError('unknown file type')
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(__infile__.split('/')[-1]), ex)
+        printerr('Error while decompressing {0}'.format(__filename__), ex)
         return -1
 
 
@@ -144,7 +147,9 @@ def fetch_file(url, path):
         if __decompress__ and (not infile.endswith('.torrent')):
             if decompress(infile, __wordlist_path__) != -1 and __remove__:
                     os.remove(infile)
+    except KeyboardInterrupt:
 
+        return
     except Exception as ex:
 
         printerr("Error while downloading {0}".format(url), ex)
@@ -238,8 +243,15 @@ def download_wordlists(code):
         if (__wordlist_id__ >= __urls__.__len__() + 1) or __wordlist_id__ < 0:
             raise IndexError('{0} is not a valid option'.format(code))
         elif __wordlist_id__ == 0:
-            for i in __urls__:
-                download_wordlist(__urls__[i])
+            if __category__ == '':
+                for i in __urls__:
+                    download_wordlist(__urls__[i])
+            else:
+                for i in __categories__[__category__]:
+                    download_wordlist(__urls__[i])
+        elif __category__ != '':
+            i = __urls__[__categories__[__category__][__wordlist_id__ - 1]]
+            download_wordlist(i)
         else:
             i = list(__urls__.keys())[__wordlist_id__ - 1]
             download_wordlist(__urls__[i])
@@ -256,7 +268,12 @@ def print_wordlists():
     index = 1
     print("[+] available wordlists")
     print("    > 0  - all wordlists")
-    for i in __urls__:
+    urls = {}
+    if __category__ == '':
+        urls = __urls__
+    else:
+        urls = __categories__[__category__]
+    for i in urls:
         print("    > {0}  - {1}".format(index, i))
         index += 1
 
@@ -272,38 +289,17 @@ def search_dir(regex):
         print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
 
 
-def search_weakpass(string):
-    try:
-        __items__ = {}
-        print('[*] searching for {0} in weakpass.com'.format(string))
-        page = requests.get('https://weakpass.com/wordlist')
-        html = BeautifulSoup(page.text, 'html.parser')
-        tbody = html.tbody
-        for i in tbody.find_all('tr'):
-            __items__[i.find_all('td')[0].a.text] = i.find_all('td')[5].a['href']
-
-        for i in __items__.keys():
-            if i.lower().__contains__(string):
-                print('[+] wordlist {0} found: https://weakpass.com{1}'.format(i, __items__[i]))
-    except KeyboardInterrupt:
-        pass
-    except Exception as ex:
-
-        printerr('Error while searching', ex)
-        return -1
-
-
 def search_sites(string):
     try:
         print('[*] searching for {0} in urls.json'.format(string))
         count = 0
         for i in __urls__.keys():
             if i.lower().__contains__(string):
-                print('[+] wordlist {0} found: {1}'.format(i, __urls__[i]['url']))
+                print('[+] wordlist {0} found: id={1}'.format(i, list(__urls__.keys()).index(i) + 1))
                 count += 1
 
         if count == 0:
-            search_weakpass(string)
+            print('[-] no wordlist found')
     except KeyboardInterrupt:
         pass
     except Exception as ex:
@@ -337,6 +333,32 @@ def load_json(input):
         return {}
 
 
+def change_category(code):
+    global __category__
+    global __categories__
+    if __categories__.__len__() <= 0:
+        load_config()
+    try:
+        __category_id__ = int(code)
+        if (__category_id__ >= __categories__.__len__()) or __category_id__ < 0:
+            raise IndexError('{0} is not a valid option'.format(code))
+        __category__ = list(__categories__.keys())[__category_id__]
+    except IndexError as ex:
+        printerr('{0} is not a valid category'.format(code), ex)
+        exit(-1)
+    except:
+        printerr('{0} is not a valid category'.format(code), '')
+        exit(-1)
+
+
+def print_categories():
+    index = 0
+    print("[+] available wordlists category")
+    for i in __categories__:
+        print("    > {0}  - {1} ({2} wordlists)".format(index, i, list(__categories__[i]).__len__()))
+        index += 1
+
+
 def arg_parse(argv):
     global __wordlist_path__
     global __decompress__
@@ -345,7 +367,7 @@ def arg_parse(argv):
     __arg__ = None
 
     try:
-        opts, args = getopt.getopt(argv[1:], "hvXUrd:f:s:S:")
+        opts, args = getopt.getopt(argv[1:], "hvXUrd:c:f:s:S:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -382,6 +404,12 @@ def arg_parse(argv):
             elif opt == '-S':
                 __operation__ = search_sites
                 __arg__ = arg
+            elif opt == '-c':
+                if arg == '?':
+                    __operation__ = print_categories
+                else:
+                    change_category(arg)
+
     except Exception as ex:
 
         printerr("Error while parsing arguments", ex)
@@ -413,17 +441,18 @@ def load_config():
     global __urls__
     global __categories__
     files = [__urls_file_name__, __categories_file_name__]
-    try:
+    if __urls__.__len__() <= 0 or __categories__.__len__() <= 0:
+        try:
 
-        for i in files:
-            if not os.path.isfile(i):
-                raise FileNotFoundError('Config files not found please update')
-        __urls__ = load_json(__urls_file_name__)
-        __categories__ = load_json(__categories_file_name__)
-    except Exception as ex:
+            for i in files:
+                if not os.path.isfile(i):
+                    raise FileNotFoundError('Config files not found please update')
+            __urls__ = load_json(__urls_file_name__)
+            __categories__ = load_json(__categories_file_name__)
+        except Exception as ex:
 
-        printerr('Error while loading config files', ex)
-        exit(-1)
+            printerr('Error while loading config files', ex)
+            exit(-1)
 
 
 def main(argv):
