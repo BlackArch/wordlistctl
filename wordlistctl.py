@@ -294,7 +294,7 @@ def search_sites(string):
         print('[*] searching for {0} in urls.json'.format(string))
         count = 0
         for i in __urls__.keys():
-            if i.lower().__contains__(string):
+            if i.__contains__(string):
                 print('[+] wordlist {0} found: id={1}'.format(i, list(__urls__.keys()).index(i) + 1))
                 count += 1
 
