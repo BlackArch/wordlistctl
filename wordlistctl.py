@@ -25,7 +25,7 @@ def printerr(string, ex):
 
 def usage():
     __usage__ = "usage:\n"
-    __usage__ += "  {0} -f <num>  [options] | -s <arg> | -S <arg> | <misc>\n\n"
+    __usage__ += "  {0} -f <arg>  [options] | -s <arg> | -S <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
@@ -34,7 +34,7 @@ def usage():
     __usage__ += "  -c <num>   - change wordlists category\n"
     __usage__ += "             - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
-    __usage__ += "  -S <str>   - wordlist to search using <str> in sites\n\n"
+    __usage__ += "  -S <regex>   - wordlist to search using <regex> in sites\n\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"
@@ -172,7 +172,7 @@ def fetch_torrent(url, path):
                                                 'paused': False, 'auto_managed': True, 'duplicate_is_error': True}
                                                )
             session.start_dht()
-            print('[*] downloading metadata')
+            print('[*] downloading metadata\n')
             while not handle.has_metadata():
                 time.sleep(1)
             print('[+] downloaded metadata')
@@ -183,7 +183,7 @@ def fetch_torrent(url, path):
                 printerr("[-] {0} not found".format(url), '')
                 exit(-1)
 
-        print("[*] downloading {0}".format(handle.name()))
+        print("[*] downloading {0}\n".format(handle.name()))
 
         while not handle.is_seed():
             s = handle.status()
@@ -279,7 +279,7 @@ def print_wordlists():
 
 
 def search_dir(regex):
-    print('[*] searching for {0} in {1}'.format(regex, __wordlist_path__))
+    print('[*] searching for {0} in {1}\n'.format(regex, __wordlist_path__))
     os.chdir(__wordlist_path__)
     files = glob.glob("{0}".format(str(regex)))
     if files.__len__() <= 0:
@@ -289,12 +289,12 @@ def search_dir(regex):
         print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
 
 
-def search_sites(string):
+def search_sites(regex):
     try:
-        print('[*] searching for {0} in urls.json'.format(string))
+        print('[*] searching for {0} in urls.json\n'.format(regex))
         count = 0
         for i in __urls__.keys():
-            if i.__contains__(string):
+            if re.match(regex, i):
                 print('[+] wordlist {0} found: id={1}'.format(i, list(__urls__.keys()).index(i) + 1))
                 count += 1
 
@@ -314,7 +314,7 @@ def check_dir(dir_name):
         if os.path.isdir(dir_name):
             pass
         else:
-            print("[*] creating directory {0}".format(dir_name))
+            print("[*] creating directory {0}\n".format(dir_name))
             os.mkdir(dir_name)
 
     except Exception as ex:
@@ -359,12 +359,20 @@ def print_categories():
         index += 1
 
 
+def file_usage():
+    __usage__ = "options:\n\n"
+    __usage__ += "  -X         - decompress wordlist\n"
+    __usage__ += "  -r         - remove compressed file after decompression\n"
+    print(__usage__)
+
+
 def arg_parse(argv):
     global __wordlist_path__
     global __decompress__
     global __remove__
     __operation__ = None
     __arg__ = None
+    opFlag = 0
 
     try:
         opts, args = getopt.getopt(argv[1:], "hvXUrd:c:f:s:S:")
@@ -374,10 +382,14 @@ def arg_parse(argv):
             return __operation__, __arg__
 
         for opt, arg in opts:
+            if opFlag and re.match(r'-[hvdfcsSU]', opt):
+                raise OverflowError("multiple operations selected")
             if opt == '-h':
                 __operation__ = usage
+                opFlag += 1
             elif opt == '-v':
                 __operation__ = version
+                opFlag += 1
             elif opt == '-d':
                 dirname = os.path.abspath(arg)
                 check_dir(dirname)
@@ -386,36 +398,38 @@ def arg_parse(argv):
                 if arg == '?':
                     __operation__ = print_wordlists
                 elif arg == 'h':
-                    __usage__ = "options:\n\n"
-                    __usage__ += "  -X         - decompress wordlist\n"
-                    __usage__ += "  -r         - remove compressed file after decompression\n"
-                    print(__usage__)
+                    __operation__ = file_usage
                 else:
                     __operation__ = download_wordlists
                     __arg__ = arg
+                opFlag += 1
             elif opt == '-s':
                 __operation__ = search_dir
                 __arg__ = arg
+                opFlag += 1
             elif opt == '-X':
                 __decompress__ = True
             elif opt == '-r':
                 __remove__ = True
             elif opt == '-U':
                 __operation__ = update_config
+                opFlag += 1
             elif opt == '-S':
                 __operation__ = search_sites
                 __arg__ = arg
+                opFlag += 1
             elif opt == '-c':
                 if arg == '?':
                     __operation__ = print_categories
+                    opFlag += 1
                 else:
                     change_category(arg)
 
     except Exception as ex:
 
         printerr("Error while parsing arguments", ex)
-    finally:
-        return __operation__, __arg__
+        exit(-1)
+    return __operation__, __arg__
 
 
 def update_config():
@@ -425,7 +439,7 @@ def update_config():
     files = [__urls_file_name__, __categories_file_name__]
     try:
 
-        print('[*] updating config files')
+        print('[*] updating config files\n')
         for i in files:
             if os.path.isfile(i):
                 os.remove(i)
@@ -489,6 +503,7 @@ if __name__ == '__main__':
         import getopt
         import requests
         import glob
+        import re
         from tqdm import tqdm
         import libtorrent
         import libarchive
