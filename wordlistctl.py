@@ -379,8 +379,9 @@ def arg_parse(argv):
             elif opt == '-v':
                 __operation__ = version
             elif opt == '-d':
-                check_dir(arg)
-                __wordlist_path__ = arg
+                dirname = os.path.abspath(arg)
+                check_dir(dirname)
+                __wordlist_path__ = dirname
             elif opt == '-f':
                 if arg == '?':
                     __operation__ = print_wordlists
