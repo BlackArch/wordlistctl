@@ -7131,10 +7131,6 @@
         "protocol": "http",
         "url": "https://downloads.skullsecurity.org/passwords/tuscl-withcount.txt.bz2"
     },
-    "": {
-        "protocol": "http",
-        "url": "http://www.outpost9.com/files/wordlists/"
-    },
     "www": {
         "protocol": "http",
         "url": "http://www.outpost9.com/files/wordlists/www.blackhathacker.com"
