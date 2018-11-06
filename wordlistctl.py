@@ -466,7 +466,7 @@ def main(argv):
     __operation__, __arg__ = arg_parse(argv)
 
     try:
-        if __operation__ is not update_config:
+        if __operation__ not in [update_config, version, usage]:
             load_config()
         if __operation__ is not None:
             if __arg__ is not None:
