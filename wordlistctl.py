@@ -59,11 +59,11 @@ def decompress_gbl(input, output):
 
         infile = None
         __outfile__ = os.path.splitext(os.path.basename(input))[0]
-        if input.endswith('.gz'):
+        if re.fullmatch(r"^.*\.(gz)$", input.lower()):
             infile = gzip.GzipFile(input, 'rb')
-        elif input.endswith('.bz2'):
+        elif re.fullmatch(r"^.*\.(bz|bz2)$", input.lower()):
             infile = bz2.BZ2File(input, 'rb')
-        elif input.endswith('.lzma') or input.endswith('.xz'):
+        elif re.fullmatch(r"^.*\.(lzma|xz)$", input.lower()):
             infile = lzma.LZMAFile(input, 'rb')
         else:
             raise ValueError('unknown file type')
@@ -84,7 +84,7 @@ def decompress_archive(input, output):
 
         os.chdir(output)
         print("[*] decompressing {0}".format(__filename__))
-        if os.path.splitext(__filename__)[1] in '.rar':
+        if re.fullmatch(r"^.*\.(rar)$", __filename__.lower()):
             infile = rarfile.RarFile(input)
             infile.extractall()
         else:
@@ -101,11 +101,9 @@ def decompress(input, output):
     __filename__ = os.path.basename(__infile__)
     try:
 
-        if os.path.splitext(__filename__)[1] in ('.zip', '.rar', '.7z', '.tar'):
+        if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz)$", __filename__.lower()):
             return decompress_archive(input, output)
-        elif os.path.splitext(__filename__)[1] in ('.gz', '.bz', '.bz2', '.xz', '.lzma'):
-            if os.path.splitext(__filename__)[0].endswith('.tar'):
-                return decompress_archive(input, output)
+        elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", __filename__.lower()):
             return decompress_gbl(input, output)
         else:
             raise ValueError('unknown file type')
@@ -370,6 +368,44 @@ def file_usage():
     print(__usage__)
 
 
+def update_config():
+    global __urls__
+    global __categories__
+    __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
+    files = [__urls_file_name__, __categories_file_name__]
+    try:
+
+        print('[*] updating config files\n')
+        for i in files:
+            if os.path.isfile(i):
+                os.remove(i)
+            fetch_file('{0}/{1}'.format(__base_url__, os.path.basename(i)), i)
+        load_config()
+        print('[+] updating config files completed')
+    except Exception as ex:
+
+        printerr('Error while updating', ex)
+        exit(-1)
+
+
+def load_config():
+    global __urls__
+    global __categories__
+    files = [__urls_file_name__, __categories_file_name__]
+    if __urls__.__len__() <= 0 or __categories__.__len__() <= 0:
+        try:
+
+            for i in files:
+                if not os.path.isfile(i):
+                    raise FileNotFoundError('Config files not found please update')
+            __urls__ = load_json(__urls_file_name__)
+            __categories__ = load_json(__categories_file_name__)
+        except Exception as ex:
+
+            printerr('Error while loading config files', ex)
+            exit(-1)
+
+
 def arg_parse(argv):
     global __wordlist_path__
     global __decompress__
@@ -386,7 +422,7 @@ def arg_parse(argv):
             return __operation__, __arg__
 
         for opt, arg in opts:
-            if opFlag and re.match(r'-[hvdfcsSU]', opt):
+            if opFlag and re.fullmatch(r"^-([hvdfcsSU])", opt):
                 raise OverflowError("multiple operations selected")
             if opt == '-h':
                 __operation__ = usage
@@ -434,44 +470,6 @@ def arg_parse(argv):
         printerr("Error while parsing arguments", ex)
         exit(-1)
     return __operation__, __arg__
-
-
-def update_config():
-    global __urls__
-    global __categories__
-    __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
-    files = [__urls_file_name__, __categories_file_name__]
-    try:
-
-        print('[*] updating config files\n')
-        for i in files:
-            if os.path.isfile(i):
-                os.remove(i)
-            fetch_file('{0}/{1}'.format(__base_url__, os.path.basename(i)), i)
-        load_config()
-        print('[+] updating config files completed')
-    except Exception as ex:
-
-        printerr('Error while updating', ex)
-        exit(-1)
-
-
-def load_config():
-    global __urls__
-    global __categories__
-    files = [__urls_file_name__, __categories_file_name__]
-    if __urls__.__len__() <= 0 or __categories__.__len__() <= 0:
-        try:
-
-            for i in files:
-                if not os.path.isfile(i):
-                    raise FileNotFoundError('Config files not found please update')
-            __urls__ = load_json(__urls_file_name__)
-            __categories__ = load_json(__categories_file_name__)
-        except Exception as ex:
-
-            printerr('Error while loading config files', ex)
-            exit(-1)
 
 
 def main(argv):
