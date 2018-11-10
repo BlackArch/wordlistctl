@@ -288,11 +288,11 @@ def search_dir(regex):
 
 
 def search_sites(regex):
-    urls = {}
+    urls = []
     if __category__ != '':
-        urls = __categories__[__category__]
+        urls = list(__categories__[__category__])
     else:
-        urls = __urls__.keys()
+        urls = list(__urls__.keys())
     try:
         print('[*] searching for {0} in urls.json\n'.format(regex))
         count = 0
