@@ -267,10 +267,10 @@ def print_wordlists():
     print("[+] available wordlists")
     print("    > 0  - all wordlists")
     urls = {}
-    if __category__ == '':
-        urls = __urls__
-    else:
+    if __category__ != '':
         urls = __categories__[__category__]
+    else:
+        urls = __urls__.keys()
     for i in urls:
         print("    > {0}  - {1}".format(index, i))
         index += 1
@@ -288,12 +288,17 @@ def search_dir(regex):
 
 
 def search_sites(regex):
+    urls = {}
+    if __category__ != '':
+        urls = __categories__[__category__]
+    else:
+        urls = __urls__.keys()
     try:
         print('[*] searching for {0} in urls.json\n'.format(regex))
         count = 0
-        for i in __urls__.keys():
+        for i in urls:
             if re.match(regex, i):
-                print('[+] wordlist {0} found: id={1}'.format(i, list(__urls__.keys()).index(i) + 1))
+                print('[+] wordlist {0} found: id={1}'.format(i, urls.index(i) + 1))
                 count += 1
 
         if count == 0:
@@ -422,7 +427,7 @@ def arg_parse(argv):
             return __operation__, __arg__
 
         for opt, arg in opts:
-            if opFlag and re.fullmatch(r"^-([hvdfcsSU])", opt):
+            if opFlag and re.fullmatch(r"^-([hvfsSU])", opt):
                 raise OverflowError("multiple operations selected")
             if opt == '-h':
                 __operation__ = usage
@@ -460,6 +465,8 @@ def arg_parse(argv):
                 opFlag += 1
             elif opt == '-c':
                 if arg == '?':
+                    if opFlag:
+                        raise OverflowError("multiple operations selected")
                     __operation__ = print_categories
                     opFlag += 1
                 else:
