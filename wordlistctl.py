@@ -9,11 +9,12 @@ __project__ = 'wordlistctl.py'
 __wordlist_path__ = '/usr/share/wordlists'
 __urls_file_name__ = ''
 __categories_file_name__ = ''
+__category__ = ''
 __urls__ = {}
 __categories__ = {}
 __decompress__ = False
 __remove__ = False
-__category__ = ''
+__prefer_http__ = False
 
 
 def printerr(string, ex):
@@ -206,19 +207,23 @@ def fetch_torrent(url, path):
 
 def download_wordlist(config):
     try:
+        if (__prefer_http__ and config['http'] != "") or (config['torrent'] == "" and config['http'] != ""):
 
-        __filename__ = config['url'].split('/')[-1]
-        __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
-        if config['protocol'] == 'http':
-            fetch_file(config['url'], __file_path__)
-        elif config['protocol'] == 'torrent':
-            fetch_file(config['url'], __file_path__)
+            __filename__ = config['http'].split('/')[-1]
+            __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
+            fetch_file(config['http'], __file_path__)
+
+        elif config['torrent'] != "":
+
+            __filename__ = config['torrent'].split('/')[-1]
+            __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
+            fetch_file(config['torrent'], __file_path__)
             fetch_torrent(__file_path__, __wordlist_path__)
             os.remove(__file_path__)
-        elif config['protocol'] == 'magnet':
-            fetch_torrent(config['url'], __wordlist_path__)
+
         else:
-            raise ValueError('invalid protocol')
+            raise ValueError("unable to find wordlist's url")
+
     except Exception as ex:
 
         printerr('unable to download wordlist', ex)
@@ -368,6 +373,7 @@ def print_categories():
 
 def file_usage():
     __usage__ = "options:\n\n"
+    __usage__ += "  -H         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
     print(__usage__)
@@ -415,12 +421,13 @@ def arg_parse(argv):
     global __wordlist_path__
     global __decompress__
     global __remove__
+    global __prefer_http__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, args = getopt.getopt(argv[1:], "hvXUrd:c:f:s:S:")
+        opts, args = getopt.getopt(argv[1:], "hHvXUrd:c:f:s:S:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -471,6 +478,8 @@ def arg_parse(argv):
                     opFlag += 1
                 else:
                     change_category(arg)
+            elif opt == '-H':
+                __prefer_http__ = True
 
     except Exception as ex:
 
