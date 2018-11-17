@@ -417,7 +417,7 @@ def file_usage():
     __usage__ += "  -H         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += "  -t <num>   - run with multiple threads (default: {0})\n".format(__max_trds__)
+    __usage__ += "  -t <num>   - max download threads (default: {0})\n".format(__max_trds__)
     print(__usage__)
 
 
@@ -533,6 +533,8 @@ def arg_parse(argv):
                 __prefer_http__ = True
             elif opt == '-t':
                 __max_trds__ = to_int(arg)
+                if __max_trds__ <= 0:
+                    raise Exception("threads number can't be less than 1")
 
     except Exception as ex:
 
