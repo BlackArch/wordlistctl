@@ -16,11 +16,11 @@
         "torrent": ""
     },
     "crackstation": {
-        "http": "http://www.mediafire.com/file/9188qc8rj73sbbe/crackstation.txt.gz",
+        "http": "https://crackstation.net/files/crackstation.txt.gz",
         "torrent": "https://crackstation.net/downloads/crackstation.txt.gz.torrent"
     },
     "crackstation-human-only": {
-        "http": "http://www.mediafire.com/file/axcgrnbpfnka7vb/crackstation-human-only.txt.gz",
+        "http": "https://crackstation.net/files/crackstation-human-only.txt.gz",
         "torrent": "https://crackstation.net/downloads/crackstation-human-only.txt.gz.torrent"
     },
     "SecLists": {
