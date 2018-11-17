@@ -123,7 +123,7 @@ def decompress(infilename, outfilename):
 
 
 def clean(filename):
-    if __remove__:
+    if __remove__ and not filename.endswith('.torrent'):
         remove(filename)
 
 
