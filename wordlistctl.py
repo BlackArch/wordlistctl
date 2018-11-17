@@ -187,8 +187,12 @@ def fetch_file(url, path):
         if str(url).startswith('http://www.mediafire.com/file/'):
             str_url = resolve_mediafire(url)
         chunk_size = 1024
+        total_size = 0
         rq = requests.get(str_url, stream=True)
-        total_size = int(rq.headers['content-length'])
+        try:
+            total_size = int(rq.headers['content-length'])
+        except:
+            pass
         fp = open(path, 'wb')
         for data in tqdm(iterable=rq.iter_content(chunk_size=chunk_size), total=total_size / chunk_size, unit='KB'):
             fp.write(data)
