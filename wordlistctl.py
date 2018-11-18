@@ -186,11 +186,9 @@ def fetch_file(url, path):
     try:
         if str(url).startswith('http://www.mediafire.com/file/'):
             str_url = resolve_mediafire(url)
-        chunk_size = 1024
         rq = requests.get(str_url, stream=True)
         fp = open(path, 'wb')
-        for data in rq.iter_content(chunk_size=chunk_size):
-            fp.write(data)
+        copyfileobj(rq.raw, fp)
         fp.close()
         print("[+] downloading {0} completed".format(infile))
         decompress(infile, __wordlist_path__)
