@@ -228,13 +228,14 @@ def fetch_torrent(url, path):
                 handle = __session__.add_torrent({'ti': libtorrent.torrent_info(path), 'save_path': __wordlist_path__})
                 remove(path)
             else:
-                printerr("[-] {0} not found".format(path))
+                printerr("{0} not found".format(path))
                 exit(-1)
 
         print("[*] downloading {0}\n".format(handle.name()))
 
         while not handle.is_seed():
             time.sleep(0.1)
+        __session__.remove_torrent(handle)
         print('[+] downloading {0} completed'.format(handle.name()))
 
         decompress(handle.name(), __wordlist_path__)
@@ -323,7 +324,7 @@ def search_dir(regex):
     os.chdir(__wordlist_path__)
     files = glob.glob("{0}".format(str(regex)))
     if files.__len__() <= 0:
-        print("[-] wordlist not found")
+        printerr("wordlist not found")
         return
     for file in files:
         print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
@@ -344,7 +345,7 @@ def search_sites(regex):
                 count += 1
 
         if count == 0:
-            print('[-] no wordlist found')
+            printerr('no wordlist found')
     except KeyboardInterrupt:
         pass
     except Exception as ex:
