@@ -43,6 +43,10 @@
         "http": "http://home.btconnect.com/md5decrypter/hashkiller-dict.rar",
         "torrent": ""
     },
+    "DirBuster-Lists": {
+        "http": "http://downloads.sourceforge.net/dirbuster/DirBuster-Lists.tar.bz2",
+        "torrent": ""
+    },
     "milw0rm-dictionary": {
         "http": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Cracked-Hashes/milw0rm-dictionary.txt",
         "torrent": ""

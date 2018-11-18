@@ -181,7 +181,7 @@ def run_threaded(func):
 @run_threaded
 def fetch_file(url, path):
     infile = path.split('/')[-1]
-    print("[*] downloading {0}".format(infile))
+    print("[*] downloading {0}\n".format(infile))
     str_url = url
     try:
         if str(url).startswith('http://www.mediafire.com/file/'):
