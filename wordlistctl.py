@@ -187,14 +187,9 @@ def fetch_file(url, path):
         if str(url).startswith('http://www.mediafire.com/file/'):
             str_url = resolve_mediafire(url)
         chunk_size = 1024
-        total_size = 0
         rq = requests.get(str_url, stream=True)
-        try:
-            total_size = int(rq.headers['content-length'])
-        except:
-            pass
         fp = open(path, 'wb')
-        for data in tqdm(iterable=rq.iter_content(chunk_size=chunk_size), total=total_size / chunk_size, unit='KB'):
+        for data in rq.iter_content(chunk_size=chunk_size):
             fp.write(data)
         fp.close()
         print("[+] downloading {0} completed".format(infile))
@@ -241,13 +236,8 @@ def fetch_torrent(url, path):
         print("[*] downloading {0}\n".format(handle.name()))
 
         while not handle.is_seed():
-            s = handle.status()
-            print('%s %.2f%% complete (down: %.1f kB/s) %s\r'
-                  % (handle.name(), s.progress * 100, s.download_rate / 1000, s.state), end=' ')
-            sys.stdout.flush()
             time.sleep(0.1)
-
-        print('\n[+] downloading {0} completed'.format(handle.name()))
+        print('[+] downloading {0} completed'.format(handle.name()))
 
         decompress(handle.name(), __wordlist_path__)
         clean(handle.name())
@@ -583,7 +573,6 @@ if __name__ == '__main__':
         import glob
         import re
         import threading
-        from tqdm import tqdm
         import libtorrent
         import libarchive
         import time
