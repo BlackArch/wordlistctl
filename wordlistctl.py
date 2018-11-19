@@ -30,7 +30,7 @@ def printerr(string, ex=''):
 
 def usage():
     __usage__ = "usage:\n"
-    __usage__ += "  {0} -f <arg>  [options] | -s <arg> | -S <arg> | <misc>\n\n"
+    __usage__ += "  {0} -f <arg> [options] | -s <arg> | -S <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
