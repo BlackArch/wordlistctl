@@ -34,12 +34,16 @@ def usage():
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist\n"
     __usage__ += "             - ? to list wordlists\n"
-    __usage__ += "             - h to show options\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
     __usage__ += "  -c <num>   - change wordlists category\n"
     __usage__ += "             - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
-    __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n\n"
+    __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
+    __usage__ += "  -H         - prefer http\n"
+    __usage__ += "  -X         - decompress wordlist\n"
+    __usage__ += "  -r         - remove compressed file after decompression\n"
+    __usage__ += "  -t <num>   - max download threads (default: {0})\n".format(__max_trds__)
+    __usage__ += "\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -v         - print version of wordlistctl and exit\n"
@@ -58,12 +62,12 @@ def banner():
     print(__str_banner__)
 
 
-def decompress_gbl(infilename, outfilename):
-    __filename__ = os.path.basename(infilename)
+def decompress_gbl(infilename):
+    filename = os.path.basename(infilename)
     try:
 
         infile = None
-        __outfile__ = os.path.splitext(os.path.basename(infilename))[0]
+        __outfile__ = os.path.splitext(infilename)[0]
         if re.fullmatch(r"^.*\.(gz)$", infilename.lower()):
             infile = gzip.GzipFile(infilename, 'rb')
         elif re.fullmatch(r"^.*\.(bz|bz2)$", infilename.lower()):
@@ -72,53 +76,52 @@ def decompress_gbl(infilename, outfilename):
             infile = lzma.LZMAFile(infilename, 'rb')
         else:
             raise ValueError('unknown file type')
-        print("[*] decompressing {0}".format(__filename__))
-        outfile = open("{0}/{1}".format(outfilename, __outfile__), 'wb')
+        print("[*] decompressing {0}".format(filename))
+        outfile = open(__outfile__, 'wb')
         copyfileobj(infile, outfile)
         outfile.close()
-        print("[+] decompressing {0} completed".format(__filename__))
+        print("[+] decompressing {0} completed".format(filename))
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(__filename__), str(ex))
+        printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
-def decompress_archive(infilename, outfilename):
-    __filename__ = os.path.basename(infilename)
+def decompress_archive(infilename):
+    filename = os.path.basename(infilename)
     try:
 
-        os.chdir(outfilename)
-        print("[*] decompressing {0}".format(__filename__))
-        if re.fullmatch(r"^.*\.(rar)$", __filename__.lower()):
+        os.chdir(os.path.dirname(infilename))
+        print("[*] decompressing {0}".format(filename))
+        if re.fullmatch(r"^.*\.(rar)$", filename.lower()):
             infile = rarfile.RarFile(infilename)
             infile.extractall()
         else:
             libarchive.extract_file(infilename)
-        print("[+] decompressing {0} completed".format(__filename__))
+        print("[+] decompressing {0} completed".format(filename))
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(__filename__), str(ex))
+        printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
-def decompress(infilename, outfilename):
-    __infile__ = os.path.abspath(infilename)
-    __filename__ = os.path.basename(__infile__)
+def decompress(infilename):
+    filename = os.path.basename(infilename)
 
     if (not __decompress__) or (infilename.endswith('.torrent')):
         return
 
     try:
 
-        if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz)$", __filename__.lower()):
-            return decompress_archive(infilename, outfilename)
-        elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", __filename__.lower()):
-            return decompress_gbl(infilename, outfilename)
+        if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz|tar.bz2)$", filename.lower()):
+            return decompress_archive(infilename)
+        elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", filename.lower()):
+            return decompress_gbl(infilename)
         else:
             raise ValueError('unknown file type')
     except Exception as ex:
 
-        printerr('Error while decompressing {0}'.format(__filename__), str(ex))
+        printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
@@ -180,8 +183,8 @@ def run_threaded(func):
 
 @run_threaded
 def fetch_file(url, path):
-    infile = path.split('/')[-1]
-    print("[*] downloading {0}\n".format(infile))
+    filename = path.split('/')[-1]
+    print("[*] downloading {0}\n".format(filename))
     str_url = url
     try:
         if str(url).startswith('http://www.mediafire.com/file/'):
@@ -190,9 +193,9 @@ def fetch_file(url, path):
         fp = open(path, 'wb')
         copyfileobj(rq.raw, fp)
         fp.close()
-        print("[+] downloading {0} completed".format(infile))
-        decompress(infile, __wordlist_path__)
-        clean(infile)
+        print("[+] downloading {0} completed".format(filename))
+        decompress(path)
+        clean(path)
     except KeyboardInterrupt:
 
         return
@@ -237,9 +240,9 @@ def fetch_torrent(url, path):
             time.sleep(0.1)
         __session__.remove_torrent(handle)
         print('[+] downloading {0} completed'.format(handle.name()))
-
-        decompress(handle.name(), __wordlist_path__)
-        clean(handle.name())
+        __outfilename__ = "{0}/{1}".format(__wordlist_path__, handle.name())
+        decompress(__outfilename__)
+        clean(__outfilename__)
     except KeyboardInterrupt:
 
         return
@@ -405,15 +408,6 @@ def print_categories():
         index += 1
 
 
-def file_usage():
-    __usage__ = "options:\n\n"
-    __usage__ += "  -H         - prefer http\n"
-    __usage__ += "  -X         - decompress wordlist\n"
-    __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += "  -t <num>   - max download threads (default: {0})\n".format(__max_trds__)
-    print(__usage__)
-
-
 def update_config():
     global __urls__
     global __categories__
@@ -493,8 +487,6 @@ def arg_parse(argv):
             elif opt == '-f':
                 if arg == '?':
                     __operation__ = print_wordlists
-                elif arg == 'h':
-                    __operation__ = file_usage
                 else:
                     __operation__ = download_wordlists
                     __arg__ = arg
