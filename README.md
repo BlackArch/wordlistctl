@@ -23,12 +23,15 @@ options:
 
   -f <num>   - download chosen wordlist
              - ? to list wordlists
-             - h to show options
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
   -c <num>   - change wordlists category
              - ? to list wordlists categories
   -s <regex> - wordlist to search using <regex> in base directory
   -S <regex> - wordlist to search using <regex> in sites
+  -H         - prefer http
+  -X         - decompress wordlist
+  -r         - remove compressed file after decompression
+  -t <num>   - max download threads (default: 10)
 
 misc:
 
