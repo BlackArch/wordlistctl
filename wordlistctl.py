@@ -118,7 +118,7 @@ def decompress(infilename):
         elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", filename.lower()):
             return decompress_gbl(infilename)
         else:
-            raise ValueError('unknown file type')
+            return -1
     except Exception as ex:
 
         printerr('Error while decompressing {0}'.format(filename), str(ex))
@@ -126,7 +126,7 @@ def decompress(infilename):
 
 
 def clean(filename):
-    if __remove__ and not filename.endswith('.torrent'):
+    if __remove__ and not re.fullmatch(r"^.*\.(txt|lst|torrent)$", filename.lower()):
         remove(filename)
 
 
@@ -189,13 +189,15 @@ def fetch_file(url, path):
     try:
         if str(url).startswith('http://www.mediafire.com/file/'):
             str_url = resolve_mediafire(url)
+        chunk_size = 1024
         rq = requests.get(str_url, stream=True)
         fp = open(path, 'wb')
-        copyfileobj(rq.raw, fp)
+        for data in rq.iter_content(chunk_size=chunk_size):
+            fp.write(data)
         fp.close()
         print("[+] downloading {0} completed".format(filename))
-        decompress(path)
-        clean(path)
+        if decompress(path) != -1:
+            clean(path)
     except KeyboardInterrupt:
 
         return
@@ -241,8 +243,9 @@ def fetch_torrent(url, path):
         __session__.remove_torrent(handle)
         print('[+] downloading {0} completed'.format(handle.name()))
         __outfilename__ = "{0}/{1}".format(__wordlist_path__, handle.name())
-        decompress(__outfilename__)
-        clean(__outfilename__)
+        if decompress(__outfilename__) != -1:
+            clean(__outfilename__)
+
     except KeyboardInterrupt:
 
         return
@@ -420,6 +423,8 @@ def update_config():
             if os.path.isfile(i):
                 remove(i)
             fetch_file('{0}/{1}'.format(__base_url__, os.path.basename(i)), i)
+        for i in __trds__:
+            i.join()
         load_config()
         print('[+] updating config files completed')
     except Exception as ex:
