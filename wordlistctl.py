@@ -3,7 +3,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.3'
+__version__ = '0.4'
 __project__ = 'wordlistctl.py'
 
 __wordlist_path__ = '/usr/share/wordlists'
