@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.4'
+__version__ = '0.5'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -487,14 +487,14 @@ def arg_parse(argv):
 
         if opts.__len__() <= 0:
             __operation__ = usage
-            return __operation__, __arg__
+            return __operation__, None
 
         for opt, arg in opts:
-            if opFlag and re.fullmatch(r"^-([hvfsSU])", opt):
+            if opFlag and re.fullmatch(r"^-([vfsSU])", opt):
                 raise OverflowError("multiple operations selected")
             if opt == '-h':
                 __operation__ = usage
-                opFlag += 1
+                return __operation__, None
             elif opt == '-v':
                 __operation__ = version
                 opFlag += 1
