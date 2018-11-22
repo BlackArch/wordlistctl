@@ -14,10 +14,10 @@ In the latest version of the Blackarch Linux it has been added to
 
 ```
 [ sepehrdad@blackarch-dev ~/blackarch/repos/wordlistctl ]$ ./wordlistctl -h
---==[ wordlistctl.py by blackarch.org ]==--
+--==[ wordlistctl by blackarch.org ]==--
 
 usage:
-  wordlistctl.py -f <arg> [options] | -s <arg> | -S <arg> | <misc>
+  wordlistctl -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>
 
 options:
 
