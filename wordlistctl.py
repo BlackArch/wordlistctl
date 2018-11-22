@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-################################################################################
+# -*- coding: latin-1 -*- ######################################################
 #                                                                              #
 # wordlistctl - Fetch, install and search wordlist archives from websites and  #
 # torrent peers.                                                               #
