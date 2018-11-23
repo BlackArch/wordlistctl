@@ -13,22 +13,21 @@ In the latest version of the Blackarch Linux it has been added to
 ## Usage
 
 ```
-[ sepehrdad@blackarch-dev ~/blackarch/repos/wordlistctl ]$ ./wordlistctl -h
+[ sepehrdad@blackarch-dev ~/blackarch/repos/wordlistctl ]$ wordlistctl -H
 --==[ wordlistctl by blackarch.org ]==--
 
 usage:
+
   wordlistctl -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>
 
 options:
 
-  -f <num>   - download chosen wordlist
-             - ? to list wordlists
+  -f <num>   - download chosen wordlist - ? to list wordlists
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
-  -c <num>   - change wordlists category
-             - ? to list wordlists categories
+  -c <num>   - change wordlists category - ? to list wordlists categories
   -s <regex> - wordlist to search using <regex> in base directory
   -S <regex> - wordlist to search using <regex> in sites
-  -H         - prefer http
+  -h         - prefer http
   -X         - decompress wordlist
   -r         - remove compressed file after decompression
   -t <num>   - max download threads (default: 10)
@@ -36,8 +35,8 @@ options:
 misc:
 
   -U         - update config files
-  -v         - print version of wordlistctl and exit
-  -h         - print this help and exit
+  -V         - print version of wordlistctl and exit
+  -H         - print this help and exit
 
 
 ```

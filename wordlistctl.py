@@ -47,8 +47,7 @@ def usage():
     __usage__ += "options:\n\n"
     __usage__ += "  -f <num>   - download chosen wordlist - ? to list wordlists\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
-    __usage__ += "  -c <num>   - change wordlists category\n"
-    __usage__ += "             - ? to list wordlists categories\n"
+    __usage__ += "  -c <num>   - change wordlists category - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
     __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
     __usage__ += "  -h         - prefer http\n"
@@ -77,7 +76,6 @@ def banner():
 def decompress_gbl(infilename):
     filename = os.path.basename(infilename)
     try:
-
         infile = None
         __outfile__ = os.path.splitext(infilename)[0]
         if re.fullmatch(r"^.*\.(gz)$", infilename.lower()):
@@ -94,7 +92,6 @@ def decompress_gbl(infilename):
         outfile.close()
         print("[+] decompressing {0} completed".format(filename))
     except Exception as ex:
-
         printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
@@ -102,7 +99,6 @@ def decompress_gbl(infilename):
 def decompress_archive(infilename):
     filename = os.path.basename(infilename)
     try:
-
         os.chdir(os.path.dirname(infilename))
         print("[*] decompressing {0}".format(filename))
         if re.fullmatch(r"^.*\.(rar)$", filename.lower()):
@@ -112,7 +108,6 @@ def decompress_archive(infilename):
             libarchive.extract_file(infilename)
         print("[+] decompressing {0} completed".format(filename))
     except Exception as ex:
-
         printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
@@ -122,9 +117,7 @@ def decompress(infilename):
 
     if (not __decompress__) or (infilename.endswith('.torrent')):
         return
-
     try:
-
         if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz|tar.bz2)$", filename.lower()):
             return decompress_archive(infilename)
         elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", filename.lower()):
@@ -132,7 +125,6 @@ def decompress(infilename):
         else:
             return -1
     except Exception as ex:
-
         printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
@@ -185,7 +177,6 @@ def run_threaded(func):
             t = threading.Thread(target=func, args=(url, path))
             t.start()
             __trds__.append(t)
-
         except KeyboardInterrupt:
             exit(0)
         except:
@@ -211,10 +202,8 @@ def fetch_file(url, path):
         if decompress(path) != -1:
             clean(path)
     except KeyboardInterrupt:
-
         return
     except Exception as ex:
-
         printerr("Error while downloading {0}".format(url), str(ex))
         remove(path)
 
@@ -226,9 +215,7 @@ def fetch_torrent(url, path):
     if str(url).startswith('magnet:?'):
         magnet = True
     handle = None
-
     try:
-
         if magnet:
             handle = libtorrent.add_magnet_uri(__session__, url,
                                                {'save_path': path, 'storage_mode': libtorrent.storage_mode_t(2),
@@ -257,12 +244,9 @@ def fetch_torrent(url, path):
         __outfilename__ = "{0}/{1}".format(__wordlist_path__, handle.name())
         if decompress(__outfilename__) != -1:
             clean(__outfilename__)
-
     except KeyboardInterrupt:
-
         return
     except Exception as ex:
-
         printerr("Error while downloading {0}".format(url), str(ex))
         remove(path)
 
@@ -283,9 +267,7 @@ def download_wordlist(config):
 
         else:
             raise ValueError("unable to find wordlist's url")
-
     except Exception as ex:
-
         printerr('unable to download wordlist', str(ex))
         return -1
 
@@ -296,9 +278,7 @@ def download_wordlists(code):
     check_dir(__wordlist_path__)
 
     __wordlist_id__ = to_int(code)
-
     try:
-
         if (__wordlist_id__ >= __urls__.__len__() + 1) or __wordlist_id__ < 0:
             raise IndexError('{0} is not a valid wordlist id'.format(code))
         elif __wordlist_id__ == 0:
@@ -314,12 +294,9 @@ def download_wordlists(code):
         else:
             i = list(__urls__.keys())[__wordlist_id__ - 1]
             download_wordlist(__urls__[i])
-
     except Exception as ex:
-
         printerr("Error unable to download wordlist", str(ex))
         return -1
-
     return 0
 
 
@@ -367,32 +344,26 @@ def search_sites(regex):
     except KeyboardInterrupt:
         pass
     except Exception as ex:
-
         printerr('Error while searching', str(ex))
         return -1
 
 
 def check_dir(dir_name):
     try:
-
         if os.path.isdir(dir_name):
             pass
         else:
             print("[*] creating directory {0}\n".format(dir_name))
             os.mkdir(dir_name)
-
     except Exception as ex:
-
         printerr("unable to change base directory", str(ex))
         exit(-1)
 
 
 def load_json(infilename):
     try:
-
         return json.load(open(infilename, 'r'))
     except Exception as ex:
-
         printerr('unable to load {0}'.format(infilename), str(ex))
         return {}
 
@@ -429,7 +400,6 @@ def update_config():
     __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
     files = [__urls_file_name__, __categories_file_name__]
     try:
-
         print('[*] updating config files\n')
         for i in files:
             if os.path.isfile(i):
@@ -440,7 +410,6 @@ def update_config():
         load_config()
         print('[+] updating config files completed')
     except Exception as ex:
-
         printerr('Error while updating', str(ex))
         exit(-1)
 
@@ -451,14 +420,12 @@ def load_config():
     files = [__urls_file_name__, __categories_file_name__]
     if __urls__.__len__() <= 0 or __categories__.__len__() <= 0:
         try:
-
             for i in files:
                 if not os.path.isfile(i):
                     raise FileNotFoundError('Config files not found please update')
             __urls__ = load_json(__urls_file_name__)
             __categories__ = load_json(__categories_file_name__)
         except Exception as ex:
-
             printerr('Error while loading config files', str(ex))
             exit(-1)
 
@@ -490,7 +457,7 @@ def arg_parse(argv):
 
         for opt, arg in opts:
             if opFlag and re.fullmatch(r"^-([VfsSU])", opt):
-                raise OverflowError("multiple operations selected")
+                raise getopt.GetoptError("multiple operations selected")
             if opt == '-H':
                 __operation__ = usage
                 return __operation__, None
@@ -526,7 +493,7 @@ def arg_parse(argv):
             elif opt == '-c':
                 if arg == '?':
                     if opFlag:
-                        raise OverflowError("multiple operations selected")
+                        raise getopt.GetoptError("multiple operations selected")
                     __operation__ = print_categories
                     opFlag += 1
                 else:
@@ -537,9 +504,11 @@ def arg_parse(argv):
                 __max_trds__ = to_int(arg)
                 if __max_trds__ <= 0:
                     raise Exception("threads number can't be less than 1")
-
+    except getopt.GetoptError as ex:
+        printerr("Error while parsing arguments", str(ex))
+        print("[*] -H for help and usage", file=sys.stderr)
+        exit(-1)
     except Exception as ex:
-
         printerr("Error while parsing arguments", str(ex))
         exit(-1)
     return __operation__, __arg__
@@ -564,8 +533,12 @@ def main(argv):
             else:
                 __operation__()
         else:
-            raise ValueError("no operation selected")
+            raise getopt.GetoptError("no operation selected")
         return 0
+    except getopt.GetoptError as ex:
+        printerr("Error while running operation", str(ex))
+        print("[*] -H for help and usage", file=sys.stderr)
+        return -1
     except Exception as ex:
         printerr("Error while running operation", str(ex))
         return -1
@@ -573,7 +546,6 @@ def main(argv):
 
 if __name__ == '__main__':
     try:
-
         import sys
         import os
         import getopt
@@ -591,9 +563,7 @@ if __name__ == '__main__':
         from shutil import copyfileobj
         import json
         from bs4 import BeautifulSoup
-
     except Exception as ex:
-
         printerr("Error while loading dependencies", str(ex))
         exit(-1)
 
