@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.5.1'
+__version__ = '0.5.2'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -45,22 +45,21 @@ def usage():
     __usage__ = "usage:\n\n"
     __usage__ += "  {0} -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
-    __usage__ += "  -f <num>   - download chosen wordlist\n"
-    __usage__ += "             - ? to list wordlists\n"
+    __usage__ += "  -f <num>   - download chosen wordlist - ? to list wordlists\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
     __usage__ += "  -c <num>   - change wordlists category\n"
     __usage__ += "             - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
     __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
-    __usage__ += "  -H         - prefer http\n"
+    __usage__ += "  -h         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
     __usage__ += "  -t <num>   - max download threads (default: {0})\n".format(__max_trds__)
     __usage__ += "\n"
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
-    __usage__ += "  -v         - print version of wordlistctl and exit\n"
-    __usage__ += "  -h         - print this help and exit\n"
+    __usage__ += "  -V         - print version of wordlistctl and exit\n"
+    __usage__ += "  -H         - print this help and exit\n"
 
     print(__usage__.format(__project__, __wordlist_path__))
 
@@ -483,19 +482,19 @@ def arg_parse(argv):
     opFlag = 0
 
     try:
-        opts, args = getopt.getopt(argv[1:], "hHvXUrd:c:f:s:S:t:")
+        opts, args = getopt.getopt(argv[1:], "HVUXhrd:c:f:s:S:t:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
             return __operation__, None
 
         for opt, arg in opts:
-            if opFlag and re.fullmatch(r"^-([vfsSU])", opt):
+            if opFlag and re.fullmatch(r"^-([VfsSU])", opt):
                 raise OverflowError("multiple operations selected")
-            if opt == '-h':
+            if opt == '-H':
                 __operation__ = usage
                 return __operation__, None
-            elif opt == '-v':
+            elif opt == '-V':
                 __operation__ = version
                 opFlag += 1
             elif opt == '-d':
@@ -532,7 +531,7 @@ def arg_parse(argv):
                     opFlag += 1
                 else:
                     change_category(arg)
-            elif opt == '-H':
+            elif opt == '-h':
                 __prefer_http__ = True
             elif opt == '-t':
                 __max_trds__ = to_int(arg)
