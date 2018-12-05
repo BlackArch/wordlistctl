@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.5.3'
+__version__ = '0.5.4'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -53,12 +53,25 @@ def usage():
     __usage__ += "  -h         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += "  -t <num>   - max download threads (default: {0})\n".format(__max_trds__)
-    __usage__ += "\n"
+    __usage__ += "  -t <num>   - max download threads (default: {0})\n\n".format(__max_trds__)
     __usage__ += "misc:\n\n"
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
-    __usage__ += "  -H         - print this help and exit\n"
+    __usage__ += "  -H         - print this help and exit\n\n"
+    __usage__ += "example:\n\n"
+    __usage__ += "  # download and decompress all wordlists and remove archive\n"
+    __usage__ += "  $ wordlistctl -f 0 -Xr\n\n"
+    __usage__ += "  # download all wordlists in username category\n"
+    __usage__ += "  $ wordlistctl -f 0 -c 0\n\n"
+    __usage__ += "  # list all wordlists in password category\n"
+    __usage__ += "  $ wordlistctl -f ? -c 1\n\n"
+    __usage__ += "  # download and decompress all wordlists in misc category\n"
+    __usage__ += "  $ wordlistctl -f 0 -c 4 -X\n\n"
+    __usage__ += "  # download all wordlists in filename category using 20 threads\n"
+    __usage__ += "  $ wordlistctl -c 3 -f 0 -t 20\n\n"
+    __usage__ += "  # download wordlist with id 2 to \"~/wordlists\" directory using http\n"
+    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h \n\n"
+
 
     print(__usage__.format(__project__, __wordlist_path__))
 
@@ -492,10 +505,8 @@ def arg_parse(argv):
                 opFlag += 1
             elif opt == '-c':
                 if arg == '?':
-                    if opFlag:
-                        raise getopt.GetoptError("multiple operations selected")
                     __operation__ = print_categories
-                    opFlag += 1
+                    return __operation__, None
                 else:
                     change_category(arg)
             elif opt == '-h':
