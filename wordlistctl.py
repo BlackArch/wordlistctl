@@ -70,7 +70,7 @@ def usage():
     __usage__ += "  # download all wordlists in filename category using 20 threads\n"
     __usage__ += "  $ wordlistctl -c 3 -f 0 -t 20\n\n"
     __usage__ += "  # download wordlist with id 2 to \"~/wordlists\" directory using http\n"
-    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h \n\n"
+    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h \n"
 
 
     print(__usage__.format(__project__, __wordlist_path__))
