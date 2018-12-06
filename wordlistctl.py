@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.0'
+__version__ = '0.6.1'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -34,20 +34,20 @@ __max_trds__ = 10
 __session__ = None
 
 
-def printerr(string, ex=''):
+def err(string, ex=''):
     if ex == '':
         print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}\n".format(string), file=sys.stderr)
     else:
         print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}: {1}\n".format(string, ex), file=sys.stderr)
 
 
-def printwarn(string):
+def warn(string):
     print(colorama.Fore.LIGHTYELLOW_EX + "[!]" + colorama.Fore.RESET + " {0}\n".format(string))
 
-def printinfo(string):
+def info(string):
     print(colorama.Fore.LIGHTBLUE_EX + "[*]" + colorama.Fore.RESET + " {0}\n".format(string))
 
-def printsucc(string):
+def success(string):
     print(colorama.Fore.LIGHTGREEN_EX + "[+]" + colorama.Fore.RESET + " {0}\n".format(string))
 
 
@@ -102,7 +102,7 @@ def decompress_gbl(infilename):
         infile = None
         __outfile__ = os.path.splitext(infilename)[0]
         if os.path.isfile(__outfile__):
-            printwarn("{0} already exists --skipping".format(os.path.basename(__outfile__)))
+            warn("{0} already exists -- skipping".format(os.path.basename(__outfile__)))
         else:
             if re.fullmatch(r"^.*\.(gz)$", infilename.lower()):
                 infile = gzip.GzipFile(infilename, 'rb')
@@ -112,13 +112,13 @@ def decompress_gbl(infilename):
                 infile = lzma.LZMAFile(infilename, 'rb')
             else:
                 raise ValueError('unknown file type')
-            printinfo("decompressing {0}".format(filename))
+            info("decompressing {0}".format(filename))
             outfile = open(__outfile__, 'wb')
             copyfileobj(infile, outfile)
             outfile.close()
-            printsucc("decompressing {0} completed".format(filename))
+            success("decompressing {0} completed".format(filename))
     except Exception as ex:
-        printerr('Error while decompressing {0}'.format(filename), str(ex))
+        err('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
@@ -126,15 +126,15 @@ def decompress_archive(infilename):
     filename = os.path.basename(infilename)
     try:
         os.chdir(os.path.dirname(infilename))
-        printinfo("decompressing {0}".format(filename))
+        info("decompressing {0}".format(filename))
         if re.fullmatch(r"^.*\.(rar)$", filename.lower()):
             infile = rarfile.RarFile(infilename)
             infile.extractall()
         else:
             libarchive.extract_file(infilename)
-        printsucc("decompressing {0} completed".format(filename))
+        success("decompressing {0} completed".format(filename))
     except Exception as ex:
-        printerr('Error while decompressing {0}'.format(filename), str(ex))
+        err('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
@@ -151,7 +151,7 @@ def decompress(infilename):
         else:
             return -1
     except Exception as ex:
-        printerr('Error while decompressing {0}'.format(filename), str(ex))
+        err('Error while decompressing {0}'.format(filename), str(ex))
         return -1
 
 
@@ -215,10 +215,10 @@ def fetch_file(url, path):
     filename = os.path.basename(path)
     str_url = url
     try:
-        if os.path.isfile(path) or os.path.isfile(os.path.splitext(path)[0]) or os.path.isfile(path.split('.')[0]):
-            printwarn("{0} already exists --skipping".format(filename))
+        if check_file(path):
+            warn("{0} already exists -- skipping".format(filename))
         else:
-            printinfo("downloading {0}\n".format(filename))
+            info("downloading {0}".format(filename))
             if str(url).startswith('http://www.mediafire.com/file/'):
                 str_url = resolve_mediafire(url)
             chunk_size = 1024
@@ -227,13 +227,13 @@ def fetch_file(url, path):
             for data in rq.iter_content(chunk_size=chunk_size):
                 fp.write(data)
             fp.close()
-            printsucc("downloading {0} completed".format(filename))
+            success("downloading {0} completed".format(filename))
         if decompress(path) != -1:
             clean(path)
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        printerr("Error while downloading {0}".format(url), str(ex))
+        err("Error while downloading {0}".format(url), str(ex))
         remove(path)
 
 
@@ -250,10 +250,10 @@ def fetch_torrent(url, path):
                                                {'save_path': os.path.dirname(path), 'storage_mode': libtorrent.storage_mode_t(2),
                                                 'paused': False, 'auto_managed': True, 'duplicate_is_error': True}
                                                )
-            printinfo('downloading metadata\n')
+            info('downloading metadata\n')
             while not handle.has_metadata():
                 time.sleep(0.1)
-            printsucc('downloaded metadata')
+            success('downloaded metadata')
         else:
             fetch_file(url, path)
 
@@ -261,24 +261,24 @@ def fetch_torrent(url, path):
                 handle = __session__.add_torrent({'ti': libtorrent.torrent_info(path), 'save_path': os.path.dirname(path)})
                 remove(path)
             else:
-                printerr("{0} not found".format(path))
+                err("{0} not found".format(path))
                 exit(-1)
         __outfilename__ = "{0}/{1}".format(os.path.dirname(path), handle.name())
-        if os.path.isfile(__outfilename__) or os.path.isfile(os.path.splitext(__outfilename__)[0]) or os.path.isfile(__outfilename__.split('.')[0]):
-            printwarm("{0} already exists --skipping".format(handle.name()))
+        if check_file(__outfilename__):
+            warn("{0} already exists -- skipping".format(handle.name()))
             __session__.remove_torrent(handle)
         else:
-            printinfo("downloading {0}\n".format(handle.name()))
+            info("downloading {0}".format(handle.name()))
             while not handle.is_seed():
                 time.sleep(0.1)
             __session__.remove_torrent(handle)
-            printsucc('downloading {0} completed'.format(handle.name()))
+            success('downloading {0} completed'.format(handle.name()))
         if decompress(__outfilename__) != -1:
             clean(__outfilename__)
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        printerr("Error while downloading {0}".format(url), str(ex))
+        err("Error while downloading {0}".format(url), str(ex))
         remove(path)
 
 
@@ -314,7 +314,7 @@ def download_wordlist(config, wordlistname):
 
 
     except Exception as ex:
-        printerr('unable to download wordlist', str(ex))
+        err('unable to download wordlist', str(ex))
         return -1
 
 def download_wordlists(code):
@@ -340,7 +340,7 @@ def download_wordlists(code):
             i = list(__urls__.keys())[__wordlist_id__ - 1]
             download_wordlist(__urls__[i], list(__urls__.keys())[__wordlist_id__ - 1])
     except Exception as ex:
-        printerr("Error unable to download wordlist", str(ex))
+        err("Error unable to download wordlist", str(ex))
         return -1
     return 0
 
@@ -360,14 +360,14 @@ def print_wordlists():
 
 
 def search_dir(regex):
-    printinfo('searching for {0} in {1}\n'.format(regex, __wordlist_path__))
+    info('searching for {0} in {1}\n'.format(regex, __wordlist_path__))
     os.chdir(__wordlist_path__)
     files = glob.glob("{0}".format(str(regex)))
     if files.__len__() <= 0:
-        printerr("wordlist not found")
+        err("wordlist not found")
         return
     for file in files:
-        printsucc("wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
+        success("wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
 
 
 def search_sites(regex):
@@ -377,19 +377,19 @@ def search_sites(regex):
     else:
         urls = list(__urls__.keys())
     try:
-        printinfo('searching for {0} in urls.json\n'.format(regex))
+        info('searching for {0} in urls.json\n'.format(regex))
         count = 0
         for i in urls:
             if re.match(regex, i):
-                printsucc('wordlist {0} found: id={1}'.format(i, urls.index(i) + 1))
+                success('wordlist {0} found: id={1}'.format(i, urls.index(i) + 1))
                 count += 1
 
         if count == 0:
-            printerr('no wordlist found')
+            err('no wordlist found')
     except KeyboardInterrupt:
         pass
     except Exception as ex:
-        printerr('Error while searching', str(ex))
+        err('Error while searching', str(ex))
         return -1
 
 
@@ -398,18 +398,22 @@ def check_dir(dir_name):
         if os.path.isdir(dir_name):
             pass
         else:
-            printinfo("creating directory {0}\n".format(dir_name))
+            info("creating directory {0}".format(dir_name))
             os.mkdir(dir_name)
     except Exception as ex:
-        printerr("unable to change base directory", str(ex))
+        err("unable to change base directory", str(ex))
         exit(-1)
+
+
+def check_file(path):
+    return glob.glob("{0}*".format(str(path).split('.')[0])).__len__() > 0
 
 
 def load_json(infilename):
     try:
         return json.load(open(infilename, 'r'))
     except Exception as ex:
-        printerr('unable to load {0}'.format(infilename), str(ex))
+        err('unable to load {0}'.format(infilename), str(ex))
         return {}
 
 
@@ -427,7 +431,7 @@ def change_category(code):
             raise IndexError('{0} is not a valid category id'.format(code))
         __category__ = list(__categories__.keys())[__category_id__]
     except Exception as ex:
-        printerr('Error while changing category', str(ex))
+        err('Error while changing category', str(ex))
         exit(-1)
 
 
@@ -445,7 +449,7 @@ def update_config():
     __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
     files = [__urls_file_name__, __categories_file_name__]
     try:
-        printinfo('updating config files\n')
+        info('updating config files\n')
         for i in files:
             if os.path.isfile(i):
                 remove(i)
@@ -453,9 +457,9 @@ def update_config():
         for i in __trds__:
             i.join()
         load_config()
-        printsucc('updating config files completed')
+        success('updating config files completed')
     except Exception as ex:
-        printerr('Error while updating', str(ex))
+        err('Error while updating', str(ex))
         exit(-1)
 
 
@@ -471,7 +475,7 @@ def load_config():
             __urls__ = load_json(__urls_file_name__)
             __categories__ = load_json(__categories_file_name__)
         except Exception as ex:
-            printerr('Error while loading config files', str(ex))
+            err('Error while loading config files', str(ex))
             exit(-1)
 
 
@@ -479,7 +483,7 @@ def to_int(string):
     try:
         return int(string)
     except:
-        printerr('{0} is not a valid number'.format(string))
+        err('{0} is not a valid number'.format(string))
         exit(-1)
 
 
@@ -548,11 +552,11 @@ def arg_parse(argv):
                 if __max_trds__ <= 0:
                     raise Exception("threads number can't be less than 1")
     except getopt.GetoptError as ex:
-        printerr("Error while parsing arguments", str(ex))
-        printwarn("-H for help and usage")
+        err("Error while parsing arguments", str(ex))
+        warn("-H for help and usage")
         exit(-1)
     except Exception as ex:
-        printerr("Error while parsing arguments", str(ex))
+        err("Error while parsing arguments", str(ex))
         exit(-1)
     return __operation__, __arg__
 
@@ -580,11 +584,11 @@ def main(argv):
             raise getopt.GetoptError("no operation selected")
         return 0
     except getopt.GetoptError as ex:
-        printerr("Error while running operation", str(ex))
-        printwarn("-H for help and usage")
+        err("Error while running operation", str(ex))
+        warn("-H for help and usage")
         return -1
     except Exception as ex:
-        printerr("Error while running operation", str(ex))
+        err("Error while running operation", str(ex))
         return -1
 
 
@@ -609,7 +613,7 @@ if __name__ == '__main__':
         from bs4 import BeautifulSoup
         import colorama
     except Exception as ex:
-        printerr("Error while loading dependencies", str(ex))
+        err("Error while loading dependencies", str(ex))
         exit(-1)
 
     sys.exit(main(sys.argv))
