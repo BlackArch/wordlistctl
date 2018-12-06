@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.5.4'
+__version__ = '0.6.0'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -36,9 +36,19 @@ __session__ = None
 
 def printerr(string, ex=''):
     if ex == '':
-        print("[-] {0}".format(string), file=sys.stderr)
+        print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}\n".format(string), file=sys.stderr)
     else:
-        print("[-] {0}: {1}".format(string, ex), file=sys.stderr)
+        print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}: {1}\n".format(string, ex), file=sys.stderr)
+
+
+def printwarn(string):
+    print(colorama.Fore.LIGHTYELLOW_EX + "[!]" + colorama.Fore.RESET + " {0}\n".format(string))
+
+def printinfo(string):
+    print(colorama.Fore.LIGHTBLUE_EX + "[*]" + colorama.Fore.RESET + " {0}\n".format(string))
+
+def printsucc(string):
+    print(colorama.Fore.LIGHTGREEN_EX + "[+]" + colorama.Fore.RESET + " {0}\n".format(string))
 
 
 def usage():
@@ -91,19 +101,22 @@ def decompress_gbl(infilename):
     try:
         infile = None
         __outfile__ = os.path.splitext(infilename)[0]
-        if re.fullmatch(r"^.*\.(gz)$", infilename.lower()):
-            infile = gzip.GzipFile(infilename, 'rb')
-        elif re.fullmatch(r"^.*\.(bz|bz2)$", infilename.lower()):
-            infile = bz2.BZ2File(infilename, 'rb')
-        elif re.fullmatch(r"^.*\.(lzma|xz)$", infilename.lower()):
-            infile = lzma.LZMAFile(infilename, 'rb')
+        if os.path.isfile(__outfile__):
+            printwarn("{0} already exists --skipping".format(os.path.basename(__outfile__)))
         else:
-            raise ValueError('unknown file type')
-        print("[*] decompressing {0}".format(filename))
-        outfile = open(__outfile__, 'wb')
-        copyfileobj(infile, outfile)
-        outfile.close()
-        print("[+] decompressing {0} completed".format(filename))
+            if re.fullmatch(r"^.*\.(gz)$", infilename.lower()):
+                infile = gzip.GzipFile(infilename, 'rb')
+            elif re.fullmatch(r"^.*\.(bz|bz2)$", infilename.lower()):
+                infile = bz2.BZ2File(infilename, 'rb')
+            elif re.fullmatch(r"^.*\.(lzma|xz)$", infilename.lower()):
+                infile = lzma.LZMAFile(infilename, 'rb')
+            else:
+                raise ValueError('unknown file type')
+            printinfo("decompressing {0}".format(filename))
+            outfile = open(__outfile__, 'wb')
+            copyfileobj(infile, outfile)
+            outfile.close()
+            printsucc("decompressing {0} completed".format(filename))
     except Exception as ex:
         printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
@@ -113,13 +126,13 @@ def decompress_archive(infilename):
     filename = os.path.basename(infilename)
     try:
         os.chdir(os.path.dirname(infilename))
-        print("[*] decompressing {0}".format(filename))
+        printinfo("decompressing {0}".format(filename))
         if re.fullmatch(r"^.*\.(rar)$", filename.lower()):
             infile = rarfile.RarFile(infilename)
             infile.extractall()
         else:
             libarchive.extract_file(infilename)
-        print("[+] decompressing {0} completed".format(filename))
+        printsucc("decompressing {0} completed".format(filename))
     except Exception as ex:
         printerr('Error while decompressing {0}'.format(filename), str(ex))
         return -1
@@ -199,19 +212,22 @@ def run_threaded(func):
 
 @run_threaded
 def fetch_file(url, path):
-    filename = path.split('/')[-1]
-    print("[*] downloading {0}\n".format(filename))
+    filename = os.path.basename(path)
     str_url = url
     try:
-        if str(url).startswith('http://www.mediafire.com/file/'):
-            str_url = resolve_mediafire(url)
-        chunk_size = 1024
-        rq = requests.get(str_url, stream=True)
-        fp = open(path, 'wb')
-        for data in rq.iter_content(chunk_size=chunk_size):
-            fp.write(data)
-        fp.close()
-        print("[+] downloading {0} completed".format(filename))
+        if os.path.isfile(path) or os.path.isfile(os.path.splitext(path)[0]) or os.path.isfile(path.split('.')[0]):
+            printwarn("{0} already exists --skipping".format(filename))
+        else:
+            printinfo("downloading {0}\n".format(filename))
+            if str(url).startswith('http://www.mediafire.com/file/'):
+                str_url = resolve_mediafire(url)
+            chunk_size = 1024
+            rq = requests.get(str_url, stream=True)
+            fp = open(path, 'wb')
+            for data in rq.iter_content(chunk_size=chunk_size):
+                fp.write(data)
+            fp.close()
+            printsucc("downloading {0} completed".format(filename))
         if decompress(path) != -1:
             clean(path)
     except KeyboardInterrupt:
@@ -231,30 +247,32 @@ def fetch_torrent(url, path):
     try:
         if magnet:
             handle = libtorrent.add_magnet_uri(__session__, url,
-                                               {'save_path': path, 'storage_mode': libtorrent.storage_mode_t(2),
+                                               {'save_path': os.path.dirname(path), 'storage_mode': libtorrent.storage_mode_t(2),
                                                 'paused': False, 'auto_managed': True, 'duplicate_is_error': True}
                                                )
-            print('[*] downloading metadata\n')
+            printinfo('downloading metadata\n')
             while not handle.has_metadata():
                 time.sleep(0.1)
-            print('[+] downloaded metadata')
+            printsucc('downloaded metadata')
         else:
             fetch_file(url, path)
 
             if os.path.isfile(path):
-                handle = __session__.add_torrent({'ti': libtorrent.torrent_info(path), 'save_path': __wordlist_path__})
+                handle = __session__.add_torrent({'ti': libtorrent.torrent_info(path), 'save_path': os.path.dirname(path)})
                 remove(path)
             else:
                 printerr("{0} not found".format(path))
                 exit(-1)
-
-        print("[*] downloading {0}\n".format(handle.name()))
-
-        while not handle.is_seed():
-            time.sleep(0.1)
-        __session__.remove_torrent(handle)
-        print('[+] downloading {0} completed'.format(handle.name()))
-        __outfilename__ = "{0}/{1}".format(__wordlist_path__, handle.name())
+        __outfilename__ = "{0}/{1}".format(os.path.dirname(path), handle.name())
+        if os.path.isfile(__outfilename__) or os.path.isfile(os.path.splitext(__outfilename__)[0]) or os.path.isfile(__outfilename__.split('.')[0]):
+            printwarm("{0} already exists --skipping".format(handle.name()))
+            __session__.remove_torrent(handle)
+        else:
+            printinfo("downloading {0}\n".format(handle.name()))
+            while not handle.is_seed():
+                time.sleep(0.1)
+            __session__.remove_torrent(handle)
+            printsucc('downloading {0} completed'.format(handle.name()))
         if decompress(__outfilename__) != -1:
             clean(__outfilename__)
     except KeyboardInterrupt:
@@ -264,26 +282,40 @@ def fetch_torrent(url, path):
         remove(path)
 
 
-def download_wordlist(config):
+def download_wordlist(config, wordlistname):
+
+    __filename__ = ''
+    __file_directory__ = ''
+    __file_path__ = ''
+
+    if __category__ != '':
+        check_dir("{0}/{1}".format(__wordlist_path__, __category__))
+        __file_directory__ = "{0}/{1}".format(__wordlist_path__, __category__)
+    else:
+        for i in __categories__:
+            if wordlistname in __categories__[i]:
+                check_dir("{0}/{1}".format(__wordlist_path__, i))
+                __file_directory__ = "{0}/{1}".format(__wordlist_path__, i)
+                break
+
     try:
         if (__prefer_http__ and config['http'] != "") or (config['torrent'] == "" and config['http'] != ""):
-
             __filename__ = config['http'].split('/')[-1]
-            __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
+            __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
             fetch_file(config['http'], __file_path__)
 
         elif config['torrent'] != "":
-
             __filename__ = config['torrent'].split('/')[-1]
-            __file_path__ = "{0}/{1}".format(__wordlist_path__, __filename__)
+            __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
             fetch_torrent(config['torrent'], __file_path__)
 
         else:
             raise ValueError("unable to find wordlist's url")
+
+
     except Exception as ex:
         printerr('unable to download wordlist', str(ex))
         return -1
-
 
 def download_wordlists(code):
     __wordlist_id__ = 0
@@ -297,16 +329,16 @@ def download_wordlists(code):
         elif __wordlist_id__ == 0:
             if __category__ == '':
                 for i in __urls__:
-                    download_wordlist(__urls__[i])
+                    download_wordlist(__urls__[i], i)
             else:
                 for i in __categories__[__category__]:
-                    download_wordlist(__urls__[i])
+                    download_wordlist(__urls__[i], i)
         elif __category__ != '':
             i = __urls__[__categories__[__category__][__wordlist_id__ - 1]]
-            download_wordlist(i)
+            download_wordlist(i, __categories__[__category__][__wordlist_id__ - 1])
         else:
             i = list(__urls__.keys())[__wordlist_id__ - 1]
-            download_wordlist(__urls__[i])
+            download_wordlist(__urls__[i], list(__urls__.keys())[__wordlist_id__ - 1])
     except Exception as ex:
         printerr("Error unable to download wordlist", str(ex))
         return -1
@@ -328,14 +360,14 @@ def print_wordlists():
 
 
 def search_dir(regex):
-    print('[*] searching for {0} in {1}\n'.format(regex, __wordlist_path__))
+    printinfo('searching for {0} in {1}\n'.format(regex, __wordlist_path__))
     os.chdir(__wordlist_path__)
     files = glob.glob("{0}".format(str(regex)))
     if files.__len__() <= 0:
         printerr("wordlist not found")
         return
     for file in files:
-        print("[+] wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
+        printsucc("wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
 
 
 def search_sites(regex):
@@ -345,11 +377,11 @@ def search_sites(regex):
     else:
         urls = list(__urls__.keys())
     try:
-        print('[*] searching for {0} in urls.json\n'.format(regex))
+        printinfo('searching for {0} in urls.json\n'.format(regex))
         count = 0
         for i in urls:
             if re.match(regex, i):
-                print('[+] wordlist {0} found: id={1}'.format(i, urls.index(i) + 1))
+                printsucc('wordlist {0} found: id={1}'.format(i, urls.index(i) + 1))
                 count += 1
 
         if count == 0:
@@ -366,7 +398,7 @@ def check_dir(dir_name):
         if os.path.isdir(dir_name):
             pass
         else:
-            print("[*] creating directory {0}\n".format(dir_name))
+            printinfo("creating directory {0}\n".format(dir_name))
             os.mkdir(dir_name)
     except Exception as ex:
         printerr("unable to change base directory", str(ex))
@@ -413,7 +445,7 @@ def update_config():
     __base_url__ = 'https://raw.githubusercontent.com/BlackArch/wordlistctl/master'
     files = [__urls_file_name__, __categories_file_name__]
     try:
-        print('[*] updating config files\n')
+        printinfo('updating config files\n')
         for i in files:
             if os.path.isfile(i):
                 remove(i)
@@ -421,7 +453,7 @@ def update_config():
         for i in __trds__:
             i.join()
         load_config()
-        print('[+] updating config files completed')
+        printsucc('updating config files completed')
     except Exception as ex:
         printerr('Error while updating', str(ex))
         exit(-1)
@@ -462,7 +494,7 @@ def arg_parse(argv):
     opFlag = 0
 
     try:
-        opts, args = getopt.getopt(argv[1:], "HVUXhrd:c:f:s:S:t:")
+        opts, _ = getopt.getopt(argv[1:], "HVUXhrd:c:f:s:S:t:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -517,7 +549,7 @@ def arg_parse(argv):
                     raise Exception("threads number can't be less than 1")
     except getopt.GetoptError as ex:
         printerr("Error while parsing arguments", str(ex))
-        print("[*] -H for help and usage", file=sys.stderr)
+        printwarn("-H for help and usage")
         exit(-1)
     except Exception as ex:
         printerr("Error while parsing arguments", str(ex))
@@ -529,6 +561,7 @@ def main(argv):
     global __urls_file_name__
     global __categories_file_name__
     banner()
+    colorama.init(autoreset=True)
     __base_name__ = os.path.dirname(os.path.realpath(__file__))
     __urls_file_name__ = '{0}/urls.json'.format(__base_name__)
     __categories_file_name__ = '{0}/categories.json'.format(__base_name__)
@@ -548,7 +581,7 @@ def main(argv):
         return 0
     except getopt.GetoptError as ex:
         printerr("Error while running operation", str(ex))
-        print("[*] -H for help and usage", file=sys.stderr)
+        printwarn("-H for help and usage")
         return -1
     except Exception as ex:
         printerr("Error while running operation", str(ex))
@@ -574,6 +607,7 @@ if __name__ == '__main__':
         from shutil import copyfileobj
         import json
         from bs4 import BeautifulSoup
+        import colorama
     except Exception as ex:
         printerr("Error while loading dependencies", str(ex))
         exit(-1)

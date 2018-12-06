@@ -3,3 +3,4 @@ libarchive-c
 rarfile
 requests
 libtorrent
+colorama
