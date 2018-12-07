@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.2'
+__version__ = '0.6.3'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -36,13 +36,13 @@ __session__ = None
 
 def err(string, ex=''):
     if ex == '':
-        print(colored("[-]", 'red') + " {0}\n".format(string), file=sys.stderr)
+        print(colored("[-] ERROR:", 'red') + " {0}\n".format(string), file=sys.stderr)
     else:
-        print(colored("[-]", 'red') + " {0}: {1}\n".format(string, ex), file=sys.stderr)
+        print(colored("[-] ERROR:", 'red') + " {0}: {1}\n".format(string, ex), file=sys.stderr)
 
 
 def warn(string):
-    print(colored("[!]", 'yellow') + " {0}\n".format(string))
+    print(colored("[!] WARNING:", 'yellow') + " {0}\n".format(string))
 
 def info(string):
     print(colored("[*]", 'blue') + " {0}\n".format(string))
