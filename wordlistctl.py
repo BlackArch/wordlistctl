@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.3'
+__version__ = '0.6.5'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -36,19 +36,19 @@ __session__ = None
 
 def err(string, ex=''):
     if ex == '':
-        print(colored("[-] ERROR:", 'red') + " {0}\n".format(string), file=sys.stderr)
+        print(colored("[-] ERROR:", 'red') + " {0}".format(string), file=sys.stderr)
     else:
-        print(colored("[-] ERROR:", 'red') + " {0}: {1}\n".format(string, ex), file=sys.stderr)
+        print(colored("[-] ERROR:", 'red') + " {0}: {1}".format(string, ex), file=sys.stderr)
 
 
 def warn(string):
-    print(colored("[!] WARNING:", 'yellow') + " {0}\n".format(string))
+    print(colored("[!] WARNING:", 'yellow') + " {0}".format(string))
 
 def info(string):
-    print(colored("[*]", 'blue') + " {0}\n".format(string))
+    print(colored("[*]", 'blue') + " {0}".format(string))
 
 def success(string):
-    print(colored("[+]", 'green') + " {0}\n".format(string))
+    print(colored("[+]", 'green') + " {0}".format(string))
 
 
 def usage():
@@ -351,7 +351,7 @@ def download_wordlists(code):
 def print_wordlists(categories=''):
     if categories == '':
         index = 1
-        success("available wordlists")
+        success("available wordlists:")
         print("    > 0  - all wordlists")
         urls = {}
         if __category__ != '':
@@ -361,6 +361,7 @@ def print_wordlists(categories=''):
         for i in urls:
             print("    > {0}  - {1}".format(index, i))
             index += 1
+        print("")
     else:
         categories_list = [i.strip() for i in categories.split(',')]
         for i in categories_list:
@@ -371,6 +372,7 @@ def print_wordlists(categories=''):
             success("{0}:".format(i))
             for j in __categories__[i]:
                 print("    > {0}".format(j))
+            print("")
 
 def search_dir(regex):
     info('searching for {0} in {1}\n'.format(regex, __wordlist_path__))

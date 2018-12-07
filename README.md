@@ -29,7 +29,8 @@ options:
   -S <regex> - wordlist to search using <regex> in sites
   -h         - prefer http
   -X         - decompress wordlist
-  -F <str>   - list wordlists in categories given  -r         - remove compressed file after decompression
+  -F <str>   - list wordlists in categories given
+  -r         - remove compressed file after decompression
   -t <num>   - max download threads (default: 10)
 
 misc:
