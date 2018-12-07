@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.1'
+__version__ = '0.6.2'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -36,32 +36,33 @@ __session__ = None
 
 def err(string, ex=''):
     if ex == '':
-        print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}\n".format(string), file=sys.stderr)
+        print(colored("[-]", 'red') + " {0}\n".format(string), file=sys.stderr)
     else:
-        print(colorama.Fore.RED + "[-]" + colorama.Fore.RESET + " {0}: {1}\n".format(string, ex), file=sys.stderr)
+        print(colored("[-]", 'red') + " {0}: {1}\n".format(string, ex), file=sys.stderr)
 
 
 def warn(string):
-    print(colorama.Fore.LIGHTYELLOW_EX + "[!]" + colorama.Fore.RESET + " {0}\n".format(string))
+    print(colored("[!]", 'yellow') + " {0}\n".format(string))
 
 def info(string):
-    print(colorama.Fore.LIGHTBLUE_EX + "[*]" + colorama.Fore.RESET + " {0}\n".format(string))
+    print(colored("[*]", 'blue') + " {0}\n".format(string))
 
 def success(string):
-    print(colorama.Fore.LIGHTGREEN_EX + "[+]" + colorama.Fore.RESET + " {0}\n".format(string))
+    print(colored("[+]", 'green') + " {0}\n".format(string))
 
 
 def usage():
     __usage__ = "usage:\n\n"
     __usage__ += "  {0} -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>\n\n"
     __usage__ += "options:\n\n"
-    __usage__ += "  -f <num>   - download chosen wordlist - ? to list wordlists\n"
+    __usage__ += "  -f <num>   - download chosen wordlist - ? to list wordlists with id\n"
     __usage__ += "  -d <dir>   - wordlists base directory (default: {1})\n"
     __usage__ += "  -c <num>   - change wordlists category - ? to list wordlists categories\n"
     __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
     __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
     __usage__ += "  -h         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
+    __usage__ += "  -F <str>   - list wordlists in categories given"
     __usage__ += "  -r         - remove compressed file after decompression\n"
     __usage__ += "  -t <num>   - max download threads (default: {0})\n\n".format(__max_trds__)
     __usage__ += "misc:\n\n"
@@ -73,14 +74,16 @@ def usage():
     __usage__ += "  $ wordlistctl -f 0 -Xr\n\n"
     __usage__ += "  # download all wordlists in username category\n"
     __usage__ += "  $ wordlistctl -f 0 -c 0\n\n"
-    __usage__ += "  # list all wordlists in password category\n"
+    __usage__ += "  # list all wordlists in password category with id\n"
     __usage__ += "  $ wordlistctl -f ? -c 1\n\n"
     __usage__ += "  # download and decompress all wordlists in misc category\n"
     __usage__ += "  $ wordlistctl -f 0 -c 4 -X\n\n"
     __usage__ += "  # download all wordlists in filename category using 20 threads\n"
     __usage__ += "  $ wordlistctl -c 3 -f 0 -t 20\n\n"
     __usage__ += "  # download wordlist with id 2 to \"~/wordlists\" directory using http\n"
-    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h \n"
+    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h\n"
+    __usage__ += "  # print wordlists in username and password categories\n"
+    __usage__ += "  $ wordlistctl -F username,password\n"
 
 
     print(__usage__.format(__project__, __wordlist_path__))
@@ -93,7 +96,7 @@ def version():
 
 def banner():
     __str_banner__ = "--==[ {0} by {1} ]==--\n".format(__project__, __organization__)
-    print(__str_banner__)
+    print(colored(__str_banner__, 'red', attrs=['bold']))
 
 
 def decompress_gbl(infilename):
@@ -345,19 +348,29 @@ def download_wordlists(code):
     return 0
 
 
-def print_wordlists():
-    index = 1
-    print("[+] available wordlists")
-    print("    > 0  - all wordlists")
-    urls = {}
-    if __category__ != '':
-        urls = __categories__[__category__]
+def print_wordlists(categories=''):
+    if categories == '':
+        index = 1
+        success("available wordlists")
+        print("    > 0  - all wordlists")
+        urls = {}
+        if __category__ != '':
+            urls = __categories__[__category__]
+        else:
+            urls = __urls__.keys()
+        for i in urls:
+            print("    > {0}  - {1}".format(index, i))
+            index += 1
     else:
-        urls = __urls__.keys()
-    for i in urls:
-        print("    > {0}  - {1}".format(index, i))
-        index += 1
-
+        categories_list = [i.strip() for i in categories.split(',')]
+        for i in categories_list:
+            if i not in __categories__.keys():
+                err("category {0} is unavailable".format(i))
+                exit(-1)
+        for i in categories_list:
+            success("{0}:".format(i))
+            for j in __categories__[i]:
+                print("    > {0}".format(j))
 
 def search_dir(regex):
     info('searching for {0} in {1}\n'.format(regex, __wordlist_path__))
@@ -498,14 +511,14 @@ def arg_parse(argv):
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "HVUXhrd:c:f:s:S:t:")
+        opts, _ = getopt.getopt(argv[1:], "HVUXhrd:c:f:s:S:t:F:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
             return __operation__, None
 
         for opt, arg in opts:
-            if opFlag and re.fullmatch(r"^-([VfsSU])", opt):
+            if opFlag and re.fullmatch(r"^-([VfsSUF])", opt):
                 raise getopt.GetoptError("multiple operations selected")
             if opt == '-H':
                 __operation__ = usage
@@ -551,6 +564,10 @@ def arg_parse(argv):
                 __max_trds__ = to_int(arg)
                 if __max_trds__ <= 0:
                     raise Exception("threads number can't be less than 1")
+            elif opt == '-F':
+                __operation__ = print_wordlists
+                __arg__ = arg
+                opFlag += 1
     except getopt.GetoptError as ex:
         err("Error while parsing arguments", str(ex))
         warn("-H for help and usage")
@@ -565,7 +582,6 @@ def main(argv):
     global __urls_file_name__
     global __categories_file_name__
     banner()
-    colorama.init(autoreset=True)
     __base_name__ = os.path.dirname(os.path.realpath(__file__))
     __urls_file_name__ = '{0}/urls.json'.format(__base_name__)
     __categories_file_name__ = '{0}/categories.json'.format(__base_name__)
@@ -611,7 +627,7 @@ if __name__ == '__main__':
         from shutil import copyfileobj
         import json
         from bs4 import BeautifulSoup
-        import colorama
+        from termcolor import colored
     except Exception as ex:
         err("Error while loading dependencies", str(ex))
         exit(-1)

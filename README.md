@@ -22,14 +22,14 @@ usage:
 
 options:
 
-  -f <num>   - download chosen wordlist - ? to list wordlists
+  -f <num>   - download chosen wordlist - ? to list wordlists with id
   -d <dir>   - wordlists base directory (default: /usr/share/wordlists)
   -c <num>   - change wordlists category - ? to list wordlists categories
   -s <regex> - wordlist to search using <regex> in base directory
   -S <regex> - wordlist to search using <regex> in sites
   -h         - prefer http
   -X         - decompress wordlist
-  -r         - remove compressed file after decompression
+  -F <str>   - list wordlists in categories given  -r         - remove compressed file after decompression
   -t <num>   - max download threads (default: 10)
 
 misc:
@@ -38,6 +38,27 @@ misc:
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
+example:
+
+  # download and decompress all wordlists and remove archive
+  $ wordlistctl -f 0 -Xr
+
+  # download all wordlists in username category
+  $ wordlistctl -f 0 -c 0
+
+  # list all wordlists in password category with id
+  $ wordlistctl -f ? -c 1
+
+  # download and decompress all wordlists in misc category
+  $ wordlistctl -f 0 -c 4 -X
+
+  # download all wordlists in filename category using 20 threads
+  $ wordlistctl -c 3 -f 0 -t 20
+
+  # download wordlist with id 2 to "~/wordlists" directory using http
+  $ wordlistctl -f 2 -d ~/wordlists -h
+  # print wordlists in username and password categories
+  $ wordlistctl -F username,password
 
 ```
 
