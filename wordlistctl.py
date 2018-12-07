@@ -452,10 +452,11 @@ def change_category(code):
 
 def print_categories():
     index = 0
-    print("[+] available wordlists category")
+    success("available wordlists category:")
     for i in __categories__:
         print("    > {0}  - {1} ({2} wordlists)".format(index, i, list(__categories__[i]).__len__()))
         index += 1
+    print("")
 
 
 def update_config():
