@@ -62,7 +62,7 @@ def usage():
     __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
     __usage__ += "  -h         - prefer http\n"
     __usage__ += "  -X         - decompress wordlist\n"
-    __usage__ += "  -F <str>   - list wordlists in categories given"
+    __usage__ += "  -F <str>   - list wordlists in categories given\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
     __usage__ += "  -t <num>   - max download threads (default: {0})\n\n".format(__max_trds__)
     __usage__ += "misc:\n\n"
