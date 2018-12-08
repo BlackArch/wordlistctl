@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.5'
+__version__ = '0.6.6'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -36,19 +36,19 @@ __session__ = None
 
 def err(string, ex=''):
     if ex == '':
-        print(colored("[-] ERROR:", 'red') + " {0}".format(string), file=sys.stderr)
+        print(colored("[-]", 'red', attrs=['bold']) + " {0}".format(string), file=sys.stderr)
     else:
-        print(colored("[-] ERROR:", 'red') + " {0}: {1}".format(string, ex), file=sys.stderr)
+        print(colored("[-]", 'red', attrs=['bold']) + " {0}: {1}".format(string, ex), file=sys.stderr)
 
 
 def warn(string):
-    print(colored("[!] WARNING:", 'yellow') + " {0}".format(string))
+    print(colored("[!]", 'yellow', attrs=['bold']) + " {0}".format(string))
 
 def info(string):
-    print(colored("[*]", 'blue') + " {0}".format(string))
+    print(colored("[*]", 'blue', attrs=['bold']) + " {0}".format(string))
 
 def success(string):
-    print(colored("[+]", 'green') + " {0}".format(string))
+    print(colored("[+]", 'green', attrs=['bold']) + " {0}".format(string))
 
 
 def usage():
@@ -363,7 +363,7 @@ def print_wordlists(categories=''):
             index += 1
         print("")
     else:
-        categories_list = [i.strip() for i in categories.split(',')]
+        categories_list = set([i.strip() for i in categories.split(',')])
         for i in categories_list:
             if i not in __categories__.keys():
                 err("category {0} is unavailable".format(i))
