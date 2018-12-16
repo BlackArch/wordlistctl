@@ -47,6 +47,42 @@
         "http": "http://downloads.sourceforge.net/dirbuster/DirBuster-Lists.tar.bz2",
         "torrent": ""
     },
+    "pwned-passwords-ordered-by-count": {
+        "http": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-count.7z",
+        "torrent": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-count.7z.torrent"
+    },
+    "pwned-passwords-ordered-by-hash": {
+        "http": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-hash.7z",
+        "torrent": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-hash.7z.torrent"
+    },
+    "pwned-passwords-ntlm-ordered-by-count": {
+        "http": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ntlm-ordered-by-count.7z",
+        "torrent": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ntlm-ordered-by-count.7z.torrent"
+    },
+    "pwned-passwords-ntlm-ordered-by-hash": {
+        "http": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ntlm-ordered-by-hash.7z",
+        "torrent": "https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ntlm-ordered-by-hash.7z.torrent"
+    },
+    "Portable-Wordlists": {
+        "http": "https://github.com/berzerk0/Probable-Wordlists/archive/master.zip",
+        "torrent": ""
+    },
+    "ProbWL-v2-Real-Passwords-7z": {
+        "http": "",
+        "torrent": "https://github.com/berzerk0/Probable-Wordlists/blob/master/Real-Passwords/Real-Password-Rev-2-Torrents/ProbWL-v2-Real-Passwords-7z.torrent"
+    },
+    "ProbWL-v2-Real-WPA-Passwords-7z": {
+        "http": "",
+        "torrent": "https://github.com/berzerk0/Probable-Wordlists/blob/master/Real-Passwords/WPA-Length/WPA-Length-Rev-2-Torrents/ProbWL-v2-Real-WPA-Passwords-7z.torrent"
+    },
+    "ProbWL-v2-Dictionary-Style-7z": {
+        "http": "",
+        "torrent": "https://github.com/berzerk0/Probable-Wordlists/blob/master/Dictionary-Style/Dictionary-Style-Rev-2-Torrents/ProbWL-v2-Dictionary-Style-7z.torrent"
+    },
+    "ProbWL-v2-Analysis-Files-7z": {
+        "http": "",
+        "torrent": "https://github.com/berzerk0/Probable-Wordlists/blob/master/Analysis-Files/Analysis-Files-Torrents/ProbWL-v2-Analysis-Files-7z.torrent"
+    },
     "milw0rm-dictionary": {
         "http": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Cracked-Hashes/milw0rm-dictionary.txt",
         "torrent": ""
