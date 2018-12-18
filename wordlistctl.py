@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.8'
+__version__ = '0.6.9'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -32,6 +32,7 @@ __prefer_http__ = False
 __trds__ = []
 __max_trds__ = 10
 __session__ = None
+__useragent__ = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0'
 
 
 def err(string, ex=''):
@@ -173,7 +174,7 @@ def remove(filename):
 def resolve_mediafire(link):
     resolved = ''
     try:
-        page = requests.get(link)
+        page = requests.get(link, headers={'User-Agent': __useragent__})
         html = BeautifulSoup(page.text, 'html.parser')
         for i in html.find_all('a'):
             if str(i.text).startswith('Download ('):
@@ -225,7 +226,7 @@ def fetch_file(url, path):
             if str(url).startswith('http://www.mediafire.com/file/'):
                 str_url = resolve_mediafire(url)
             chunk_size = 1024
-            rq = requests.get(str_url, stream=True)
+            rq = requests.get(str_url, stream=True, headers={'User-Agent': __useragent__})
             fp = open(path, 'wb')
             for data in rq.iter_content(chunk_size=chunk_size):
                 fp.write(data)

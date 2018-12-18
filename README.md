@@ -58,6 +58,7 @@ example:
 
   # download wordlist with id 2 to "~/wordlists" directory using http
   $ wordlistctl -f 2 -d ~/wordlists -h
+
   # print wordlists in username and password categories
   $ wordlistctl -F username,password
 
