@@ -10,8 +10,8 @@
 #                                                                              #
 # AUTHORS                                                                      #
 # sepehrdad.dev@gmail.com                                                      #
-#                                                                              #
 ################################################################################
+
 
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
