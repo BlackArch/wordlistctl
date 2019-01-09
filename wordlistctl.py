@@ -16,7 +16,7 @@
 __author__ = 'Sepehrdad Sh'
 __organization__ = 'blackarch.org'
 __license__ = 'GPLv3'
-__version__ = '0.6.9'
+__version__ = '0.7.0'
 __project__ = 'wordlistctl'
 
 __wordlist_path__ = '/usr/share/wordlists'
@@ -176,9 +176,9 @@ def resolve_mediafire(link):
     try:
         page = requests.get(link, headers={'User-Agent': __useragent__})
         html = BeautifulSoup(page.text, 'html.parser')
-        for i in html.find_all('a'):
-            if str(i.text).startswith('Download ('):
-                resolved = i['href']
+        for i in html.find_all('a', {"class": "input"}):
+            if str(i.text).strip().startswith('Download ('):
+                    resolved = i['href']
     except:
         pass
     finally:
@@ -217,16 +217,16 @@ def run_threaded(func):
 @run_threaded
 def fetch_file(url, path):
     filename = os.path.basename(path)
-    str_url = url
     try:
         if check_file(path):
             warn("{0} already exists -- skipping".format(filename))
         else:
             info("downloading {0}".format(filename))
             if str(url).startswith('http://www.mediafire.com/file/'):
-                str_url = resolve_mediafire(url)
+                rq = requests.get(resolve_mediafire(url), stream=True, headers={'User-Agent': __useragent__})
+            else:
+                rq = requests.get(url, stream=True, headers={'User-Agent': __useragent__})
             chunk_size = 1024
-            rq = requests.get(str_url, stream=True, headers={'User-Agent': __useragent__})
             fp = open(path, 'wb')
             for data in rq.iter_content(chunk_size=chunk_size):
                 fp.write(data)

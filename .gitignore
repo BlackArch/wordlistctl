@@ -126,3 +126,6 @@ venv.bak/
 
 .idea/
 .vscode
+.project
+.pydevproject
+.settings/
