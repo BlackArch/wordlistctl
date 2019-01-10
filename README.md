@@ -36,6 +36,8 @@ options:
 misc:
 
   -U         - update config files
+  -C         - disable terminal colors
+  -T         - disable torrent download
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
