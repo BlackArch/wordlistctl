@@ -615,7 +615,7 @@ def main(argv):
         warn("-H for help and usage")
         return -1
     except Exception as ex:
-        err("Error while running operation".format(str(ex)))
+        err("Error while running operation: {0}".format(str(ex)))
         return -1
 
 
@@ -640,7 +640,7 @@ if __name__ == "__main__":
         from bs4 import BeautifulSoup
         from termcolor import colored
     except Exception as ex:
-        err("Error while loading dependencies".format(str(ex)))
+        err("Error while loading dependencies: {0}".format(str(ex)))
         exit(-1)
 
     sys.exit(main(sys.argv))
