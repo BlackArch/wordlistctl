@@ -1,0 +1,34 @@
+# Attention: this is a Bash Script, not `sh`.
+
+#_wordlistctl_options="-f <num>   - download chosen wordlist - ? to list wordlists with id.
+#-d <dir>   - wordlists base directory (default: /usr/share/wordlists).
+#-c <num>   - change wordlists category - ? to list wordlists categories.
+#-s <regex> - wordlist to search using <regex> in base directory.
+#-S <regex> - wordlist to search using <regex> in sites.
+#-h         - prefer http.
+#-X         - decompress wordlist.
+#-F <str>   - list wordlists in categories given.
+#-r         - remove compressed file after decompression.
+#-t <num>   - max download threads (default: 10).
+#-U         - update config files.
+#-C         - disable terminal colors.
+#-T         - disable torrent download.
+#-P         - set proxy (format: proto://user:pass@host:port).
+#-A         - set useragent string.
+#-V         - print version of wordlistctl and exit.
+#-H         - print this help and exit."
+
+_wordlistctl()
+{
+    local current options
+
+    options="-f -d -c -s -S -h -X -F -r -t -U -C -T -P -A -V -H"
+
+    current="${COMP_WORDS[COMP_CWORD]}"
+
+    if [[ "${current}" == -* ]]; then
+        COMPREPLY=($(compgen -W "${options}" -- ${current}))
+    fi
+}
+
+complete -F _wordlistctl wordlistctl

@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.1"
+__version__ = "0.7.2"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -34,6 +34,7 @@ __trds__ = []
 __max_trds__ = 10
 __session__ = None
 __useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
+__proxy__ = {}
 
 
 def err(string):
@@ -68,6 +69,8 @@ def usage():
     __usage__ += "  -U         - update config files\n"
     __usage__ += "  -C         - disable terminal colors\n"
     __usage__ += "  -T         - disable torrent download\n"
+    __usage__ += "  -P         - set proxy (format: proto://user:pass@host:port)\n"
+    __usage__ += "  -A         - set useragent string\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
     __usage__ += "  -H         - print this help and exit\n\n"
     __usage__ += "example:\n\n"
@@ -84,7 +87,11 @@ def usage():
     __usage__ += "  # download wordlist with id 2 to \"~/wordlists\" directory using http\n"
     __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h\n\n"
     __usage__ += "  # print wordlists in username and password categories\n"
-    __usage__ += "  $ wordlistctl -F username,password\n"
+    __usage__ += "  $ wordlistctl -F username,password\n\n"
+    __usage__ += "  # download all wordlists with using tor socks5 proxy\n"
+    __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\"\n\n"
+    __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
+    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -A \"noleak\"\n"
 
 
     print(__usage__.format(__project__, __wordlist_path__))
@@ -176,7 +183,7 @@ def resolve_mediafire(link):
     try:
         page = requests.get(link, headers={"User-Agent": __useragent__})
         html = BeautifulSoup(page.text, "html.parser")
-        for i in html.find_all("a", {"class": "input"}):
+        for i in html.find_all('a', {"class": "input"}):
             if str(i.text).strip().startswith("Download ("):
                     resolved = i["href"]
     except:
@@ -216,6 +223,7 @@ def run_threaded(func):
 
 @run_threaded
 def fetch_file(url, path):
+    global __project__
     filename = os.path.basename(path)
     try:
         if check_file(path):
@@ -223,9 +231,10 @@ def fetch_file(url, path):
         else:
             info("downloading {0} to {1}".format(filename, path))
             if str(url).startswith("http://www.mediafire.com/file/"):
-                rq = requests.get(resolve_mediafire(url), stream=True, headers={"User-Agent": __useragent__})
+                rq = requests.get(resolve_mediafire(url), stream=True,
+                                                    headers={"User-Agent": __useragent__}, proxies=__proxy__)
             else:
-                rq = requests.get(url, stream=True, headers={"User-Agent": __useragent__})
+                rq = requests.get(url, stream=True, headers={"User-Agent": __useragent__}, proxies=__proxy__)
             chunk_size = 1024
             fp = open(path, "wb")
             for data in rq.iter_content(chunk_size=chunk_size):
@@ -306,12 +315,12 @@ def download_wordlist(config, wordlistname):
 
     try:
         if (__prefer_http__ and config["http"] != "") or (config["torrent"] == "" and config["http"] != ""):
-            __filename__ = config["http"].split("/")[-1]
+            __filename__ = config["http"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
             fetch_file(config["http"], __file_path__)
 
         elif config["torrent"] != "":
-            __filename__ = config["torrent"].split("/")[-1]
+            __filename__ = config["torrent"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
             fetch_torrent(config["torrent"], __file_path__)
 
@@ -366,7 +375,7 @@ def print_wordlists(categories=""):
             index += 1
         print("")
     else:
-        categories_list = set([i.strip() for i in categories.split(",")])
+        categories_list = set([i.strip() for i in categories.split(',')])
         for i in categories_list:
             if i not in __categories__.keys():
                 err("category {0} is unavailable".format(i))
@@ -424,12 +433,20 @@ def check_dir(dir_name):
 
 
 def check_file(path):
-    return glob.glob("{0}*".format(str(path).split(".")[0])).__len__() > 0
+    return glob.glob("{0}*".format(str(path).split('.')[0])).__len__() > 0
+
+
+def check_proxy(proxy):
+    try:
+        requests.get('https://www.blackarch.org/', proxies=proxy)
+    except Exception as ex:
+        err("unable to use proxy: {0}".format(str(ex)))
+        exit(-1)
 
 
 def load_json(infilename):
     try:
-        return json.load(open(infilename, "r"))
+        return json.load(open(infilename, 'r'))
     except Exception as ex:
         err("unable to load {0}: {1}".format(infilename, str(ex)))
         return {}
@@ -513,12 +530,14 @@ def arg_parse(argv):
     global __prefer_http__
     global __max_trds__
     global __torrent_dl__
+    global __useragent__
+    global __proxy__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "HCVUXThrd:c:f:s:S:t:F:")
+        opts, _ = getopt.getopt(argv[1:], "HCVUXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -538,7 +557,7 @@ def arg_parse(argv):
                 check_dir(dirname)
                 __wordlist_path__ = dirname
             elif opt == "-f":
-                if arg == "?":
+                if arg == '?':
                     __operation__ = print_wordlists
                 else:
                     __operation__ = download_wordlists
@@ -553,9 +572,15 @@ def arg_parse(argv):
             elif opt == "-r":
                 __remove__ = True
             elif opt == "-C":
-                os.environ["ANSI_COLORS_DISABLED"] = "1"
+                os.environ["ANSI_COLORS_DISABLED"] = '1'
             elif opt == "-T":
                 __torrent_dl__ = False
+            elif opt == "-A":
+                __useragent__ = arg
+            elif opt == "-P":
+                proxy = {"http" : arg, "https" : arg}
+                check_proxy(proxy)
+                __proxy__ = proxy
             elif opt == "-U":
                 __operation__ = update_config
                 opFlag += 1
@@ -564,7 +589,7 @@ def arg_parse(argv):
                 __arg__ = arg
                 opFlag += 1
             elif opt == "-c":
-                if arg == "?":
+                if arg == '?':
                     __operation__ = print_categories
                     return __operation__, None
                 else:

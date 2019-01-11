@@ -38,6 +38,8 @@ misc:
   -U         - update config files
   -C         - disable terminal colors
   -T         - disable torrent download
+  -P         - set proxy (format: proto://user:pass@host:port)
+  -A         - set useragent string
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
@@ -63,6 +65,12 @@ example:
 
   # print wordlists in username and password categories
   $ wordlistctl -F username,password
+
+  # download all wordlists with using tor socks5 proxy
+  $ wordlistctl -f 0 -P "socks5://127.0.0.1:9050"
+
+  # download all wordlists with using http proxy and noleak useragent
+  $ wordlistctl -f 0 -P "http://127.0.0.1:9060" -A "noleak"
 
 ```
 
