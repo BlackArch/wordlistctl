@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.3"
+__version__ = "0.7.4"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -240,11 +240,18 @@ def torrent_setup_proxy():
         __session__.set_tracker_proxy(proxy_settings)
         __session__.set_web_seed_proxy(proxy_settings)
         __session__.set_proxy(proxy_settings)
-        __session__.settings().force_proxy = True
-        __session__.settings().proxy_hostnames = True
-        __session__.settings().proxy_peer_connections = True
-        __session__.settings().proxy_tracker_connections = True
-        __session__.settings().anonymous_mode = True
+        settings = __session__.settings()
+        settings.force_proxy = True
+        settings.proxy_hostnames = True
+        settings.proxy_peer_connections = True
+        settings.proxy_tracker_connections = True
+        settings.anonymous_mode = True
+        __session__.dht_proxy()
+        __session__.peer_proxy()
+        __session__.tracker_proxy()
+        __session__.web_seed_proxy()
+        __session__.proxy()
+        __session__.set_settings(settings)
     else:
         err("invalid proxy format")
         exit(-1)
@@ -254,6 +261,7 @@ def run_threaded(func):
     def wrapper(url, path):
         if func.__name__ == "fetch_torrent":
             global __session__
+            global __proxy__
             if (__session__ is None):
                 __session__ = libtorrent.session({"listen_interfaces": "0.0.0.0:6881"})
                 if __proxy__ != {}:
@@ -284,6 +292,10 @@ def run_threaded(func):
 @run_threaded
 def fetch_file(url, path):
     global __proxy__
+    global __proxy_http__
+    proxy = {}
+    if __proxy_http__:
+        proxy = __proxy__
     filename = os.path.basename(path)
     try:
         if check_file(path):
@@ -292,9 +304,11 @@ def fetch_file(url, path):
             info("downloading {0} to {1}".format(filename, path))
             if str(url).startswith("http://www.mediafire.com/file/"):
                 rq = requests.get(resolve_mediafire(url), stream=True,
-                                                    headers={"User-Agent": __useragent__}, proxies=__proxy__)
+                                                    headers={"User-Agent": __useragent__},
+                                                    proxies=proxy)
             else:
-                rq = requests.get(url, stream=True, headers={"User-Agent": __useragent__}, proxies=__proxy__)
+                rq = requests.get(url, stream=True,
+                                    headers={"User-Agent": __useragent__},proxies=proxy)
             chunk_size = 1024
             fp = open(path, "wb")
             for data in rq.iter_content(chunk_size=chunk_size):
