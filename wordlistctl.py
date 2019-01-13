@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.2"
+__version__ = "0.7.3"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -35,6 +35,8 @@ __max_trds__ = 10
 __session__ = None
 __useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
 __proxy__ = {}
+__proxy_http__ = False
+__proxy_torrent__ = False
 
 
 def err(string):
@@ -71,6 +73,8 @@ def usage():
     __usage__ += "  -T         - disable torrent download\n"
     __usage__ += "  -P         - set proxy (format: proto://user:pass@host:port)\n"
     __usage__ += "  -A         - set useragent string\n"
+    __usage__ += "  -Y         - proxy http\n"
+    __usage__ += "  -Z         - proxy torrent\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
     __usage__ += "  -H         - print this help and exit\n\n"
     __usage__ += "example:\n\n"
@@ -89,9 +93,9 @@ def usage():
     __usage__ += "  # print wordlists in username and password categories\n"
     __usage__ += "  $ wordlistctl -F username,password\n\n"
     __usage__ += "  # download all wordlists with using tor socks5 proxy\n"
-    __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\"\n\n"
+    __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\" -Y\n\n"
     __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
-    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -A \"noleak\"\n"
+    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n"
 
 
     print(__usage__.format(__project__, __wordlist_path__))
@@ -192,12 +196,68 @@ def resolve_mediafire(link):
         return resolved
 
 
+def torrent_setup_proxy():
+    global __session__
+    global __proxy__
+
+    if __session__ is None:
+        err("session not initialized")
+        exit(-1)
+    elif __proxy__ == {}:
+        err("proxy is empty")
+        exit(-1)
+    elif not __proxy_torrent__:
+        return
+    regex = r"^(http|https|socks4|socks5)://([a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+@)?[a-z0-9.]+:[0-9]{1,5}$"
+    if re.match(regex, str(__proxy__['http']).lower()):
+        username, password, host, port = "","","",""
+        proxy = str(__proxy__['http'])
+        proxy_settings = libtorrent.proxy_settings()
+        proto = proxy.split("://")[0]
+        proxy = proxy.replace("{0}://".format(proto), "")
+        if proxy.__contains__('@'):
+            creds = proxy.split('@')[0]
+            username, password = creds.split(':')
+            proxy_settings.username, proxy_settings.password = username, password
+            proxy = proxy.replace("{0}@".format(creds), "")
+        host, port = proxy.split(':')
+        proxy_settings.proxy_hostnames = True
+        proxy_settings.proxy_peer_connections = True
+        proxy_settings.hostname = host
+        proxy_settings.proxy_port = port
+        if username != "" and password != "":
+            if proto in ("http", "https"):
+                proxy_settings.proxy_type = libtorrent.proxy_type().http_pw
+            elif proto in ("socks4", "socks5"):
+                proxy_settings.proxy_type = libtorrent.proxy_type().socks5_pw
+        else:
+            if proto in ("http", "https"):
+                proxy_settings.proxy_type = libtorrent.proxy_type().http
+            elif proto in ("socks4", "socks5"):
+                proxy_settings.proxy_type = libtorrent.proxy_type().socks5
+        __session__.set_dht_proxy(proxy_settings)
+        __session__.set_peer_proxy(proxy_settings)
+        __session__.set_tracker_proxy(proxy_settings)
+        __session__.set_web_seed_proxy(proxy_settings)
+        __session__.set_proxy(proxy_settings)
+        __session__.settings().force_proxy = True
+        __session__.settings().proxy_hostnames = True
+        __session__.settings().proxy_peer_connections = True
+        __session__.settings().proxy_tracker_connections = True
+        __session__.settings().anonymous_mode = True
+    else:
+        err("invalid proxy format")
+        exit(-1)
+
+
 def run_threaded(func):
     def wrapper(url, path):
         if func.__name__ == "fetch_torrent":
             global __session__
             if (__session__ is None):
                 __session__ = libtorrent.session({"listen_interfaces": "0.0.0.0:6881"})
+                if __proxy__ != {}:
+                    torrent_setup_proxy()
                 __session__.start_dht()
         elif str(path).endswith(".torrent"):
             func(url, path)
@@ -223,7 +283,7 @@ def run_threaded(func):
 
 @run_threaded
 def fetch_file(url, path):
-    global __project__
+    global __proxy__
     filename = os.path.basename(path)
     try:
         if check_file(path):
@@ -438,7 +498,10 @@ def check_file(path):
 
 def check_proxy(proxy):
     try:
-        requests.get('https://www.blackarch.org/', proxies=proxy)
+        reg = r"^(http|https|socks4|socks5)://([a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+@)?[a-z0-9.]+:[0-9]{1,5}$"
+        if re.match(reg, proxy['http']):
+            return True
+        return False
     except Exception as ex:
         err("unable to use proxy: {0}".format(str(ex)))
         exit(-1)
@@ -532,12 +595,14 @@ def arg_parse(argv):
     global __torrent_dl__
     global __useragent__
     global __proxy__
+    global __proxy_http__
+    global __proxy_torrent__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "HCVUXThrd:c:f:s:S:t:F:A:P:")
+        opts, _ = getopt.getopt(argv[1:], "ZYHCVUXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -575,10 +640,17 @@ def arg_parse(argv):
                 os.environ["ANSI_COLORS_DISABLED"] = '1'
             elif opt == "-T":
                 __torrent_dl__ = False
+            elif opt == "-Z":
+                __proxy_torrent__ = True
+            elif opt == "-Y":
+                __proxy_http__ = True
             elif opt == "-A":
                 __useragent__ = arg
             elif opt == "-P":
-                proxy = {"http" : arg, "https" : arg}
+                if arg.startswith('http://'):
+                    proxy = {"http" : arg}
+                else:
+                    proxy = {"http" : arg, "https" : arg}
                 check_proxy(proxy)
                 __proxy__ = proxy
             elif opt == "-U":

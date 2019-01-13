@@ -40,6 +40,8 @@ misc:
   -T         - disable torrent download
   -P         - set proxy (format: proto://user:pass@host:port)
   -A         - set useragent string
+  -Y         - proxy http
+  -Z         - proxy torrent
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
@@ -67,10 +69,10 @@ example:
   $ wordlistctl -F username,password
 
   # download all wordlists with using tor socks5 proxy
-  $ wordlistctl -f 0 -P "socks5://127.0.0.1:9050"
+  $ wordlistctl -f 0 -P "socks5://127.0.0.1:9050" -Y
 
   # download all wordlists with using http proxy and noleak useragent
-  $ wordlistctl -f 0 -P "http://127.0.0.1:9060" -A "noleak"
+  $ wordlistctl -f 0 -P "http://127.0.0.1:9060" -Y -A "noleak"
 
 ```
 
