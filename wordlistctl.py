@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.4"
+__version__ = "0.7.5-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -30,13 +30,14 @@ __remove__ = False
 __prefer_http__ = False
 __torrent_dl__ = True
 
-__trds__ = []
+__executer__ = None
 __max_trds__ = 10
 __session__ = None
 __useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
 __proxy__ = {}
 __proxy_http__ = False
 __proxy_torrent__ = False
+__chunk_size__ = 1024
 
 
 def err(string):
@@ -68,7 +69,6 @@ def usage():
     __usage__ += "  -r         - remove compressed file after decompression\n"
     __usage__ += "  -t <num>   - max download threads (default: {0})\n\n".format(__max_trds__)
     __usage__ += "misc:\n\n"
-    __usage__ += "  -U         - update config files\n"
     __usage__ += "  -C         - disable terminal colors\n"
     __usage__ += "  -T         - disable torrent download\n"
     __usage__ += "  -P         - set proxy (format: proto://user:pass@host:port)\n"
@@ -257,42 +257,27 @@ def torrent_setup_proxy():
         exit(-1)
 
 
-def run_threaded(func):
-    def wrapper(url, path):
-        if func.__name__ == "fetch_torrent":
-            global __session__
-            global __proxy__
-            if (__session__ is None):
-                __session__ = libtorrent.session({"listen_interfaces": "0.0.0.0:6881"})
-                if __proxy__ != {}:
-                    torrent_setup_proxy()
-                __session__.start_dht()
-        elif str(path).endswith(".torrent"):
-            func(url, path)
-            return
-        try:
-            while True:
-                if __trds__.__len__() >= __max_trds__:
-                    for i in __trds__:
-                        if not i.isAlive():
-                            __trds__.remove(i)
-                    time.sleep(0.01)
-                else:
-                    break
-            t = threading.Thread(target=func, args=(url, path))
-            t.start()
-            __trds__.append(t)
-        except KeyboardInterrupt:
-            exit(0)
-        except:
-            pass
-    return wrapper
+def integrity_check(checksum, path):
+    global __chunk_size__
+    hashagent = md5()
+    fp = open(path, 'rb')
+    info("checking {0} integrity".format(path))
+    if checksum == 'SKIP':
+        warn("{0} integrity check -- skipping".format(path))
+        return
+    while True:
+        data = fp.read(__chunk_size__)
+        if not data:
+            break
+        hashagent.update(data)
+    if checksum != hashagent.hexdigest():
+        err("{0} integrity check failed".format(path))
 
 
-@run_threaded
-def fetch_file(url, path):
+def fetch_file(url, path, checksum):
     global __proxy__
     global __proxy_http__
+    global __chunk_size__
     proxy = {}
     if __proxy_http__:
         proxy = __proxy__
@@ -309,12 +294,12 @@ def fetch_file(url, path):
             else:
                 rq = requests.get(url, stream=True,
                                     headers={"User-Agent": __useragent__},proxies=proxy)
-            chunk_size = 1024
             fp = open(path, "wb")
-            for data in rq.iter_content(chunk_size=chunk_size):
+            for data in rq.iter_content(chunk_size=__chunk_size__):
                 fp.write(data)
             fp.close()
             success("downloading {0} completed".format(filename))
+            integrity_check(checksum, path)
         if decompress(path) != -1:
             clean(path)
     except KeyboardInterrupt:
@@ -324,11 +309,17 @@ def fetch_file(url, path):
         remove(path)
 
 
-@run_threaded
-def fetch_torrent(url, path):
+def fetch_torrent(config, path):
     global __session__
+    global __proxy__
     global __torrent_dl__
+    if __session__ is None:
+        __session__ = libtorrent.session({"listen_interfaces": "0.0.0.0:6881"})
+        if __proxy__ != {}:
+            torrent_setup_proxy()
+        __session__.start_dht()
     magnet = False
+    url = config["torrent"]
     if str(url).startswith("magnet:?"):
         magnet = True
     handle = None
@@ -343,7 +334,7 @@ def fetch_torrent(url, path):
                 time.sleep(0.1)
             success("downloaded metadata")
         else:
-            fetch_file(url, path)
+            fetch_file(config["http"], path, "SKIP")
             if not __torrent_dl__:
                 return
             if os.path.isfile(path):
@@ -362,6 +353,7 @@ def fetch_torrent(url, path):
                 time.sleep(0.1)
             __session__.remove_torrent(handle)
             success("downloading {0} completed".format(handle.name()))
+            integrity_check("SKIP", __outfilename__)
         if decompress(__outfilename__) != -1:
             clean(__outfilename__)
     except KeyboardInterrupt:
@@ -372,7 +364,7 @@ def fetch_torrent(url, path):
 
 
 def download_wordlist(config, wordlistname):
-
+    global __executer__
     __filename__ = ""
     __file_directory__ = ""
     __file_path__ = ""
@@ -391,12 +383,12 @@ def download_wordlist(config, wordlistname):
         if (__prefer_http__ and config["http"] != "") or (config["torrent"] == "" and config["http"] != ""):
             __filename__ = config["http"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            fetch_file(config["http"], __file_path__)
+            __executer__.submit(fetch_file, config["http"], __file_path__, "SKIP")
 
         elif config["torrent"] != "":
             __filename__ = config["torrent"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            fetch_torrent(config["torrent"], __file_path__)
+            __executer__.submit(fetch_torrent, config, __file_path__)
 
         else:
             raise ValueError("unable to find wordlist's url")
@@ -556,26 +548,6 @@ def print_categories():
     print("")
 
 
-def update_config():
-    global __urls__
-    global __categories__
-    __base_url__ = "https://raw.githubusercontent.com/BlackArch/wordlistctl/master"
-    files = [__urls_file_name__, __categories_file_name__]
-    try:
-        info("updating config files\n")
-        for i in files:
-            if os.path.isfile(i):
-                remove(i)
-            fetch_file("{0}/{1}".format(__base_url__, os.path.basename(i)), i)
-        for i in __trds__:
-            i.join()
-        load_config()
-        success("updating config files completed")
-    except Exception as ex:
-        err("Error while updating: {0}".format(str(ex)))
-        exit(-1)
-
-
 def load_config():
     global __urls__
     global __categories__
@@ -616,14 +588,14 @@ def arg_parse(argv):
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "ZYHCVUXThrd:c:f:s:S:t:F:A:P:")
+        opts, _ = getopt.getopt(argv[1:], "ZYHCVXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
             return __operation__, None
 
         for opt, arg in opts:
-            if opFlag and re.fullmatch(r"^-([VfsSUF])", opt):
+            if opFlag and re.fullmatch(r"^-([VfsSF])", opt):
                 raise getopt.GetoptError("multiple operations selected")
             if opt == "-H":
                 __operation__ = usage
@@ -667,9 +639,6 @@ def arg_parse(argv):
                     proxy = {"http" : arg, "https" : arg}
                 check_proxy(proxy)
                 __proxy__ = proxy
-            elif opt == "-U":
-                __operation__ = update_config
-                opFlag += 1
             elif opt == "-S":
                 __operation__ = search_sites
                 __arg__ = arg
@@ -703,6 +672,8 @@ def arg_parse(argv):
 def main(argv):
     global __urls_file_name__
     global __categories_file_name__
+    global __max_trds__
+    global __executer__
     banner()
     __base_name__ = os.path.dirname(os.path.realpath(__file__))
     __urls_file_name__ = "{0}/urls.json".format(__base_name__)
@@ -711,8 +682,10 @@ def main(argv):
     __operation__, __arg__ = arg_parse(argv)
 
     try:
-        if __operation__ not in [update_config, version, usage]:
+        if __operation__ not in [version, usage]:
             load_config()
+        if __executer__ is None:
+            __executer__ = ThreadPoolExecutor(__max_trds__)
         if __operation__ is not None:
             if __arg__ is not None:
                 __operation__(__arg__)
@@ -747,9 +720,11 @@ if __name__ == "__main__":
         import lzma
         import rarfile
         import json
+        from hashlib import md5
         from shutil import copyfileobj
         from bs4 import BeautifulSoup
         from termcolor import colored
+        from concurrent.futures import ThreadPoolExecutor
     except Exception as ex:
         err("Error while loading dependencies: {0}".format(str(ex)))
         exit(-1)
