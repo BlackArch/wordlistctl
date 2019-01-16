@@ -20,11 +20,8 @@ __version__ = "0.7.5-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
-__urls_file_name__ = ""
-__categories_file_name__ = ""
 __category__ = ""
-__urls__ = {}
-__categories__ = {}
+__config__ = {}
 __decompress__ = False
 __remove__ = False
 __prefer_http__ = False
@@ -261,9 +258,10 @@ def integrity_check(checksum, path):
     global __chunk_size__
     hashagent = md5()
     fp = open(path, 'rb')
-    info("checking {0} integrity".format(path))
+    filename = os.path.basename(path)
+    info("checking {0} integrity".format(filename))
     if checksum == 'SKIP':
-        warn("{0} integrity check -- skipping".format(path))
+        warn("{0} integrity check -- skipping".format(filename))
         return
     while True:
         data = fp.read(__chunk_size__)
@@ -271,7 +269,7 @@ def integrity_check(checksum, path):
             break
         hashagent.update(data)
     if checksum != hashagent.hexdigest():
-        err("{0} integrity check failed".format(path))
+        err("{0} integrity check failed".format(filename))
 
 
 def fetch_file(url, path, checksum):
@@ -305,7 +303,7 @@ def fetch_file(url, path, checksum):
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(url, str(ex)))
+        err("Error while downloading {0}: {1}".format(checksum, str(ex)))
         remove(path)
 
 
@@ -319,13 +317,12 @@ def fetch_torrent(config, path):
             torrent_setup_proxy()
         __session__.start_dht()
     magnet = False
-    url = config["torrent"]
-    if str(url).startswith("magnet:?"):
+    if str(config["urls"]["torrent"]).startswith("magnet:?"):
         magnet = True
     handle = None
     try:
         if magnet:
-            handle = libtorrent.add_magnet_uri(__session__, url,
+            handle = libtorrent.add_magnet_uri(__session__, config["url"]["torrent"],
                                                {"save_path": os.path.dirname(path), "storage_mode": libtorrent.storage_mode_t(2),
                                                 "paused": False, "auto_managed": True, "duplicate_is_error": True}
                                                )
@@ -334,7 +331,7 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             success("downloaded metadata")
         else:
-            fetch_file(config["http"], path, "SKIP")
+            fetch_file(config["urls"]["torrent"], path, config["checksums"]["torrentfile"])
             if not __torrent_dl__:
                 return
             if os.path.isfile(path):
@@ -353,40 +350,31 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             __session__.remove_torrent(handle)
             success("downloading {0} completed".format(handle.name()))
-            integrity_check("SKIP", __outfilename__)
+            integrity_check(config["checksums"]["torrent"], __outfilename__)
         if decompress(__outfilename__) != -1:
             clean(__outfilename__)
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(url, str(ex)))
+        err("Error while downloading {0}: {1}".format(config["url"]["torrent"], str(ex)))
         remove(path)
 
 
-def download_wordlist(config, wordlistname):
+def download_wordlist(config, wordlistname, category):
     global __executer__
     __filename__ = ""
     __file_directory__ = ""
     __file_path__ = ""
-
-    if __category__ != "":
-        check_dir("{0}/{1}".format(__wordlist_path__, __category__))
-        __file_directory__ = "{0}/{1}".format(__wordlist_path__, __category__)
-    else:
-        for i in __categories__:
-            if wordlistname in __categories__[i]:
-                check_dir("{0}/{1}".format(__wordlist_path__, i))
-                __file_directory__ = "{0}/{1}".format(__wordlist_path__, i)
-                break
-
+    check_dir("{0}/{1}".format(__wordlist_path__, category))
+    __file_directory__ = "{0}/{1}".format(__wordlist_path__, category)
     try:
-        if (__prefer_http__ and config["http"] != "") or (config["torrent"] == "" and config["http"] != ""):
-            __filename__ = config["http"].split('/')[-1]
+        if (__prefer_http__ and config["urls"]["http"] != "") or (config["urls"]["torrent"] == "" and config["urls"]["http"] != ""):
+            __filename__ = config["urls"]["http"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            __executer__.submit(fetch_file, config["http"], __file_path__, "SKIP")
+            __executer__.submit(fetch_file, config["urls"]["http"], __file_path__, config["checksums"]["http"])
 
-        elif config["torrent"] != "":
-            __filename__ = config["torrent"].split('/')[-1]
+        elif config["urls"]["torrent"] != "":
+            __filename__ = config["urls"]["torrent"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
             __executer__.submit(fetch_torrent, config, __file_path__)
 
@@ -399,27 +387,38 @@ def download_wordlist(config, wordlistname):
         return -1
 
 def download_wordlists(code):
+    global __config__
     __wordlist_id__ = 0
 
     check_dir(__wordlist_path__)
 
     __wordlist_id__ = to_int(code)
+    __wordlists_count__ = 0
+    for i in __config__.keys():
+        __wordlists_count__ += __config__[i]["count"]
+
     try:
-        if (__wordlist_id__ >= __urls__.__len__() + 1) or __wordlist_id__ < 0:
+        if (__wordlist_id__ >= __wordlists_count__ + 1) or __wordlist_id__ < 0:
             raise IndexError("{0} is not a valid wordlist id".format(code))
         elif __wordlist_id__ == 0:
             if __category__ == "":
-                for i in __urls__:
-                    download_wordlist(__urls__[i], i)
+                for i in __config__.keys():
+                    for j in __config__[i]["files"]:
+                        download_wordlist(j, j["name"], i)
             else:
-                for i in __categories__[__category__]:
-                    download_wordlist(__urls__[i], i)
+                for i in __config__[__category__]["files"]:
+                    download_wordlist(i, i["name"], __category__)
         elif __category__ != "":
-            i = __urls__[__categories__[__category__][__wordlist_id__ - 1]]
-            download_wordlist(i, __categories__[__category__][__wordlist_id__ - 1])
+            i = __config__[__category__]["files"][__wordlist_id__ - 1]
+            download_wordlist(i, i["name"], __category__)
         else:
-            i = list(__urls__.keys())[__wordlist_id__ - 1]
-            download_wordlist(__urls__[i], list(__urls__.keys())[__wordlist_id__ - 1])
+            index = 0
+            for i in __config__.keys():
+                for j in __config__[i]["files"]:
+                    if index == (__wordlist_id__ - 1):
+                        download_wordlist(j, j["name"], i)
+                        return
+                    index += 1
     except Exception as ex:
         err("Error unable to download wordlist: {0}".format(str(ex)))
         return -1
@@ -427,29 +426,31 @@ def download_wordlists(code):
 
 
 def print_wordlists(categories=""):
+    global __config__
+    index = 1
     if categories == "":
-        index = 1
         success("available wordlists:")
         print("    > 0  - all wordlists")
-        urls = {}
         if __category__ != "":
-            urls = __categories__[__category__]
+            for i in __config__[__category__]["files"]:
+                print("    > {0}  - {1}".format(index, i["name"]))
+                index += 1
         else:
-            urls = __urls__.keys()
-        for i in urls:
-            print("    > {0}  - {1}".format(index, i))
-            index += 1
+            for i in __config__.keys():
+                for j in __config__[i]["files"]:
+                    print("    > {0}  - {1}".format(index, j["name"]))
+                    index += 1
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
         for i in categories_list:
-            if i not in __categories__.keys():
+            if i not in __config__.keys():
                 err("category {0} is unavailable".format(i))
                 exit(-1)
         for i in categories_list:
             success("{0}:".format(i))
-            for j in __categories__[i]:
-                print("    > {0}".format(j))
+            for j in __config__[i]["files"]:
+                print("    > {0}".format(j["name"]))
             print("")
 
 def search_dir(regex):
@@ -464,18 +465,23 @@ def search_dir(regex):
 
 
 def search_sites(regex):
-    urls = []
-    if __category__ != "":
-        urls = list(__categories__[__category__])
-    else:
-        urls = list(__urls__.keys())
+    count = 0
+    index = 1
+    info("searching for {0} in urls.json\n".format(regex))
     try:
-        info("searching for {0} in urls.json\n".format(regex))
-        count = 0
-        for i in urls:
-            if re.match(regex, i):
-                success("wordlist {0} found: id={1}".format(i, urls.index(i) + 1))
-                count += 1
+        if __category__ != "":
+            for i in __config__[__category__]["files"]:
+                if re.match(regex, i["name"]):
+                    success("wordlist {0} found: id={1}".format(i["name"], index))
+                    count += 1
+                index += 1
+        else:
+            for i in __config__.keys():
+                for j in __config__[i]["files"]:
+                    if re.match(regex, j["name"]):
+                        success("wordlist {0} found: id={1}".format(j["name"], index))
+                        count += 1
+                    index += 1
 
         if count == 0:
             err("no wordlist found")
@@ -523,17 +529,12 @@ def load_json(infilename):
 
 def change_category(code):
     global __category__
-    global __categories__
-    __category_id__ = 0
-    if __categories__.__len__() <= 0:
-        load_config()
-
+    global __config__
     __category_id__ = to_int(code)
-
     try:
-        if (__category_id__ >= __categories__.__len__()) or __category_id__ < 0:
+        if (__category_id__ >= list(__config__.keys()).__len__()) or __category_id__ < 0:
             raise IndexError("{0} is not a valid category id".format(code))
-        __category__ = list(__categories__.keys())[__category_id__]
+        __category__ = list(__config__.keys())[__category_id__]
     except Exception as ex:
         err("Error while changing category: {0}".format(str(ex)))
         exit(-1)
@@ -542,23 +543,20 @@ def change_category(code):
 def print_categories():
     index = 0
     success("available wordlists category:")
-    for i in __categories__:
-        print("    > {0}  - {1} ({2} wordlists)".format(index, i, list(__categories__[i]).__len__()))
+    for i in __config__.keys():
+        print("    > {0}  - {1} ({2} wordlists)".format(index, i, __config__[i]["count"]))
         index += 1
     print("")
 
 
 def load_config():
-    global __urls__
-    global __categories__
-    files = [__urls_file_name__, __categories_file_name__]
-    if __urls__.__len__() <= 0 or __categories__.__len__() <= 0:
+    global __config__
+    configfile = "{0}/config.json".format(os.path.dirname(os.path.realpath(__file__)))
+    if __config__.__len__() <= 0:
         try:
-            for i in files:
-                if not os.path.isfile(i):
-                    raise FileNotFoundError("Config files not found please update")
-            __urls__ = load_json(__urls_file_name__)
-            __categories__ = load_json(__categories_file_name__)
+            if not os.path.isfile(configfile):
+                raise FileNotFoundError("Config file not found")
+            __config__ = load_json(configfile)
         except Exception as ex:
             err("Error while loading config files: {0}".format(str(ex)))
             exit(-1)
@@ -648,6 +646,7 @@ def arg_parse(argv):
                     __operation__ = print_categories
                     return __operation__, None
                 else:
+                    load_config()
                     change_category(arg)
             elif opt == "-h":
                 __prefer_http__ = True

@@ -35,7 +35,6 @@ options:
 
 misc:
 
-  -U         - update config files
   -C         - disable terminal colors
   -T         - disable torrent download
   -P         - set proxy (format: proto://user:pass@host:port)
