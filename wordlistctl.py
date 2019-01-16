@@ -324,7 +324,7 @@ def fetch_torrent(config, path):
     handle = None
     try:
         if magnet:
-            handle = libtorrent.add_magnet_uri(__session__, config["url"]["torrent"],
+            handle = libtorrent.add_magnet_uri(__session__, config["urls"]["torrent"],
                                                {"save_path": os.path.dirname(path), "storage_mode": libtorrent.storage_mode_t(2),
                                                 "paused": False, "auto_managed": True, "duplicate_is_error": True}
                                                )
@@ -358,7 +358,7 @@ def fetch_torrent(config, path):
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(config["url"]["torrent"], str(ex)))
+        err("Error while downloading {0}: {1}".format(config["urls"]["torrent"], str(ex)))
         remove(path)
 
 
