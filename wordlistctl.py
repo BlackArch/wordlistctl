@@ -397,28 +397,32 @@ def download_wordlists(code):
     for i in __config__.keys():
         __wordlists_count__ += __config__[i]["count"]
 
+    lst = {}
+
     try:
         if (__wordlist_id__ >= __wordlists_count__ + 1) or __wordlist_id__ < 0:
             raise IndexError("{0} is not a valid wordlist id".format(code))
         elif __wordlist_id__ == 0:
             if __category__ == "":
-                for i in __config__.keys():
-                    for j in __config__[i]["files"]:
-                        download_wordlist(j, j["name"], i)
+                lst = __config__
             else:
-                for i in __config__[__category__]["files"]:
-                    download_wordlist(i, i["name"], __category__)
+                lst[__category__] = __config__[__category__]
         elif __category__ != "":
-            i = __config__[__category__]["files"][__wordlist_id__ - 1]
-            download_wordlist(i, i["name"], __category__)
+            lst[__category__] = {"files": [__config__[__category__]["files"][__wordlist_id__ - 1]]}
         else:
-            index = 0
+            cat = ""
+            count = 0
+            wid = __wordlist_id__ - 1
             for i in __config__.keys():
-                for j in __config__[i]["files"]:
-                    if index == (__wordlist_id__ - 1):
-                        download_wordlist(j, j["name"], i)
-                        return
-                    index += 1
+                if (__wordlist_id__ - 1) < (count + __config__[i]["count"]):
+                    cat = i
+                    break
+                count += __config__[i]["count"]
+                wid -= count
+            lst[cat] = {"files": [__config__[cat]["files"][wid]]}
+        for i in lst.keys():
+            for j in lst[i]["files"]:
+                download_wordlist(j, j["name"], i)
     except Exception as ex:
         err("Error unable to download wordlist: {0}".format(str(ex)))
         return -1
@@ -427,19 +431,18 @@ def download_wordlists(code):
 
 def print_wordlists(categories=""):
     global __config__
-    index = 1
     if categories == "":
+        lst = []
         success("available wordlists:")
         print("    > 0  - all wordlists")
         if __category__ != "":
-            for i in __config__[__category__]["files"]:
-                print("    > {0}  - {1}".format(index, i["name"]))
-                index += 1
+            lst = __config__[__category__]["files"]
         else:
             for i in __config__.keys():
-                for j in __config__[i]["files"]:
-                    print("    > {0}  - {1}".format(index, j["name"]))
-                    index += 1
+                lst += __config__[i]["files"]
+
+        for i in lst:
+            print("    > {0}  - {1}".format(lst.index(i) + 1, i["name"]))
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
@@ -466,22 +469,19 @@ def search_dir(regex):
 
 def search_sites(regex):
     count = 0
-    index = 1
+    lst = []
     info("searching for {0} in urls.json\n".format(regex))
     try:
         if __category__ != "":
-            for i in __config__[__category__]["files"]:
-                if re.match(regex, i["name"]):
-                    success("wordlist {0} found: id={1}".format(i["name"], index))
-                    count += 1
-                index += 1
+            lst = __config__[__category__]["files"]
         else:
             for i in __config__.keys():
-                for j in __config__[i]["files"]:
-                    if re.match(regex, j["name"]):
-                        success("wordlist {0} found: id={1}".format(j["name"], index))
-                        count += 1
-                    index += 1
+                lst += __config__[i]["files"]
+
+        for i in lst:
+            if re.match(regex, i["name"]):
+                success("wordlist {0} found: id={1}".format(i["name"],lst.index(i) + 1))
+                count += 1
 
         if count == 0:
             err("no wordlist found")
@@ -710,7 +710,6 @@ if __name__ == "__main__":
         import requests
         import glob
         import re
-        import threading
         import libtorrent
         import libarchive
         import time
