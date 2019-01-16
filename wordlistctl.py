@@ -269,7 +269,9 @@ def integrity_check(checksum, path):
             break
         hashagent.update(data)
     if checksum != hashagent.hexdigest():
-        err("{0} integrity check failed".format(filename))
+        err("{0} integrity check -- failed".format(filename))
+    else:
+        success("{0} integrity check -- passed".format(filename))
 
 
 def fetch_file(url, path, checksum):
