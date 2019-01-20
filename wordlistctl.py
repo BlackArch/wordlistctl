@@ -52,6 +52,11 @@ def success(string):
     print(colored("[+]", "green", attrs=["bold"]) + " {0}".format(string))
 
 
+def ask(question):
+    print(colored("::", "blue", attrs=["bold"]) + " {0}".format(question), end='')
+    return input()
+
+
 def usage():
     __usage__ = "usage:\n\n"
     __usage__ += "  {0} -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>\n\n"
@@ -130,9 +135,11 @@ def decompress_gbl(infilename):
             copyfileobj(infile, outfile)
             outfile.close()
             success("decompressing {0} completed".format(filename))
+        return True
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
         remove(infilename)
+        return False
 
 
 def decompress_archive(infilename):
@@ -146,9 +153,11 @@ def decompress_archive(infilename):
         else:
             libarchive.extract_file(infilename)
         success("decompressing {0} completed".format(filename))
+        return True
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
         remove(infilename)
+        return False
         
 
 
@@ -156,7 +165,7 @@ def decompress(infilename):
     filename = os.path.basename(infilename)
 
     if not __decompress__:
-        return
+        return True
     try:
         if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz|tar.bz2)$", filename.lower()):
             decompress_archive(infilename)
@@ -165,8 +174,11 @@ def decompress(infilename):
         else:
             return
         clean(infilename)
+        return True
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
+        remove(infilename)
+        return False
 
 
 def clean(filename):
@@ -303,18 +315,18 @@ def fetch_file(url, path, checksum):
                 fp.write(data)
             fp.close()
             success("downloading {0} completed".format(filename))
-        if not integrity_check(checksum, path):
-            remove(path)
-            fetch_file(url, path, checksum)
-        decompress(path)
+        if (not integrity_check(checksum, path)) or (not decompress(path)):
+            raise IOError()
+        return True
     except KeyboardInterrupt:
-        return
+        return True
     except Exception as ex:
         err("Error while downloading {0}: {1}".format(url, str(ex)))
         remove(path)
+        return False
 
 
-def fetch_torrent(config, path):
+def fetch_torrent(config, path, category):
     global __session__
     global __proxy__
     global __torrent_dl__
@@ -338,7 +350,9 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             success("downloaded metadata")
         else:
-            fetch_file(config["urls"]["torrent"], path, config["checksums"]["torrentfile"])
+            if not fetch_file(config["urls"]["torrent"], path, config["checksums"]["torrentfile"]):
+                raise IOError()
+
             if not __torrent_dl__:
                 return
             if os.path.isfile(path):
@@ -357,41 +371,46 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             __session__.remove_torrent(handle)
             success("downloading {0} completed".format(handle.name()))
-        if not integrity_check(config["checksums"]["torrent"], __outfilename__):
-            remove(__outfilename__)
-            fetch_torrent(config, path)
-        decompress(__outfilename__)
+        if (not integrity_check(config["checksums"]["torrent"], __outfilename__)) or (not decompress(__outfilename__)):
+            raise IOError()
+        return True
     except KeyboardInterrupt:
-        return
+        return True
     except Exception as ex:
         err("Error while downloading {0}: {1}".format(config["urls"]["torrent"], str(ex)))
         remove(path)
+        return False
 
 
 def download_wordlist(config, wordlistname, category):
     global __executer__
+    global __errored__
     __filename__ = ""
     __file_directory__ = ""
     __file_path__ = ""
     check_dir("{0}/{1}".format(__wordlist_path__, category))
     __file_directory__ = "{0}/{1}".format(__wordlist_path__, category)
+    res = True
     try:
         if (__prefer_http__ and config["urls"]["http"] != "") or (config["urls"]["torrent"] == "" and config["urls"]["http"] != ""):
             __filename__ = config["urls"]["http"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            __executer__.submit(fetch_file, config["urls"]["http"], __file_path__, config["checksums"]["http"])
+            res = __executer__.submit(fetch_file, config["urls"]["http"],
+                                    __file_path__, config["checksums"]["http"]).result()
 
         elif config["urls"]["torrent"] != "":
             __filename__ = config["urls"]["torrent"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            __executer__.submit(fetch_torrent, config, __file_path__)
-
+            res = __executer__.submit(fetch_torrent, config, __file_path__).result()
         else:
             raise ValueError("unable to find wordlist's url")
 
+        if (not res):
+            raise IOError()
 
     except Exception as ex:
         err("unable to download wordlist: {0}".format(str(ex)))
+        __errored__[category]["files"].append(config)
         return -1
 
 def download_wordlists(code):
@@ -431,6 +450,17 @@ def download_wordlists(code):
         for i in lst.keys():
             for j in lst[i]["files"]:
                 download_wordlist(j, j["name"], i)
+        errored = 0
+        for i in __errored__.keys():
+            errored += __errored__[i]["files"].__len__()
+        if errored > 0:
+            ans = ask("Some wordlists were not downloaded would you like to redownload? [y/N]")
+            if ans.lower() == 'n' or ans.lower() == '':
+                return 0
+            elif ans.lower() != 'y':
+                err("invalid answer")
+                exit(-1)
+            redownload()
     except Exception as ex:
         err("Error unable to download wordlist: {0}".format(str(ex)))
         return -1
@@ -439,7 +469,11 @@ def download_wordlists(code):
 
 def redownload():
     global __errored__
-    pass
+    info("redownloading unsuccessful downloads")
+    for i in __errored__.keys():
+        for j in __errored__[i]["files"]:
+                if download_wordlist(j, j["name"], i):
+                    __errored__[i]["files"].remove(j)
 
 
 def print_wordlists(categories=""):
@@ -564,12 +598,15 @@ def print_categories():
 
 def load_config():
     global __config__
+    global __errored__
     configfile = "{0}/config.json".format(os.path.dirname(os.path.realpath(__file__)))
     if __config__.__len__() <= 0:
         try:
             if not os.path.isfile(configfile):
                 raise FileNotFoundError("Config file not found")
             __config__ = load_json(configfile)
+            for i in __config__.keys():
+                __errored__[i] = {"files":[]}
         except Exception as ex:
             err("Error while loading config files: {0}".format(str(ex)))
             exit(-1)
