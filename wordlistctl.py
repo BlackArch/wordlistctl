@@ -323,7 +323,10 @@ def fetch_file(url, path, checksum):
     except KeyboardInterrupt:
         return True
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(url, str(ex)))
+        str_ex = str(ex)
+        if str_ex.__len__() > 0:
+            str_ex = ": " + str_ex
+        err("Error while downloading {0}{1}".format(url, str_ex))
         remove(path)
         return False
 
@@ -379,7 +382,10 @@ def fetch_torrent(config, path, category):
     except KeyboardInterrupt:
         return True
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(config["urls"]["torrent"], str(ex)))
+        str_ex = str(ex)
+        if str_ex.__len__() > 0:
+            str_ex = ": " + str_ex
+        err("Error while downloading {0}{1}".format(config["urls"]["torrent"], str(ex)))
         remove(path)
         return False
 
@@ -410,7 +416,11 @@ def download_wordlist(config, wordlistname, category):
         if (not res):
             raise IOError()
 
-    except:
+    except Exception as ex:
+        str_ex = str(ex)
+        if str_ex.__len__() > 0:
+            str_ex = ": " + str_ex
+        err("Error while downloading {0}{1}".format(config["urls"]["torrent"], str(ex)))
         __errored__[category]["files"].append(config)
         return -1
 
