@@ -35,6 +35,7 @@ __proxy__ = {}
 __proxy_http__ = False
 __proxy_torrent__ = False
 __chunk_size__ = 1024
+__errored__ = {}
 
 
 def err(string):
@@ -131,7 +132,7 @@ def decompress_gbl(infilename):
             success("decompressing {0} completed".format(filename))
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
-        return -1
+        remove(infilename)
 
 
 def decompress_archive(infilename):
@@ -147,28 +148,29 @@ def decompress_archive(infilename):
         success("decompressing {0} completed".format(filename))
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
-        return -1
+        remove(infilename)
+        
 
 
 def decompress(infilename):
     filename = os.path.basename(infilename)
 
-    if (not __decompress__) or (infilename.endswith(".torrent")):
+    if not __decompress__:
         return
     try:
         if re.fullmatch(r"^.*\.(rar|zip|7z|tar|tar.gz|tar.xz|tar.bz2)$", filename.lower()):
-            return decompress_archive(infilename)
+            decompress_archive(infilename)
         elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", filename.lower()):
-            return decompress_gbl(infilename)
+            decompress_gbl(infilename)
         else:
-            return -1
+            return
+        clean(infilename)
     except Exception as ex:
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
-        return -1
 
 
 def clean(filename):
-    if __remove__ and not re.fullmatch(r"^.*\.(txt|lst|torrent)$", filename.lower()):
+    if __remove__:
         remove(filename)
 
 
@@ -270,8 +272,10 @@ def integrity_check(checksum, path):
         hashagent.update(data)
     if checksum != hashagent.hexdigest():
         err("{0} integrity check -- failed".format(filename))
+        return False
     else:
         success("{0} integrity check -- passed".format(filename))
+        return True
 
 
 def fetch_file(url, path, checksum):
@@ -299,13 +303,14 @@ def fetch_file(url, path, checksum):
                 fp.write(data)
             fp.close()
             success("downloading {0} completed".format(filename))
-            integrity_check(checksum, path)
-        if decompress(path) != -1:
-            clean(path)
+        if not integrity_check(checksum, path):
+            remove(path)
+            fetch_file(url, path, checksum)
+        decompress(path)
     except KeyboardInterrupt:
         return
     except Exception as ex:
-        err("Error while downloading {0}: {1}".format(checksum, str(ex)))
+        err("Error while downloading {0}: {1}".format(url, str(ex)))
         remove(path)
 
 
@@ -352,9 +357,10 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             __session__.remove_torrent(handle)
             success("downloading {0} completed".format(handle.name()))
-            integrity_check(config["checksums"]["torrent"], __outfilename__)
-        if decompress(__outfilename__) != -1:
-            clean(__outfilename__)
+        if not integrity_check(config["checksums"]["torrent"], __outfilename__):
+            remove(__outfilename__)
+            fetch_torrent(config, path)
+        decompress(__outfilename__)
     except KeyboardInterrupt:
         return
     except Exception as ex:
@@ -429,6 +435,11 @@ def download_wordlists(code):
         err("Error unable to download wordlist: {0}".format(str(ex)))
         return -1
     return 0
+
+
+def redownload():
+    global __errored__
+    pass
 
 
 def print_wordlists(categories=""):
