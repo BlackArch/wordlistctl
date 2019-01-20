@@ -54,7 +54,10 @@ def success(string):
 
 
 def ask(question):
+    global __no_confirm__
     print(colored("::", "blue", attrs=["bold"]) + " {0}".format(question), end='')
+    if __no_confirm__:
+        return ''
     return input()
 
 
@@ -423,7 +426,6 @@ def download_wordlist(config, wordlistname, category):
 
 def download_wordlists(code):
     global __config__
-    global __no_confirm__
     global __executer__
     __wordlist_id__ = 0
 
@@ -465,8 +467,6 @@ def download_wordlists(code):
         for i in __errored__.keys():
             errored += __errored__[i]["files"].__len__()
         if errored > 0:
-            if __no_confirm__:
-                return 0
             ans = ask("Some wordlists were not downloaded would you like to redownload? [y/N]")
             if ans.lower() == 'n' or ans.lower() == '':
                 return 0
