@@ -36,6 +36,7 @@ __proxy_http__ = False
 __proxy_torrent__ = False
 __chunk_size__ = 1024
 __errored__ = {}
+__no_confirm__ = False
 
 
 def err(string):
@@ -78,6 +79,7 @@ def usage():
     __usage__ += "  -A         - set useragent string\n"
     __usage__ += "  -Y         - proxy http\n"
     __usage__ += "  -Z         - proxy torrent\n"
+    __usage__ += "  -N         - do not ask for any confirmation\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
     __usage__ += "  -H         - print this help and exit\n\n"
     __usage__ += "example:\n\n"
@@ -408,13 +410,13 @@ def download_wordlist(config, wordlistname, category):
         if (not res):
             raise IOError()
 
-    except Exception as ex:
-        err("unable to download wordlist: {0}".format(str(ex)))
+    except:
         __errored__[category]["files"].append(config)
         return -1
 
 def download_wordlists(code):
     global __config__
+    global __no_confirm__
     __wordlist_id__ = 0
 
     check_dir(__wordlist_path__)
@@ -454,6 +456,8 @@ def download_wordlists(code):
         for i in __errored__.keys():
             errored += __errored__[i]["files"].__len__()
         if errored > 0:
+            if __no_confirm__:
+                return 0
             ans = ask("Some wordlists were not downloaded would you like to redownload? [y/N]")
             if ans.lower() == 'n' or ans.lower() == '':
                 return 0
@@ -631,12 +635,13 @@ def arg_parse(argv):
     global __proxy__
     global __proxy_http__
     global __proxy_torrent__
+    global __no_confirm__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "ZYHCVXThrd:c:f:s:S:t:F:A:P:")
+        opts, _ = getopt.getopt(argv[1:], "ZYHCNVXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -678,6 +683,8 @@ def arg_parse(argv):
                 __proxy_torrent__ = True
             elif opt == "-Y":
                 __proxy_http__ = True
+            elif opt == "-N":
+                __no_confirm__ = True
             elif opt == "-A":
                 __useragent__ = arg
             elif opt == "-P":

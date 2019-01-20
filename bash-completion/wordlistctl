@@ -15,7 +15,8 @@
 #-P         - set proxy (format: proto://user:pass@host:port).
 #-A         - set useragent string.
 #-Y         - proxy http.
-#-Z         - proxy torrent
+#-Z         - proxy torrent.
+#-N         - do not ask for any confirmation.
 #-V         - print version of wordlistctl and exit.
 #-H         - print this help and exit."
 
@@ -23,7 +24,7 @@ _wordlistctl()
 {
     local current options
 
-    options="-f -d -c -s -S -h -X -F -r -t -C -T -P -A -V -H"
+    options="-f -d -c -s -S -h -X -F -r -t -C -T -P -A -N -V -H"
 
     current="${COMP_WORDS[COMP_CWORD]}"
 

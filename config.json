@@ -25900,22 +25900,6 @@
                 }
             },
             {
-                "name": "README",
-                "urls": {
-                    "http": "https://github.com/danielmiessler/SecLists/raw/master/Passwords/README.md",
-                    "torrent": ""
-                },
-                "checksums": {
-                    "http": "ae43e027959625caafe9e856a9992275",
-                    "torrent": "SKIP",
-                    "torrentfile": "SKIP"
-                },
-                "size": {
-                    "compressed": "0",
-                    "decompressed": "0"
-                }
-            },
-            {
                 "name": "cities",
                 "urls": {
                     "http": "https://github.com/danielmiessler/SecLists/raw/master/Miscellaneous/security-question-answers/cities.txt",
@@ -27811,22 +27795,6 @@
                 },
                 "checksums": {
                     "http": "93ef4f027cfab3311fddeb9836a093d0",
-                    "torrent": "SKIP",
-                    "torrentfile": "SKIP"
-                },
-                "size": {
-                    "compressed": "0",
-                    "decompressed": "0"
-                }
-            },
-            {
-                "name": "ReadMe",
-                "urls": {
-                    "http": "https://github.com/danielmiessler/SecLists/raw/master/Discovery/Web-Content/SVNDigger/ReadMe.txt",
-                    "torrent": ""
-                },
-                "checksums": {
-                    "http": "8bc2b44132e7c1433f393618896e4fa2",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },

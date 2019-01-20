@@ -41,6 +41,7 @@ misc:
   -A         - set useragent string
   -Y         - proxy http
   -Z         - proxy torrent
+  -N         - do not ask for any confirmation
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
