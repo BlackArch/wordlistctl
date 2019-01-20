@@ -331,7 +331,7 @@ def fetch_file(url, path, checksum):
         return False
 
 
-def fetch_torrent(config, path, category):
+def fetch_torrent(config, path):
     global __session__
     global __proxy__
     global __torrent_dl__
@@ -391,7 +391,6 @@ def fetch_torrent(config, path, category):
 
 
 def download_wordlist(config, wordlistname, category):
-    global __executer__
     global __errored__
     __filename__ = ""
     __file_directory__ = ""
@@ -403,30 +402,29 @@ def download_wordlist(config, wordlistname, category):
         if (__prefer_http__ and config["urls"]["http"] != "") or (config["urls"]["torrent"] == "" and config["urls"]["http"] != ""):
             __filename__ = config["urls"]["http"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            res = __executer__.submit(fetch_file, config["urls"]["http"],
-                                    __file_path__, config["checksums"]["http"]).result()
-
+            res = fetch_file(config["urls"]["http"], __file_path__, config["checksums"]["http"])
         elif config["urls"]["torrent"] != "":
             __filename__ = config["urls"]["torrent"].split('/')[-1]
             __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            res = __executer__.submit(fetch_torrent, config, __file_path__).result()
+            res = fetch_torrent(config, __file_path__)
         else:
             raise ValueError("unable to find wordlist's url")
 
-        if (not res):
+        if not res:
             raise IOError()
 
     except Exception as ex:
         str_ex = str(ex)
         if str_ex.__len__() > 0:
             str_ex = ": " + str_ex
-        err("Error while downloading {0}{1}".format(config["urls"]["torrent"], str(ex)))
+        err("Error while downloading {0}{1}".format(wordlistname, str(ex)))
         __errored__[category]["files"].append(config)
         return -1
 
 def download_wordlists(code):
     global __config__
     global __no_confirm__
+    global __executer__
     __wordlist_id__ = 0
 
     check_dir(__wordlist_path__)
@@ -461,7 +459,8 @@ def download_wordlists(code):
             lst[cat] = {"files": [__config__[cat]["files"][wid]]}
         for i in lst.keys():
             for j in lst[i]["files"]:
-                download_wordlist(j, j["name"], i)
+                __executer__.submit(download_wordlist, j, j["name"], i)
+        __executer__.shutdown(wait=True)
         errored = 0
         for i in __errored__.keys():
             errored += __errored__[i]["files"].__len__()
@@ -483,11 +482,13 @@ def download_wordlists(code):
 
 def redownload():
     global __errored__
+    global __executer__
     info("redownloading unsuccessful downloads")
+    __executer__ = ThreadPoolExecutor(__max_trds__)
     for i in __errored__.keys():
         for j in __errored__[i]["files"]:
-                if download_wordlist(j, j["name"], i):
-                    __errored__[i]["files"].remove(j)
+            __executer__.submit(download_wordlist, j, j["name"], i)
+    __executer__.shutdown(wait=True)
 
 
 def print_wordlists(categories=""):
