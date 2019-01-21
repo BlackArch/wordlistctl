@@ -163,7 +163,7 @@ def decompress_archive(infilename):
         err("Error while decompressing {0}: {1}".format(filename, str(ex)))
         remove(infilename)
         return False
-        
+
 
 
 def decompress(infilename):
@@ -496,6 +496,7 @@ def print_wordlists(categories=""):
     if categories == "":
         lst = []
         success("available wordlists:")
+        print()
         print("    > 0  - all wordlists")
         if __category__ != "":
             lst = __config__[__category__]["files"]
@@ -605,6 +606,7 @@ def change_category(code):
 def print_categories():
     index = 0
     success("available wordlists category:")
+    print()
     for i in __config__.keys():
         print("    > {0}  - {1} ({2} wordlists)".format(index, i, __config__[i]["count"]))
         index += 1
