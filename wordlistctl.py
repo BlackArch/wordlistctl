@@ -178,7 +178,7 @@ def decompress(infilename):
         elif re.fullmatch(r"^.*\.(gz|bz|bz2|lzma)$", filename.lower()):
             decompress_gbl(infilename)
         else:
-            return
+            return True
         clean(infilename)
         return True
     except Exception as ex:
@@ -282,7 +282,7 @@ def integrity_check(checksum, path):
     info("checking {0} integrity".format(filename))
     if checksum == 'SKIP':
         warn("{0} integrity check -- skipping".format(filename))
-        return
+        return True
     while True:
         data = fp.read(__chunk_size__)
         if not data:
@@ -525,11 +525,9 @@ def print_wordlists(categories=""):
 
 def search_dir(regex):
     info("searching for {0} in {1}\n".format(regex, __wordlist_path__))
-    os.chdir(__wordlist_path__)
-    files = glob.glob("{0}".format(str(regex)))
+    files = glob.glob("{0}/*/{1}".format(__wordlist_path__, str(regex)))
     if files.__len__() <= 0:
         err("wordlist not found")
-        return
     for file in files:
         success("wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
 
