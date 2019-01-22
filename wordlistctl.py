@@ -46,8 +46,10 @@ def err(string):
 def warn(string):
     print(colored("[!]", "yellow", attrs=["bold"]) + " {0}".format(string))
 
+
 def info(string):
     print(colored("[*]", "blue", attrs=["bold"]) + " {0}".format(string))
+
 
 def success(string):
     print(colored("[+]", "green", attrs=["bold"]) + " {0}".format(string))
@@ -164,7 +166,6 @@ def decompress_archive(infilename):
         remove(infilename)
         return False
         
-
 
 def decompress(infilename):
     filename = os.path.basename(infilename)
@@ -348,6 +349,7 @@ def fetch_torrent(config, path):
         magnet = True
     handle = None
     try:
+
         if magnet:
             handle = libtorrent.add_magnet_uri(__session__, config["urls"]["torrent"],
                                                {"save_path": os.path.dirname(path), "storage_mode": libtorrent.storage_mode_t(2),
@@ -424,6 +426,7 @@ def download_wordlist(config, wordlistname, category):
         __errored__[category]["files"].append(config)
         return -1
 
+
 def download_wordlists(code):
     global __config__
     global __executer__
@@ -451,13 +454,13 @@ def download_wordlists(code):
         else:
             cat = ""
             count = 0
-            wid = __wordlist_id__ - 1
+            wid = 0
             for i in __config__.keys():
-                if (__wordlist_id__ - 1) < (count + __config__[i]["count"]):
+                count += __config__[i]["count"]
+                if (__wordlist_id__ - 1) < (count):
                     cat = i
                     break
-                count += __config__[i]["count"]
-                wid -= count
+            wid = (__wordlist_id__ - 1) - count
             lst[cat] = {"files": [__config__[cat]["files"][wid]]}
         for i in lst.keys():
             for j in lst[i]["files"]:
@@ -518,6 +521,7 @@ def print_wordlists(categories=""):
                 print("    > {0}".format(j["name"]))
             print("")
 
+
 def search_dir(regex):
     info("searching for {0} in {1}\n".format(regex, __wordlist_path__))
     os.chdir(__wordlist_path__)
@@ -567,7 +571,7 @@ def check_dir(dir_name):
 
 
 def check_file(path):
-    return glob.glob("{0}*".format(str(path).split('.')[0])).__len__() > 0
+    return glob.glob("{0}".format(path)).__len__() > 0
 
 
 def check_proxy(proxy):
