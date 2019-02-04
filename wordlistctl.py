@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.5"
+__version__ = "0.7.6-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -28,7 +28,7 @@ __prefer_http__ = False
 __torrent_dl__ = True
 
 __executer__ = None
-__max_trds__ = 10
+__max_trds__ = 5
 __session__ = None
 __useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
 __proxy__ = {}
@@ -37,6 +37,7 @@ __proxy_torrent__ = False
 __chunk_size__ = 1024
 __errored__ = {}
 __no_confirm__ = False
+__no_integrity_check__ = False
 
 
 def err(string):
@@ -85,6 +86,7 @@ def usage():
     __usage__ += "  -Y         - proxy http\n"
     __usage__ += "  -Z         - proxy torrent\n"
     __usage__ += "  -N         - do not ask for any confirmation\n"
+    __usage__ += "  -I         - do not check for integrity\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
     __usage__ += "  -H         - print this help and exit\n\n"
     __usage__ += "example:\n\n"
@@ -276,13 +278,14 @@ def torrent_setup_proxy():
 
 def integrity_check(checksum, path):
     global __chunk_size__
-    hashagent = md5()
-    fp = open(path, 'rb')
+    global __no_integrity_check__
     filename = os.path.basename(path)
     info("checking {0} integrity".format(filename))
-    if checksum == 'SKIP':
+    if checksum == 'SKIP' or __no_integrity_check__:
         warn("{0} integrity check -- skipping".format(filename))
         return True
+    hashagent = md5()
+    fp = open(path, 'rb')
     while True:
         data = fp.read(__chunk_size__)
         if not data:
@@ -524,12 +527,18 @@ def print_wordlists(categories=""):
 
 
 def search_dir(regex):
-    info("searching for {0} in {1}\n".format(regex, __wordlist_path__))
-    files = glob.glob("{0}/*/{1}".format(__wordlist_path__, str(regex)))
-    if files.__len__() <= 0:
-        err("wordlist not found")
-    for file in files:
-        success("wordlist found: {0}".format(os.path.join(__wordlist_path__, file)))
+    global __wordlist_path__
+    count = 0
+    try:
+        for root, _, files in os.walk(__wordlist_path__):
+            for f in files:
+                if re.match(regex, f):
+                   info("wordlist found: {0}".format(os.path.join(root, f)))
+                   count += 1
+        if count == 0:
+            err("wordlist not found")
+    except:
+        pass
 
 
 def search_sites(regex):
@@ -570,7 +579,7 @@ def check_dir(dir_name):
 
 
 def check_file(path):
-    return glob.glob("{0}".format(path)).__len__() > 0
+    return os.path.isfile("{0}".format(path))
 
 
 def check_proxy(proxy):
@@ -651,12 +660,13 @@ def arg_parse(argv):
     global __proxy_http__
     global __proxy_torrent__
     global __no_confirm__
+    global __no_integrity_check__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "ZYHCNVXThrd:c:f:s:S:t:F:A:P:")
+        opts, _ = getopt.getopt(argv[1:], "ZIYHCNVXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -700,6 +710,8 @@ def arg_parse(argv):
                 __proxy_http__ = True
             elif opt == "-N":
                 __no_confirm__ = True
+            elif opt == "-I":
+                __no_integrity_check__ = True
             elif opt == "-A":
                 __useragent__ = arg
             elif opt == "-P":
@@ -780,7 +792,6 @@ if __name__ == "__main__":
         import os
         import getopt
         import requests
-        import glob
         import re
         import libtorrent
         import libarchive
