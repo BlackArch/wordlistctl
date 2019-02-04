@@ -31,7 +31,7 @@ options:
   -X         - decompress wordlist
   -F <str>   - list wordlists in categories given
   -r         - remove compressed file after decompression
-  -t <num>   - max download threads (default: 10)
+  -t <num>   - max download threads (default: 5)
 
 misc:
 
@@ -42,6 +42,7 @@ misc:
   -Y         - proxy http
   -Z         - proxy torrent
   -N         - do not ask for any confirmation
+  -I         - do not check for integrity
   -V         - print version of wordlistctl and exit
   -H         - print this help and exit
 
