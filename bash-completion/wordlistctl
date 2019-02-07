@@ -17,6 +17,7 @@
 #-Y         - proxy http.
 #-Z         - proxy torrent.
 #-N         - do not ask for any confirmation.
+#-I         - do not check for integrity
 #-V         - print version of wordlistctl and exit.
 #-H         - print this help and exit."
 
@@ -24,7 +25,7 @@ _wordlistctl()
 {
     local current options
 
-    options="-f -d -c -s -S -h -X -F -r -t -C -T -P -A -N -V -H"
+    options="-f -d -c -s -S -h -X -F -r -t -C -T -P -A -N -I -V -H"
 
     current="${COMP_WORDS[COMP_CWORD]}"
 

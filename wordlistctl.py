@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.7.6-beta"
+__version__ = "0.8.0-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
