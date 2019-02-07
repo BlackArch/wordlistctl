@@ -204,11 +204,24 @@ def remove(filename):
 def resolve_mediafire(link):
     resolved = ""
     try:
-        page = requests.get(link, headers={"User-Agent": __useragent__})
+        page = requests.get(link, headers={"User-Agent": ""})
         html = BeautifulSoup(page.text, "html.parser")
         for i in html.find_all('a', {"class": "input"}):
             if str(i.text).strip().startswith("Download ("):
                     resolved = i["href"]
+    except:
+        pass
+    finally:
+        return resolved
+
+
+def resolve_sourceforge(link):
+    resolved = ""
+    try:
+        rq = requests.get(link, stream=True,
+                            headers={"User-Agent": ""},
+                            allow_redirects=True)
+        resolved = rq.url
     except:
         pass
     finally:
@@ -312,13 +325,24 @@ def fetch_file(url, path, checksum):
             warn("{0} already exists -- skipping".format(filename))
         else:
             info("downloading {0} to {1}".format(filename, path))
+            dlurl = ""
+            resolver = None
+
             if str(url).startswith("http://www.mediafire.com/file/"):
-                rq = requests.get(resolve_mediafire(url), stream=True,
-                                                    headers={"User-Agent": __useragent__},
-                                                    proxies=proxy)
+                resolver = resolve_mediafire
+            elif str(url).startswith("http://downloads.sourceforge.net/"):
+                resolver = resolve_sourceforge
+            if resolver is None:
+                dlurl = url
             else:
-                rq = requests.get(url, stream=True,
-                                    headers={"User-Agent": __useragent__},proxies=proxy)
+                while True:
+                    dlurl = resolver(url)
+                    if dlurl != "":
+                        break
+                    time.sleep(0.1)
+            rq = requests.get(dlurl, stream=True,
+                                headers={"User-Agent": __useragent__},
+                                proxies=proxy)
             fp = open(path, "wb")
             for data in rq.iter_content(chunk_size=__chunk_size__):
                 fp.write(data)
@@ -574,7 +598,7 @@ def check_dir(dir_name):
             info("creating directory {0}".format(dir_name))
             os.mkdir(dir_name)
     except Exception as ex:
-        err("unable to change base directory: {0}".format(str(ex)))
+        err("unable to create directory: {0}".format(str(ex)))
         exit(-1)
 
 
