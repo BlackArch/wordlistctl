@@ -8138,7 +8138,10 @@
     },
     "password": {
         "count": 1654,
-        "size": "",
+        "size": {
+            "compressed": "0",
+            "decompressed": "0"
+        },
         "files": [
             {
                 "name": "darkc0de",

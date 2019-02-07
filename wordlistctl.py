@@ -535,7 +535,9 @@ def print_wordlists(categories=""):
                 lst += __config__[i]["files"]
 
         for i in lst:
-            print("    > {0}  - {1}".format(lst.index(i) + 1, i["name"]))
+            print("    > {0}  - {1} ({2}, {3})".format(lst.index(i) + 1, i["name"],
+                                                        i["size"]["compressed"],
+                                                        i["size"]["decompressed"]))
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
@@ -546,7 +548,8 @@ def print_wordlists(categories=""):
         for i in categories_list:
             success("{0}:".format(i))
             for j in __config__[i]["files"]:
-                print("    > {0}".format(j["name"]))
+                print("    > {0} ({1}, {2})".format(j["name"], j["size"]["compressed"],
+                                                        j["size"]["decompressed"]))
             print("")
 
 
@@ -643,7 +646,9 @@ def print_categories():
     success("available wordlists category:")
     print()
     for i in __config__.keys():
-        print("    > {0}  - {1} ({2} wordlists)".format(index, i, __config__[i]["count"]))
+        print("    > {0}  - {1} ({2} lsts, {3}, {4})".format(index, i,
+                            __config__[i]["count"], __config__[i]["size"]["compressed"],
+                            __config__[i]["size"]["decompressed"]))
         index += 1
     print("")
 
