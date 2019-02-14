@@ -7703,18 +7703,18 @@
                 }
             },
             {
-                "name": "IncludesNonEnglishDictionary-Link\n",
+                "name": "IncludesNonEnglishDictionary-Link",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Dictionary-Style/IncludesNonEnglishDictionary-Link",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "30b3365400032411821ee3354e0ea40f",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 191,
                     "decompressed": 0
                 }
             },
@@ -30352,18 +30352,18 @@
                 }
             },
             {
-                "name": "BEncyclopedia-Link\n",
+                "name": "BEncyclopedia-Link",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Dictionary-Style/BEncyclopedia-Link",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "f368e6fac300d98510a571b3e1e6d53f",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 290,
                     "decompressed": 0
                 }
             },
@@ -31328,34 +31328,34 @@
                 }
             },
             {
-                "name": "Top297Million-probable-LINK\n",
+                "name": "Top297Million-probable-LINK",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Real-Passwords/Top297Million-probable-LINK",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "f541661edd718458993aaa7adcd20b40",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 172,
                     "decompressed": 0
                 }
             },
             {
-                "name": "Top35Million-probable-Link\n",
+                "name": "Top35Million-probable-Link",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Real-Passwords/Top35Million-probable-Link",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "ed8bf86b52679fa4be50dbcbb297cbe1",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 192,
                     "decompressed": 0
                 }
             },
@@ -31376,18 +31376,18 @@
                 }
             },
             {
-                "name": "Top240Million-probable-WPA-Link\n",
+                "name": "Top240Million-probable-WPA-Link",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Real-Passwords/WPA-Length/Top240Million-probable-WPA-Link",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "7831d1636f242da40e5a22d069c7d49c",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 186,
                     "decompressed": 0
                 }
             },
@@ -31408,18 +31408,18 @@
                 }
             },
             {
-                "name": "Top33Million-probable-WPA-Link\n",
+                "name": "Top33Million-probable-WPA-Link",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Real-Passwords/WPA-Length/Top33Million-probable-WPA-Link",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "46df4460e06b1fa8a946ee14b16e278c",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 184,
                     "decompressed": 0
                 }
             },
@@ -32336,34 +32336,34 @@
                 }
             },
             {
-                "name": "Generic_SQLi\n",
+                "name": "Generic_SQLi",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_danielmiessler/SecLists/Fuzzing/Generic_SQLi",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "ca56119c118668f4253f74f5227ed3ff",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 5322,
                     "decompressed": 0
                 }
             },
             {
-                "name": "JHADDIX_FORMATSTRING\n",
+                "name": "JHADDIX_FORMATSTRING",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_danielmiessler/SecLists/Fuzzing/JHADDIX_FORMATSTRING",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "5aee4d0ff24e0cf6790da192fb785e62",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 899,
                     "decompressed": 0
                 }
             },
@@ -32640,18 +32640,18 @@
                 }
             },
             {
-                "name": "XML_FUZZ\n",
+                "name": "XML_FUZZ",
                 "urls": {
                     "http": "http://wordbook.xyz/download/sites/github.com_danielmiessler/SecLists/Fuzzing/XML_FUZZ",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "6c7cf72eecd90f66912c8af2548715b5",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 1946,
                     "decompressed": 0
                 }
             },
@@ -33376,18 +33376,18 @@
                 }
             },
             {
-                "name": "top500\n",
+                "name": "top500",
                 "urls": {
                     "http": "http://wordbook.xyz/download/TOP/top500",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "396bb2f634884f279c8bd96092833df3",
+                    "http": "SKIP",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 3493,
                     "decompressed": 0
                 }
             },
@@ -38260,7 +38260,7 @@
         ]
     },
     "misc": {
-        "count": 235,
+        "count": 234,
         "size": {
             "compressed": 0,
             "decompressed": 0
@@ -41579,18 +41579,18 @@
                 }
             },
             {
-                "name": "README\n",
+                "name": "README",
                 "urls": {
                     "http": "http://wordbook.xyz/download/other/betterdefaultpasslist/README",
                     "torrent": ""
                 },
                 "checksums": {
-                    "http": "926995d8450e1c3f133cab4b5183ef53",
+                    "http": "4feeaacb1a30af63d932434391ba751c",
                     "torrent": "SKIP",
                     "torrentfile": "SKIP"
                 },
                 "size": {
-                    "compressed": 0,
+                    "compressed": 164,
                     "decompressed": 0
                 }
             },
@@ -41639,22 +41639,6 @@
                 },
                 "size": {
                     "compressed": 18353,
-                    "decompressed": 0
-                }
-            },
-            {
-                "name": "README",
-                "urls": {
-                    "http": "http://wordbook.xyz/download/sites/github.com_berzerk0/Probable-Wordlists/Dictionary-Style/README.md",
-                    "torrent": ""
-                },
-                "checksums": {
-                    "http": "4feeaacb1a30af63d932434391ba751c",
-                    "torrent": "SKIP",
-                    "torrentfile": "SKIP"
-                },
-                "size": {
-                    "compressed": 164,
                     "decompressed": 0
                 }
             },
