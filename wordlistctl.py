@@ -228,6 +228,19 @@ def resolve_sourceforge(link):
         return resolved
 
 
+def to_readable_size(size):
+    units = {0: 'bytes',
+            1: 'Kbytes',
+            2: 'Mbytes',
+            3: 'Gbytes',
+            4: 'Tbytes'}
+    i = 0
+    while size > 1000:
+        size = size / 1000
+        i += 1
+    return "{0} {1}".format(size, units[i])
+
+
 def torrent_setup_proxy():
     global __session__
     global __proxy__
