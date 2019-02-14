@@ -2,7 +2,7 @@
     "username": {
         "count": 508,
         "size": {
-            "compressed": 0,
+            "compressed": 13324807897,
             "decompressed": 0
         },
         "files": [
@@ -8139,7 +8139,7 @@
     "password": {
         "count": 1654,
         "size": {
-            "compressed": 0,
+            "compressed": 281727501336,
             "decompressed": 0
         },
         "files": [
@@ -34612,7 +34612,7 @@
     "hostname": {
         "count": 41,
         "size": {
-            "compressed": 0,
+            "compressed": 56615464,
             "decompressed": 0
         },
         "files": [
@@ -35277,7 +35277,7 @@
     "filename": {
         "count": 186,
         "size": {
-            "compressed": 0,
+            "compressed": 25410706,
             "decompressed": 0
         },
         "files": [
@@ -38262,7 +38262,7 @@
     "misc": {
         "count": 234,
         "size": {
-            "compressed": 0,
+            "compressed": 5790059154,
             "decompressed": 0
         },
         "files": [

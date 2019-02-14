@@ -238,7 +238,7 @@ def to_readable_size(size):
     while size > 1000:
         size = size / 1000
         i += 1
-    return "{0} {1}".format(size, units[i])
+    return "{0:.2f} {1}".format(size, units[i])
 
 
 def torrent_setup_proxy():
@@ -549,8 +549,8 @@ def print_wordlists(categories=""):
 
         for i in lst:
             print("    > {0}  - {1} ({2}, {3})".format(lst.index(i) + 1, i["name"],
-                                                        i["size"]["compressed"],
-                                                        i["size"]["decompressed"]))
+                                        to_readable_size(i["size"]["compressed"]),
+                                        to_readable_size(i["size"]["decompressed"])))
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
@@ -561,8 +561,9 @@ def print_wordlists(categories=""):
         for i in categories_list:
             success("{0}:".format(i))
             for j in __config__[i]["files"]:
-                print("    > {0} ({1}, {2})".format(j["name"], j["size"]["compressed"],
-                                                        j["size"]["decompressed"]))
+                print("    > {0} ({1}, {2})".format(j["name"],
+                                                to_readable_size(j["size"]["compressed"]),
+                                                to_readable_size(j["size"]["decompressed"])))
             print("")
 
 
@@ -660,8 +661,9 @@ def print_categories():
     print()
     for i in __config__.keys():
         print("    > {0}  - {1} ({2} lsts, {3}, {4})".format(index, i,
-                            __config__[i]["count"], __config__[i]["size"]["compressed"],
-                            __config__[i]["size"]["decompressed"]))
+                            __config__[i]["count"],
+                            to_readable_size(__config__[i]["size"]["compressed"]),
+                            to_readable_size(__config__[i]["size"]["decompressed"])))
         index += 1
     print("")
 
