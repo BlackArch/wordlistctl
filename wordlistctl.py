@@ -6,7 +6,7 @@
 #                                                                              #
 # DESCRIPTION                                                                  #
 # Script to fetch, install, update and search wordlist archives from websites  #
-# offering wordlists with more than 1800 wordlists available.                  #
+# offering wordlists with more than 2900 wordlists available.                  #
 #                                                                              #
 # AUTHORS                                                                      #
 # sepehrdad.dev@gmail.com                                                      #
@@ -392,8 +392,13 @@ def fetch_torrent(url, path):
 
         if magnet:
             handle = libtorrent.add_magnet_uri(__session__, url,
-                                               {"save_path": os.path.dirname(path), "storage_mode": libtorrent.storage_mode_t(2),
-                                                "paused": False, "auto_managed": True, "duplicate_is_error": True}
+                                               {
+                                                   "save_path": os.path.dirname(path),
+                                                   "storage_mode": libtorrent.storage_mode_t(2),
+                                                   "paused": False,
+                                                   "auto_managed": True,
+                                                   "duplicate_is_error": True
+                                                }
                                                )
             info("downloading metadata\n")
             while not handle.has_metadata():
