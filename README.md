@@ -1,7 +1,7 @@
 ## Description
 
 Script to fetch, install, update and search wordlist archives from websites
-offering wordlists with more than 2600 wordlists available.
+offering wordlists with more than 2900 wordlists available.
 
 In the latest version of the Blackarch Linux it has been added to
 **/usr/share/wordlists/** directory.

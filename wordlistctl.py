@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.0-beta"
+__version__ = "0.8.1-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -375,7 +375,7 @@ def fetch_file(url, path, checksum):
         return False
 
 
-def fetch_torrent(config, path):
+def fetch_torrent(url, path):
     global __session__
     global __proxy__
     global __torrent_dl__
@@ -385,13 +385,13 @@ def fetch_torrent(config, path):
             torrent_setup_proxy()
         __session__.start_dht()
     magnet = False
-    if str(config["urls"]["torrent"]).startswith("magnet:?"):
+    if str(url).startswith("magnet:?"):
         magnet = True
     handle = None
     try:
 
         if magnet:
-            handle = libtorrent.add_magnet_uri(__session__, config["urls"]["torrent"],
+            handle = libtorrent.add_magnet_uri(__session__, url,
                                                {"save_path": os.path.dirname(path), "storage_mode": libtorrent.storage_mode_t(2),
                                                 "paused": False, "auto_managed": True, "duplicate_is_error": True}
                                                )
@@ -400,8 +400,6 @@ def fetch_torrent(config, path):
                 time.sleep(0.1)
             success("downloaded metadata")
         else:
-            if not fetch_file(config["urls"]["torrent"], path, config["checksums"]["torrentfile"]):
-                raise IOError()
 
             if not __torrent_dl__:
                 return
@@ -426,7 +424,7 @@ def fetch_torrent(config, path):
         str_ex = str(ex)
         if str_ex.__len__() > 0:
             str_ex = ": " + str_ex
-        err("Error while downloading {0}{1}".format(config["urls"]["torrent"], str(ex)))
+        err("Error while downloading {0}{1}".format(url, str_ex))
         remove(path)
         return False
 
@@ -440,16 +438,21 @@ def download_wordlist(config, wordlistname, category):
     __file_directory__ = "{0}/{1}".format(__wordlist_path__, category)
     res = True
     try:
-        if (__prefer_http__ and config["urls"]["http"] != "") or (config["urls"]["torrent"] == "" and config["urls"]["http"] != ""):
-            __filename__ = config["urls"]["http"].split('/')[-1]
-            __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            res = fetch_file(config["urls"]["http"], __file_path__, config["checksums"]["http"])
-        elif config["urls"]["torrent"] != "":
-            __filename__ = config["urls"]["torrent"].split('/')[-1]
-            __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
-            res = fetch_torrent(config, __file_path__)
+        urls = config["url"]
+        urls.sort()
+        url = None
+        if __prefer_http__:
+            url = urls[0]
         else:
-            raise ValueError("unable to find wordlist's url")
+            url = urls[-1]
+        __filename__ = url.split('/')[-1]
+        __file_path__ = "{0}/{1}".format(__file_directory__, __filename__)
+        __csum__ = config["sum"][config["url"].index(url)]
+        if url.startswith("http"):
+            res = fetch_file(url, __file_path__, __csum__)
+        else:
+            fetch_file(url.replace("torrent+", ""), __file_path__, __csum__)
+            res = fetch_torrent(url, __file_path__)
 
         if not res:
             raise IOError()
@@ -458,7 +461,7 @@ def download_wordlist(config, wordlistname, category):
         str_ex = str(ex)
         if str_ex.__len__() > 0:
             str_ex = ": " + str_ex
-        err("Error while downloading {0}{1}".format(wordlistname, str(ex)))
+        err("Error while downloading {0}{1}".format(wordlistname, str_ex))
         __errored__[category]["files"].append(config)
         return -1
 
@@ -581,7 +584,7 @@ def search_dir(regex):
 def search_sites(regex):
     count = 0
     lst = []
-    info("searching for {0} in urls.json\n".format(regex))
+    info("searching for {0} in config.json\n".format(regex))
     try:
         if __category__ != "":
             lst = __config__[__category__]["files"]
@@ -793,14 +796,9 @@ def arg_parse(argv):
 
 
 def main(argv):
-    global __urls_file_name__
-    global __categories_file_name__
     global __max_trds__
     global __executer__
     banner()
-    __base_name__ = os.path.dirname(os.path.realpath(__file__))
-    __urls_file_name__ = "{0}/urls.json".format(__base_name__)
-    __categories_file_name__ = "{0}/categories.json".format(__base_name__)
 
     __operation__, __arg__ = arg_parse(argv)
 
