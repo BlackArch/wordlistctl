@@ -412,16 +412,12 @@ def fetch_torrent(config, path):
                 err("{0} not found".format(path))
                 exit(-1)
         __outfilename__ = "{0}/{1}".format(os.path.dirname(path), handle.name())
-        if check_file(__outfilename__):
-            warn("{0} already exists -- skipping".format(handle.name()))
-            __session__.remove_torrent(handle)
-        else:
-            info("downloading {0} to {1}".format(handle.name(), __outfilename__))
-            while not handle.is_seed():
-                time.sleep(0.1)
-            __session__.remove_torrent(handle)
-            success("downloading {0} completed".format(handle.name()))
-        if (not integrity_check(config["checksums"]["torrent"], __outfilename__)) or (not decompress(__outfilename__)):
+        info("downloading {0} to {1}".format(handle.name(), __outfilename__))
+        while not handle.is_seed():
+            time.sleep(0.1)
+        __session__.remove_torrent(handle)
+        success("downloading {0} completed".format(handle.name()))
+        if not decompress(__outfilename__):
             raise IOError()
         return True
     except KeyboardInterrupt:
