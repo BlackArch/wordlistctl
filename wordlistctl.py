@@ -545,8 +545,8 @@ def print_wordlists(categories=""):
 
         for i in lst:
             print("    > {0}  - {1} ({2}, {3})".format(lst.index(i) + 1, i["name"],
-                                        to_readable_size(i["size"]["compressed"]),
-                                        to_readable_size(i["size"]["decompressed"])))
+                                        to_readable_size(i["size"][0]),
+                                        to_readable_size(i["size"][1])))
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
@@ -558,8 +558,8 @@ def print_wordlists(categories=""):
             success("{0}:".format(i))
             for j in __config__[i]["files"]:
                 print("    > {0} ({1}, {2})".format(j["name"],
-                                                to_readable_size(j["size"]["compressed"]),
-                                                to_readable_size(j["size"]["decompressed"])))
+                                                to_readable_size(j["size"][0]),
+                                                to_readable_size(j["size"][1])))
             print("")
 
 
@@ -658,8 +658,8 @@ def print_categories():
     for i in __config__.keys():
         print("    > {0}  - {1} ({2} lsts, {3}, {4})".format(index, i,
                             __config__[i]["count"],
-                            to_readable_size(__config__[i]["size"]["compressed"]),
-                            to_readable_size(__config__[i]["size"]["decompressed"])))
+                            to_readable_size(__config__[i]["size"][0]),
+                            to_readable_size(__config__[i]["size"][1])))
         index += 1
     print("")
 
