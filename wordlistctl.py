@@ -402,7 +402,7 @@ def fetch_torrent(url, path):
         else:
 
             if not __torrent_dl__:
-                return
+                return True
             if os.path.isfile(path):
                 handle = __session__.add_torrent({"ti": libtorrent.torrent_info(path), "save_path": os.path.dirname(path)})
                 remove(path)
@@ -451,7 +451,9 @@ def download_wordlist(config, wordlistname, category):
         if url.startswith("http"):
             res = fetch_file(url, __file_path__, __csum__)
         else:
-            fetch_file(url.replace("torrent+", ""), __file_path__, __csum__)
+            res = fetch_file(url.replace("torrent+", ""), __file_path__, __csum__)
+            if not res:
+                raise IOError()
             res = fetch_torrent(url, __file_path__)
 
         if not res:
