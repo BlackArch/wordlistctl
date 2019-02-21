@@ -1,0 +1,91 @@
+.TH "WORDLISTCTL" "1" "" "" ""
+.SH NAME
+.PP
+wordlistctl \- Fetch, install and search wordlist archives from websites and torrent peers.
+.SH SYNOPSIS
+.PP
+wordlistctl \fB\-f\fR <arg> [options] | \fB\-s\fR <arg> [options] | \fB\-S\fR <arg> | <misc>
+.SH DESCRIPTION
+.PP
+Script to fetch, install, update and search wordlist archives from websites offering wordlists with more than 2900 wordlists available.
+.SH OPTIONS
+.PP
+.HP
+\fB\-f\fR <num>   \- download chosen wordlist \- ? to list wordlists with id
+.HP
+\fB\-d\fR <dir>   \- wordlists base directory (default: \fI\,/usr/share/wordlists\/\fP)
+.HP
+\fB\-c\fR <num>   \- change wordlists category \- ? to list wordlists categories
+.HP
+\fB\-s\fR <regex> \- wordlist to search using <regex> in base directory
+.HP
+\fB\-S\fR <regex> \- wordlist to search using <regex> in sites
+.HP
+\fB\-h\fR         \- prefer http
+.HP
+\fB\-X\fR         \- decompress wordlist
+.HP
+\fB\-F\fR <str>   \- list wordlists in categories given
+.HP
+\fB\-r\fR         \- remove compressed file after decompression
+.HP
+\fB\-t\fR <num>   \- max download threads (default: 5)
+.HP
+\fB\-C\fR         \- disable terminal colors
+.HP
+\fB\-T\fR         \- disable torrent download
+.HP
+\fB\-P\fR         \- set proxy (format: proto://user:pass@host:port)
+.HP
+\fB\-A\fR         \- set useragent string
+.HP
+\fB\-Y\fR         \- proxy http
+.HP
+\fB\-Z\fR         \- proxy torrent
+.HP
+\fB\-N\fR         \- do not ask for any confirmation
+.HP
+\fB\-I\fR         \- do not check for integrity
+.HP
+\fB\-V\fR         \- print version of wordlistctl and exit
+.HP
+\fB\-H\fR         \- print this help and exit
+.PP
+.SH EXAMPLES
+.PP
+.HP
+# download and decompress all wordlists and remove archive
+.HP
+$ wordlistctl \fB\-f\fR 0 \fB\-Xr\fR
+.HP
+# download all wordlists in username category
+.HP
+$ wordlistctl \fB\-f\fR 0 \fB\-c\fR 0
+.HP
+# list all wordlists in password category with id
+.HP
+$ wordlistctl \fB\-f\fR ? \fB\-c\fR 1
+.HP
+# download and decompress all wordlists in misc category
+.HP
+$ wordlistctl \fB\-f\fR 0 \fB\-c\fR 4 \fB\-X\fR
+.HP
+# download all wordlists in filename category using 20 threads
+.HP
+$ wordlistctl \fB\-c\fR 3 \fB\-f\fR 0 \fB\-t\fR 20
+.HP
+# download wordlist with id 2 to "~/wordlists" directory using http
+.HP
+$ wordlistctl \fB\-f\fR 2 \fB\-d\fR \fI\,~/wordlists\/\fP \fB\-h\fR
+.HP
+# print wordlists in username and password categories
+.HP
+$ wordlistctl \fB\-F\fR username,password
+.HP
+# download all wordlists with using tor socks5 proxy
+.HP
+$ wordlistctl \fB\-f\fR 0 \fB\-P\fR "socks5://127.0.0.1:9050" \fB\-Y\fR
+.HP
+# download all wordlists with using http proxy and noleak useragent
+.HP
+$ wordlistctl \fB\-f\fR 0 \fB\-P\fR "http://127.0.0.1:9060" \fB\-Y\fR \fB\-A\fR "noleak"
