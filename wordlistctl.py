@@ -201,10 +201,10 @@ def remove(filename):
         pass
 
 
-def resolve_mediafire(link):
+def resolve_mediafire(url):
     resolved = ""
     try:
-        page = requests.get(link, headers={"User-Agent": ""})
+        page = requests.get(url, headers={"User-Agent": ""})
         html = BeautifulSoup(page.text, "html.parser")
         for i in html.find_all('a', {"class": "input"}):
             if str(i.text).strip().startswith("Download ("):
@@ -215,17 +215,39 @@ def resolve_mediafire(link):
         return resolved
 
 
-def resolve_sourceforge(link):
+def resolve_sourceforge(url):
     resolved = ""
     try:
-        rq = requests.get(link, stream=True,
-                            headers={"User-Agent": ""},
-                            allow_redirects=True)
+        rq = requests.get(url, stream=True,
+                                headers={"User-Agent": ""},
+                                allow_redirects=True)
         resolved = rq.url
     except:
         pass
     finally:
         return resolved
+
+
+def resolve(url):
+    resolver = None
+    resolved = ""
+    rq = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
+    if rq.headers["Content-Type"] == "text/html":
+        if str(url).startswith("http://www.mediafire.com/file/"):
+            resolver = resolve_mediafire
+        elif str(url).startswith("http://downloads.sourceforge.net/"):
+            resolver = resolve_sourceforge
+        if resolver is None:
+            resolved = url
+        else:
+            count = 0
+            while (resolved == "") and (count < 10):
+                resolved = resolver(url)
+                time.sleep(10)
+                count += 1
+    else:
+        resolved = url
+    return resolved
 
 
 def to_readable_size(size):
@@ -338,21 +360,7 @@ def fetch_file(url, path, checksum):
             warn("{0} already exists -- skipping".format(filename))
         else:
             info("downloading {0} to {1}".format(filename, path))
-            dlurl = ""
-            resolver = None
-
-            if str(url).startswith("http://www.mediafire.com/file/"):
-                resolver = resolve_mediafire
-            elif str(url).startswith("http://downloads.sourceforge.net/"):
-                resolver = resolve_sourceforge
-            if resolver is None:
-                dlurl = url
-            else:
-                while True:
-                    dlurl = resolver(url)
-                    if dlurl != "":
-                        break
-                    time.sleep(0.1)
+            dlurl = resolve(url)
             rq = requests.get(dlurl, stream=True,
                                 headers={"User-Agent": __useragent__},
                                 proxies=proxy)
