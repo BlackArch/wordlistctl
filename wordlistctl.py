@@ -28,7 +28,7 @@ __prefer_http__ = False
 __torrent_dl__ = True
 
 __executer__ = None
-__max_trds__ = 5
+__max_parallel__ = 5
 __session__ = None
 __useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
 __proxy__ = {}
@@ -38,6 +38,7 @@ __chunk_size__ = 1024
 __errored__ = {}
 __no_confirm__ = False
 __no_integrity_check__ = False
+__use_process_pool__ = False
 
 
 def err(string):
@@ -77,7 +78,7 @@ def usage():
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -F <str>   - list wordlists in categories given\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += "  -t <num>   - max download threads (default: {0})\n\n".format(__max_trds__)
+    __usage__ += "  -t <num>   - max parallel downloads (default: {0})\n\n".format(__max_parallel__)
     __usage__ += "misc:\n\n"
     __usage__ += "  -C         - disable terminal colors\n"
     __usage__ += "  -T         - disable torrent download\n"
@@ -85,6 +86,7 @@ def usage():
     __usage__ += "  -A         - set useragent string\n"
     __usage__ += "  -Y         - proxy http\n"
     __usage__ += "  -Z         - proxy torrent\n"
+    __usage__ += "  -M         - use multiprocessing for parallelization\n"
     __usage__ += "  -N         - do not ask for any confirmation\n"
     __usage__ += "  -I         - do not check for integrity\n"
     __usage__ += "  -V         - print version of wordlistctl and exit\n"
@@ -540,8 +542,12 @@ def download_wordlists(code):
 def redownload():
     global __errored__
     global __executer__
+    global __use_process_pool__
     info("redownloading unsuccessful downloads")
-    __executer__ = ThreadPoolExecutor(__max_trds__)
+    if __use_process_pool__:
+        __executer__ = ProcessPoolExecutor(__max_parallel__)
+    else:
+        __executer__ = ThreadPoolExecutor(__max_parallel__)
     for i in __errored__.keys():
         for j in __errored__[i]["files"]:
             __executer__.submit(download_wordlist, j, j["name"], i)
@@ -711,7 +717,7 @@ def arg_parse(argv):
     global __decompress__
     global __remove__
     global __prefer_http__
-    global __max_trds__
+    global __max_parallel__
     global __torrent_dl__
     global __useragent__
     global __proxy__
@@ -719,12 +725,13 @@ def arg_parse(argv):
     global __proxy_torrent__
     global __no_confirm__
     global __no_integrity_check__
+    global __use_process_pool__
     __operation__ = None
     __arg__ = None
     opFlag = 0
 
     try:
-        opts, _ = getopt.getopt(argv[1:], "ZIYHCNVXThrd:c:f:s:S:t:F:A:P:")
+        opts, _ = getopt.getopt(argv[1:], "MZIYHCNVXThrd:c:f:s:S:t:F:A:P:")
 
         if opts.__len__() <= 0:
             __operation__ = usage
@@ -793,9 +800,11 @@ def arg_parse(argv):
             elif opt == "-h":
                 __prefer_http__ = True
             elif opt == "-t":
-                __max_trds__ = to_int(arg)
-                if __max_trds__ <= 0:
+                __max_parallel__ = to_int(arg)
+                if __max_parallel__ <= 0:
                     raise Exception("threads number can't be less than 1")
+            elif opt == "-M":
+                __use_process_pool__ = True
             elif opt == "-F":
                 __operation__ = print_wordlists
                 __arg__ = arg
@@ -811,8 +820,9 @@ def arg_parse(argv):
 
 
 def main(argv):
-    global __max_trds__
+    global __max_parallel__
     global __executer__
+    global __use_process_pool__
     banner()
 
     __operation__, __arg__ = arg_parse(argv)
@@ -821,7 +831,10 @@ def main(argv):
         if __operation__ not in [version, usage]:
             load_config()
         if __executer__ is None:
-            __executer__ = ThreadPoolExecutor(__max_trds__)
+            if __use_process_pool__:
+                __executer__ = ProcessPoolExecutor(__max_parallel__)
+            else:
+                __executer__ = ThreadPoolExecutor(__max_parallel__)
         if __operation__ is not None:
             if __arg__ is not None:
                 __operation__(__arg__)
@@ -859,6 +872,7 @@ if __name__ == "__main__":
         from bs4 import BeautifulSoup
         from termcolor import colored
         from concurrent.futures import ThreadPoolExecutor
+        from concurrent.futures import ProcessPoolExecutor
     except Exception as ex:
         err("Error while loading dependencies: {0}".format(str(ex)))
         exit(-1)
