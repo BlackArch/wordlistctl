@@ -233,22 +233,22 @@ def resolve_sourceforge(url):
 def resolve(url):
     resolver = None
     resolved = ""
-    rq = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
-    if rq.headers["Content-Type"] == "text/html":
-        if str(url).startswith("http://www.mediafire.com/file/"):
-            resolver = resolve_mediafire
-        elif str(url).startswith("http://downloads.sourceforge.net/"):
-            resolver = resolve_sourceforge
-        if resolver is None:
-            resolved = url
-        else:
-            count = 0
-            while (resolved == "") and (count < 10):
-                resolved = resolver(url)
-                time.sleep(10)
-                count += 1
-    else:
+    # rq = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
+    # if rq.headers["Content-Type"] == "text/html":
+    if str(url).startswith("http://downloads.sourceforge.net/"):
+        resolver = resolve_sourceforge
+    # elif str(url).startswith("http://www.mediafire.com/file/"):
+    #     resolver = resolve_mediafire
+    if resolver is None:
         resolved = url
+    else:
+        count = 0
+        while (resolved == "") and (count < 10):
+            resolved = resolver(url)
+            time.sleep(10)
+            count += 1
+    # else:
+    #     resolved = url
     return resolved
 
 
