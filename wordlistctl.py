@@ -30,7 +30,7 @@ __torrent_dl__ = True
 __executer__ = None
 __max_parallel__ = 5
 __session__ = None
-__useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:63.0) Gecko/20180101 Firefox/63.0"
+__useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:65.0) Gecko/20180101 Firefox/65.0"
 __proxy__ = {}
 __proxy_http__ = False
 __proxy_torrent__ = False
@@ -59,7 +59,7 @@ def success(string):
 
 def ask(question):
     global __no_confirm__
-    print(colored("::", "blue", attrs=["bold"]) + " {0}".format(question), end='')
+    print(colored("[?]", "blue", attrs=["bold"]) + " {0}".format(question), end='')
     if __no_confirm__:
         return ''
     return input()
@@ -206,11 +206,15 @@ def remove(filename):
 def resolve_mediafire(url):
     resolved = ""
     try:
-        page = requests.get(url, headers={"User-Agent": ""})
-        html = BeautifulSoup(page.text, "html.parser")
-        for i in html.find_all('a', {"class": "input"}):
-            if str(i.text).strip().startswith("Download ("):
-                    resolved = i["href"]
+        page = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
+        if page.url != url:
+            resolve = page.url
+        else:
+            page = requests.get(url, headers={"User-Agent": ""})
+            html = BeautifulSoup(page.text, "html.parser")
+            for i in html.find_all('a', {"class": "input"}):
+                if str(i.text).strip().startswith("Download ("):
+                        resolved = i["href"]
     except:
         pass
     finally:
@@ -233,12 +237,10 @@ def resolve_sourceforge(url):
 def resolve(url):
     resolver = None
     resolved = ""
-    # rq = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
-    # if rq.headers["Content-Type"] == "text/html":
     if str(url).startswith("http://downloads.sourceforge.net/"):
         resolver = resolve_sourceforge
-    # elif str(url).startswith("http://www.mediafire.com/file/"):
-    #     resolver = resolve_mediafire
+    elif str(url).startswith("http://www.mediafire.com/file/"):
+        resolver = resolve_mediafire
     if resolver is None:
         resolved = url
     else:
@@ -247,8 +249,6 @@ def resolve(url):
             resolved = resolver(url)
             time.sleep(10)
             count += 1
-    # else:
-    #     resolved = url
     return resolved
 
 
