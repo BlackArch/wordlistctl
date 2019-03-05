@@ -208,7 +208,7 @@ def resolve_mediafire(url):
     try:
         page = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
         if page.url != url:
-            resolve = page.url
+            resolved = page.url
         else:
             page = requests.get(url, headers={"User-Agent": ""})
             html = BeautifulSoup(page.text, "html.parser")
