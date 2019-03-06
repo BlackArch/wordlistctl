@@ -42,7 +42,8 @@ __use_process_pool__ = False
 
 
 def err(string):
-    print(colored("[-]", "red", attrs=["bold"]) + " {0}".format(string), file=sys.stderr)
+    print(colored("[-]", "red", attrs=["bold"]) +
+          " {0}".format(string), file=sys.stderr)
 
 
 def warn(string):
@@ -59,7 +60,8 @@ def success(string):
 
 def ask(question):
     global __no_confirm__
-    print(colored("[?]", "blue", attrs=["bold"]) + " {0}".format(question), end='')
+    print(colored("[?]", "blue", attrs=["bold"]) +
+          " {0}".format(question), end='')
     if __no_confirm__:
         return ''
     return input()
@@ -78,7 +80,8 @@ def usage():
     __usage__ += "  -X         - decompress wordlist\n"
     __usage__ += "  -F <str>   - list wordlists in categories given\n"
     __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += "  -t <num>   - max parallel downloads (default: {0})\n\n".format(__max_parallel__)
+    __usage__ += "  -t <num>   - max parallel downloads (default: {0})\n\n".format(
+        __max_parallel__)
     __usage__ += "misc:\n\n"
     __usage__ += "  -C         - disable terminal colors\n"
     __usage__ += "  -T         - disable torrent download\n"
@@ -111,7 +114,6 @@ def usage():
     __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
     __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n"
 
-
     print(__usage__.format(__project__, __wordlist_path__))
 
 
@@ -121,7 +123,8 @@ def version():
 
 
 def banner():
-    __str_banner__ = "--==[ {0} by {1} ]==--\n".format(__project__, __organization__)
+    __str_banner__ = "--==[ {0} by {1} ]==--\n".format(
+        __project__, __organization__)
     print(colored(__str_banner__, "red", attrs=["bold"]))
 
 
@@ -206,7 +209,8 @@ def remove(filename):
 def resolve_mediafire(url):
     resolved = ""
     try:
-        page = requests.head(url, headers={"User-Agent": ""}, allow_redirects=True)
+        page = requests.head(
+            url, headers={"User-Agent": ""}, allow_redirects=True)
         if page.url != url:
             resolved = page.url
         else:
@@ -214,7 +218,7 @@ def resolve_mediafire(url):
             html = BeautifulSoup(page.text, "html.parser")
             for i in html.find_all('a', {"class": "input"}):
                 if str(i.text).strip().startswith("Download ("):
-                        resolved = i["href"]
+                    resolved = i["href"]
     except:
         pass
     finally:
@@ -225,8 +229,8 @@ def resolve_sourceforge(url):
     resolved = ""
     try:
         rq = requests.get(url, stream=True,
-                                headers={"User-Agent": ""},
-                                allow_redirects=True)
+                          headers={"User-Agent": ""},
+                          allow_redirects=True)
         resolved = rq.url
     except:
         pass
@@ -254,10 +258,10 @@ def resolve(url):
 
 def to_readable_size(size):
     units = {0: 'bytes',
-            1: 'Kbytes',
-            2: 'Mbytes',
-            3: 'Gbytes',
-            4: 'Tbytes'}
+             1: 'Kbytes',
+             2: 'Mbytes',
+             3: 'Gbytes',
+             4: 'Tbytes'}
     i = 0
     while size > 1000:
         size = size / 1000
@@ -279,7 +283,7 @@ def torrent_setup_proxy():
         return
     regex = r"^(http|https|socks4|socks5)://([a-zA-Z0-9._-]+:[a-zA-Z0-9._-]+@)?[a-z0-9.]+:[0-9]{1,5}$"
     if re.match(regex, str(__proxy__['http']).lower()):
-        username, password, host, port = "","","",""
+        username, password, host, port = "", "", "", ""
         proxy = str(__proxy__['http'])
         proxy_settings = libtorrent.proxy_settings()
         proto = proxy.split("://")[0]
@@ -364,8 +368,8 @@ def fetch_file(url, path, checksum):
             info("downloading {0} to {1}".format(filename, path))
             dlurl = resolve(url)
             rq = requests.get(dlurl, stream=True,
-                                headers={"User-Agent": __useragent__},
-                                proxies=proxy)
+                              headers={"User-Agent": __useragent__},
+                              proxies=proxy)
             fp = open(path, "wb")
             for data in rq.iter_content(chunk_size=__chunk_size__):
                 fp.write(data)
@@ -408,7 +412,7 @@ def fetch_torrent(url, path):
                                                    "paused": False,
                                                    "auto_managed": True,
                                                    "duplicate_is_error": True
-                                                }
+                                               }
                                                )
             info("downloading metadata\n")
             while not handle.has_metadata():
@@ -419,12 +423,14 @@ def fetch_torrent(url, path):
             if not __torrent_dl__:
                 return True
             if os.path.isfile(path):
-                handle = __session__.add_torrent({"ti": libtorrent.torrent_info(path), "save_path": os.path.dirname(path)})
+                handle = __session__.add_torrent(
+                    {"ti": libtorrent.torrent_info(path), "save_path": os.path.dirname(path)})
                 remove(path)
             else:
                 err("{0} not found".format(path))
                 exit(-1)
-        __outfilename__ = "{0}/{1}".format(os.path.dirname(path), handle.name())
+        __outfilename__ = "{0}/{1}".format(
+            os.path.dirname(path), handle.name())
         info("downloading {0} to {1}".format(handle.name(), __outfilename__))
         while not handle.is_seed():
             time.sleep(0.1)
@@ -466,7 +472,8 @@ def download_wordlist(config, wordlistname, category):
         if url.startswith("http"):
             res = fetch_file(url, __file_path__, __csum__)
         else:
-            res = fetch_file(url.replace("torrent+", ""), __file_path__, __csum__)
+            res = fetch_file(url.replace("torrent+", ""),
+                             __file_path__, __csum__)
             if not res:
                 raise IOError()
             res = fetch_torrent(url, __file_path__)
@@ -506,7 +513,8 @@ def download_wordlists(code):
             else:
                 lst[__category__] = __config__[__category__]
         elif __category__ != "":
-            lst[__category__] = {"files": [__config__[__category__]["files"][__wordlist_id__ - 1]]}
+            lst[__category__] = {"files": [__config__[
+                __category__]["files"][__wordlist_id__ - 1]]}
         else:
             cat = ""
             count = 0
@@ -526,7 +534,8 @@ def download_wordlists(code):
         for i in __errored__.keys():
             errored += __errored__[i]["files"].__len__()
         if errored > 0:
-            ans = ask("Some wordlists were not downloaded would you like to redownload? [y/N]")
+            ans = ask(
+                "Some wordlists were not downloaded would you like to redownload? [y/N]")
             if ans.lower() == 'n' or ans.lower() == '':
                 return 0
             elif ans.lower() != 'y':
@@ -569,8 +578,9 @@ def print_wordlists(categories=""):
 
         for i in lst:
             print("    > {0}  - {1} ({2}, {3})".format(lst.index(i) + 1, i["name"],
-                                        to_readable_size(i["size"][0]),
-                                        to_readable_size(i["size"][1])))
+                                                       to_readable_size(
+                                                           i["size"][0]),
+                                                       to_readable_size(i["size"][1])))
         print("")
     else:
         categories_list = set([i.strip() for i in categories.split(',')])
@@ -582,8 +592,9 @@ def print_wordlists(categories=""):
             success("{0}:".format(i))
             for j in __config__[i]["files"]:
                 print("    > {0} ({1}, {2})".format(j["name"],
-                                                to_readable_size(j["size"][0]),
-                                                to_readable_size(j["size"][1])))
+                                                    to_readable_size(
+                                                        j["size"][0]),
+                                                    to_readable_size(j["size"][1])))
             print("")
 
 
@@ -594,8 +605,8 @@ def search_dir(regex):
         for root, _, files in os.walk(__wordlist_path__):
             for f in files:
                 if re.match(regex, f):
-                   info("wordlist found: {0}".format(os.path.join(root, f)))
-                   count += 1
+                    info("wordlist found: {0}".format(os.path.join(root, f)))
+                    count += 1
         if count == 0:
             err("wordlist not found")
     except:
@@ -615,7 +626,8 @@ def search_sites(regex):
 
         for i in lst:
             if re.match(regex, i["name"]):
-                success("wordlist {0} found: id={1}".format(i["name"],lst.index(i) + 1))
+                success("wordlist {0} found: id={1}".format(
+                    i["name"], lst.index(i) + 1))
                 count += 1
 
         if count == 0:
@@ -681,9 +693,11 @@ def print_categories():
     print()
     for i in __config__.keys():
         print("    > {0}  - {1} ({2} lsts, {3}, {4})".format(index, i,
-                            __config__[i]["count"],
-                            to_readable_size(__config__[i]["size"][0]),
-                            to_readable_size(__config__[i]["size"][1])))
+                                                             __config__[
+                                                                 i]["count"],
+                                                             to_readable_size(
+                                                                 __config__[i]["size"][0]),
+                                                             to_readable_size(__config__[i]["size"][1])))
         index += 1
     print("")
 
@@ -691,14 +705,15 @@ def print_categories():
 def load_config():
     global __config__
     global __errored__
-    configfile = "{0}/config.json".format(os.path.dirname(os.path.realpath(__file__)))
+    configfile = "{0}/config.json".format(
+        os.path.dirname(os.path.realpath(__file__)))
     if __config__.__len__() <= 0:
         try:
             if not os.path.isfile(configfile):
                 raise FileNotFoundError("Config file not found")
             __config__ = load_json(configfile)
             for i in __config__.keys():
-                __errored__[i] = {"files":[]}
+                __errored__[i] = {"files": []}
         except Exception as ex:
             err("Error while loading config files: {0}".format(str(ex)))
             exit(-1)
@@ -781,9 +796,9 @@ def arg_parse(argv):
                 __useragent__ = arg
             elif opt == "-P":
                 if arg.startswith('http://'):
-                    proxy = {"http" : arg}
+                    proxy = {"http": arg}
                 else:
-                    proxy = {"http" : arg, "https" : arg}
+                    proxy = {"http": arg, "https": arg}
                 check_proxy(proxy)
                 __proxy__ = proxy
             elif opt == "-S":
