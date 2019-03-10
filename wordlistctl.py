@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.1-beta"
+__version__ = "0.8.1"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -472,11 +472,14 @@ def download_wordlist(config, wordlistname, category):
         if url.startswith("http"):
             res = fetch_file(url, __file_path__, __csum__)
         else:
-            res = fetch_file(url.replace("torrent+", ""),
-                             __file_path__, __csum__)
-            if not res:
-                raise IOError()
-            res = fetch_torrent(url, __file_path__)
+            if url.replace("torrent+", "").startswith("magnet:?"):
+                res = fetch_torrent(url.replace("torrent+", ""), __file_path__)
+            else:
+                res = fetch_file(url.replace("torrent+", ""),
+                                 __file_path__, __csum__)
+                if not res:
+                    raise IOError()
+                res = fetch_torrent(url, __file_path__)
 
         if not res:
             raise IOError()
