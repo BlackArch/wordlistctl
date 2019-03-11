@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.1"
+__version__ = "0.8.2-beta"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -207,35 +207,31 @@ def remove(filename):
 
 
 def resolve_mediafire(url):
-    resolved = ""
     try:
         page = requests.head(
             url, headers={"User-Agent": ""}, allow_redirects=True)
-        if page.url != url:
-            resolved = page.url
+        if page.url != url and "text/plain" in page.headers["Content-Type"]:
+            return page.url
         else:
-            page = requests.get(url, headers={"User-Agent": ""})
+            page = requests.get(
+                url, headers={"User-Agent": ""}, allow_redirects=True)
             html = BeautifulSoup(page.text, "html.parser")
             for i in html.find_all('a', {"class": "input"}):
                 if str(i.text).strip().startswith("Download ("):
-                    resolved = i["href"]
+                    return i["href"]
+        return url
     except:
         pass
-    finally:
-        return resolved
 
 
 def resolve_sourceforge(url):
-    resolved = ""
     try:
         rq = requests.get(url, stream=True,
                           headers={"User-Agent": ""},
                           allow_redirects=True)
-        resolved = rq.url
+        return rq.url
     except:
         pass
-    finally:
-        return resolved
 
 
 def resolve(url):
@@ -405,15 +401,16 @@ def fetch_torrent(url, path):
     try:
 
         if magnet:
-            handle = libtorrent.add_magnet_uri(__session__, url,
-                                               {
-                                                   "save_path": os.path.dirname(path),
-                                                   "storage_mode": libtorrent.storage_mode_t(2),
-                                                   "paused": False,
-                                                   "auto_managed": True,
-                                                   "duplicate_is_error": True
-                                               }
-                                               )
+            handle = libtorrent.add_magnet_uri(
+                __session__, url,
+                {
+                    "save_path": os.path.dirname(path),
+                    "storage_mode": libtorrent.storage_mode_t(2),
+                    "paused": False,
+                    "auto_managed": True,
+                    "duplicate_is_error": True
+                }
+            )
             info("downloading metadata\n")
             while not handle.has_metadata():
                 time.sleep(0.1)
@@ -424,7 +421,11 @@ def fetch_torrent(url, path):
                 return True
             if os.path.isfile(path):
                 handle = __session__.add_torrent(
-                    {"ti": libtorrent.torrent_info(path), "save_path": os.path.dirname(path)})
+                    {
+                        "ti": libtorrent.torrent_info(path),
+                        "save_path": os.path.dirname(path)
+                    }
+                )
                 remove(path)
             else:
                 err("{0} not found".format(path))
