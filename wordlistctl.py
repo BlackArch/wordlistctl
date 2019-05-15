@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -868,6 +868,8 @@ def main(argv):
 
 if __name__ == "__main__":
     try:
+        import warnings
+        warnings.simplefilter('ignore')
         import sys
         import os
         import getopt
