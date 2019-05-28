@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.3"
+__version__ = "0.8.4"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -207,7 +207,7 @@ def resolve_mediafire(url):
     try:
         page = requests.head(
             url, headers={"User-Agent": ""}, allow_redirects=True)
-        if page.url != url and "text/plain" in page.headers["Content-Type"]:
+        if page.url != url and "text/html" not in page.headers["Content-Type"]:
             return page.url
         else:
             page = requests.get(
