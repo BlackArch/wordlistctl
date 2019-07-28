@@ -76,6 +76,12 @@ example:
   # download all wordlists with using http proxy and noleak useragent
   $ wordlistctl -f 0 -P "http://127.0.0.1:9060" -Y -A "noleak"
 
+note:
+
+  * Wordlist's id are relative to the category that is chosen
+  * and are not global, so by changing the category Wordlist's
+  * id changes.
+
 ```
 
 ## Get Involved
