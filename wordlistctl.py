@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.4"
+__version__ = "0.8.5"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -110,7 +110,11 @@ def usage():
     __usage__ += "  # download all wordlists with using tor socks5 proxy\n"
     __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\" -Y\n\n"
     __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
-    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n"
+    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n\n"
+    __usage__ += "note:\n\n"
+    __usage__ += "  * Wordlist's id are relative to the category that is chosen\n"
+    __usage__ += "  * and are not global, so by changing the category Wordlist's\n"
+    __usage__ += "  * id changes.\n"
 
     print(__usage__)
 
