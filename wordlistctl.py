@@ -16,7 +16,7 @@
 __author__ = "Sepehrdad Sh"
 __organization__ = "blackarch.org"
 __license__ = "GPLv3"
-__version__ = "0.8.5"
+__version__ = "0.8.6"
 __project__ = "wordlistctl"
 
 __wordlist_path__ = "/usr/share/wordlists"
@@ -30,7 +30,7 @@ __torrent_dl__ = True
 __executer__ = None
 __max_parallel__ = 5
 __session__ = None
-__useragent__ = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:65.0) Gecko/20180101 Firefox/65.0"
+__useragent__ = "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0"
 __proxy__ = {}
 __proxy_http__ = False
 __proxy_torrent__ = False
@@ -111,10 +111,11 @@ def usage():
     __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\" -Y\n\n"
     __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
     __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n\n"
-    __usage__ += "note:\n\n"
+    __usage__ += "notes:\n\n"
     __usage__ += "  * Wordlist's id are relative to the category that is chosen\n"
-    __usage__ += "  * and are not global, so by changing the category Wordlist's\n"
-    __usage__ += "  * id changes.\n"
+    __usage__ += "    and are not global, so by changing the category Wordlist's\n"
+    __usage__ += "    id changes. E.g.: -f 1337 != -c 1 -f 1337. use -f ? -c 1\n"
+    __usage__ += "    to get the real id for a given password list.\n"
 
     print(__usage__)
 
