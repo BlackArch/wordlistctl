@@ -434,7 +434,16 @@ def fetch_torrent(url, path):
                 exit(-1)
         __outfilename__ = f"{os.path.dirname(path)}/{handle.name()}"
         info(f"downloading {handle.name()} to {__outfilename__}")
+        if handle.status().num_peers == 0:
+            warn("no peers found")
+            if ask("Abort? [Y|n]").lower() in ("y", ""):
+                return False
+
         while not handle.is_seed():
+            s = handle.status()
+            print('\r%.2f%% complete (down: %.1f kB/s up: %.1f kB/s peers: %d) %s' % (
+                s.progress * 100, s.download_rate / 1000, s.upload_rate / 1000,
+                s.num_peers, s.state), end=' ')
             time.sleep(0.1)
         __session__.remove_torrent(handle)
         success(f"downloading {handle.name()} completed")
