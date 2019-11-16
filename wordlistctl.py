@@ -67,57 +67,61 @@ def ask(question):
 
 
 def usage():
-    __usage__ = "usage:\n\n"
-    __usage__ += f"  {__project__} -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>\n\n"
-    __usage__ += "options:\n\n"
-    __usage__ += "  -f <num>   - download chosen wordlist - ? to list wordlists with id\n"
-    __usage__ += f"  -d <dir>   - wordlists base directory (default: {__wordlist_path__})\n"
-    __usage__ += "  -c <num>   - change wordlists category - ? to list wordlists categories\n"
-    __usage__ += "  -s <regex> - wordlist to search using <regex> in base directory\n"
-    __usage__ += "  -S <regex> - wordlist to search using <regex> in sites\n"
-    __usage__ += "  -h         - prefer http\n"
-    __usage__ += "  -X         - decompress wordlist\n"
-    __usage__ += "  -F <str>   - list wordlists in categories given\n"
-    __usage__ += "  -r         - remove compressed file after decompression\n"
-    __usage__ += f"  -t <num>   - max parallel downloads (default: {__max_parallel__})\n\n"
-    __usage__ += "misc:\n\n"
-    __usage__ += "  -C         - disable terminal colors\n"
-    __usage__ += "  -T         - disable torrent download\n"
-    __usage__ += "  -P         - set proxy (format: proto://user:pass@host:port)\n"
-    __usage__ += "  -A         - set useragent string\n"
-    __usage__ += "  -Y         - proxy http\n"
-    __usage__ += "  -Z         - proxy torrent\n"
-    __usage__ += "  -M         - use multiprocessing for parallelization\n"
-    __usage__ += "  -N         - do not ask for any confirmation\n"
-    __usage__ += "  -I         - do not check for integrity\n"
-    __usage__ += "  -V         - print version of wordlistctl and exit\n"
-    __usage__ += "  -H         - print this help and exit\n\n"
-    __usage__ += "example:\n\n"
-    __usage__ += "  # download and decompress all wordlists and remove archive\n"
-    __usage__ += "  $ wordlistctl -f 0 -Xr\n\n"
-    __usage__ += "  # download all wordlists in username category\n"
-    __usage__ += "  $ wordlistctl -f 0 -c 0\n\n"
-    __usage__ += "  # list all wordlists in password category with id\n"
-    __usage__ += "  $ wordlistctl -f ? -c 1\n\n"
-    __usage__ += "  # download and decompress all wordlists in misc category\n"
-    __usage__ += "  $ wordlistctl -f 0 -c 4 -X\n\n"
-    __usage__ += "  # download all wordlists in filename category using 20 threads\n"
-    __usage__ += "  $ wordlistctl -c 3 -f 0 -t 20\n\n"
-    __usage__ += "  # download wordlist with id 2 to \"~/wordlists\" directory using http\n"
-    __usage__ += "  $ wordlistctl -f 2 -d ~/wordlists -h\n\n"
-    __usage__ += "  # print wordlists in username and password categories\n"
-    __usage__ += "  $ wordlistctl -F username,password\n\n"
-    __usage__ += "  # download all wordlists with using tor socks5 proxy\n"
-    __usage__ += "  $ wordlistctl -f 0 -P \"socks5://127.0.0.1:9050\" -Y\n\n"
-    __usage__ += "  # download all wordlists with using http proxy and noleak useragent\n"
-    __usage__ += "  $ wordlistctl -f 0 -P \"http://127.0.0.1:9060\" -Y -A \"noleak\"\n\n"
-    __usage__ += "notes:\n\n"
-    __usage__ += "  * Wordlist's id are relative to the category that is chosen\n"
-    __usage__ += "    and are not global, so by changing the category Wordlist's\n"
-    __usage__ += "    id changes. E.g.: -f 1337 != -c 1 -f 1337. use -f ? -c 1\n"
-    __usage__ += "    to get the real id for a given password list.\n"
+    print(f"""usage:
 
-    print(__usage__)
+  {__project__} -f <arg> [options] | -s <arg> [options] | -S <arg> | <misc>
+
+options:
+  -f <num>   - download chosen wordlist - ? to list wordlists with id
+  -d <dir>   - wordlists base directory (default: {__wordlist_path__})
+  -c <num>   - change wordlists category - ? to list wordlists categories
+  -s <regex> - wordlist to search using <regex> in base directory
+  -S <regex> - wordlist to search using <regex> in sites
+  -h         - prefer http
+  -X         - decompress wordlist
+  -F <str>   - list wordlists in categories given
+  -r         - remove compressed file after decompression
+  -t <num>   - max parallel downloads (default: {__max_parallel__})
+
+misc:
+  -C         - disable terminal colors
+  -T         - disable torrent download
+  -P         - set proxy (format: proto://user:pass@host:port)
+  -A         - set useragent string
+  -Y         - proxy http
+  -Z         - proxy torrent
+  -M         - use multiprocessing for parallelization
+  -N         - do not ask for any confirmation
+  -I         - do not check for integrity
+  -V         - print version of wordlistctl and exit
+  -H         - print this help and exit
+
+example:
+  # download and decompress all wordlists and remove archive
+  $ wordlistctl -f 0 -Xr
+  # download all wordlists in username category
+  $ wordlistctl -f 0 -c 0
+  # list all wordlists in password category with id
+  $ wordlistctl -f ? -c 1
+  # download and decompress all wordlists in misc category
+  $ wordlistctl -f 0 -c 4 -X
+  # download all wordlists in filename category using 20 threads
+  $ wordlistctl -c 3 -f 0 -t 20
+  # download wordlist with id 2 to \~/wordlists\ directory using http
+  $ wordlistctl -f 2 -d ~/wordlists -h
+  # print wordlists in username and password categories
+  $ wordlistctl -F username,password
+  # download all wordlists with using tor socks5 proxy
+  $ wordlistctl -f 0 -P \socks5://127.0.0.1:9050\ -Y
+  # download all wordlists with using http proxy and noleak useragent
+  $ wordlistctl -f 0 -P \http://127.0.0.1:9060\ -Y -A noleak 
+
+notes:
+  * Wordlist's id are relative to the category that is chosen
+    and are not global, so by changing the category Wordlist's
+    id changes. E.g.: -f 1337 != -c 1 -f 1337. use -f ? -c 1
+    to get the real id for a given password list.
+    """)
 
 
 def version():
@@ -369,7 +373,16 @@ def fetch_file(url, path, checksum):
                               headers={"User-Agent": __useragent__},
                               proxies=proxy)
             fp = open(path, "wb")
+            timestamp = time.monotonic()
+            n = 1
             for data in rq.iter_content(chunk_size=__chunk_size__):
+                if time.monotonic() - timestamp > 1:
+                    print('\r %1.f kB/s' % (
+                        n * __chunk_size__ / 1024 / (time.monotonic() - timestamp)), end=' ')
+                    timestamp = time.monotonic()
+                    n = 1
+                else:
+                    n += 1
                 fp.write(data)
             fp.close()
             success(f"downloading {filename} completed")
