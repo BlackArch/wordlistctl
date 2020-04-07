@@ -9,8 +9,6 @@ COPY [".", "/wordlistctl"]
 
 ENV PATH=${PATH}:/wordlistctl
 
-
-
 RUN pip install -r /wordlistctl/requirements.txt && \
     mkdir -p /usr/share/wordlists/{usernames,passwords,discovery,fuzzing,misc} && \
     addgroup wordlistctl && \
