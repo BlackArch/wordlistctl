@@ -1,6 +1,2 @@
-beautifulsoup4
-libarchive-c
-rarfile
 requests
-python-libtorrent
 termcolor
