@@ -153,6 +153,9 @@ def fetch_func(parser):
                 wordlists.append(wordlist)
 
     for wordlist in wordlists:
+        if wordlist not in repo:
+            error(f"wordlist not found: {wordlist}")
+            continue
         group = repo[wordlist]["group"]
         filename = repo[wordlist]["url"].split('/')[-1]
         path = f"{parser.basedir}/{group}/{filename}"
@@ -256,7 +259,7 @@ def main():
     try:
         results.func(results)
     except Exception as ex:
-        error(ex)
+        error(f"Error while parsing arguments: {ex}")
 
 
 if __name__ == "__main__":
