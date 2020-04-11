@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: latin-1 -*- ######################################################
 #                                                                              #
-# wordlistctl - Fetch, install and search wordlist archives from websites and  #
-# torrent peers.                                                               #
+# wordlistctl - Fetch, install and search wordlist archives from websites.     #
 #                                                                              #
 # DESCRIPTION                                                                  #
 # Script to fetch, install, update and search wordlist archives from websites  #
@@ -18,11 +17,12 @@ __organization__ = "blackarch.org"
 __license__ = "GPLv3"
 __version__ = "v0.8.8-dev"
 __project__ = "wordlistctl"
-__description__ = "Fetch, install and search wordlist archives from websites"
+__description__ = "Fetch, install and search wordlist archives from websites."
 
 
 wordlist_path = "/usr/share/wordlists"
 repo = {}
+retry_count = 5
 
 
 def error(string):
@@ -60,11 +60,11 @@ def load_repo():
 
 
 def to_readable_size(size):
-    units = {0: 'bytes',
-             1: 'Kbytes',
-             2: 'Mbytes',
-             3: 'Gbytes',
-             4: 'Tbytes'}
+    units = {0: 'B',
+             1: 'Kb',
+             2: 'Mb',
+             3: 'Gb',
+             4: 'Tb'}
     i = 0
     while size > 1000:
         size = size / 1000
@@ -97,13 +97,20 @@ def fetch_file(url, path, useragent, decompress):
             warning(f"{filename} already exists -- skipping")
         else:
             info(f"downloading {filename} to {path}")
-            rq = requests.get(url, stream=True,
-                              headers={"User-Agent": useragent})
-            fp = open(path, "wb")
-            for data in rq.iter_content(chunk_size=1024):
-                fp.write(data)
-            fp.close()
-            success(f"downloading {filename} completed")
+            for retry in range(retry_count):
+                rq = requests.get(url, stream=True,
+                                headers={"User-Agent": useragent})
+                if rq.status_code == 404:
+                    raise FileNotFoundError("host returned 404")
+                elif rq.status_code != 200:
+                    time.sleep(5)
+                    continue
+                fp = open(path, "wb")
+                for data in rq.iter_content(chunk_size=1024):
+                    fp.write(data)
+                fp.close()
+                success(f"downloading {filename} completed")
+                break
         if decompress:
             decompress_file(path)
     except KeyboardInterrupt:
@@ -256,6 +263,7 @@ if __name__ == "__main__":
     import argparse
     import gzip
     import tarfile
+    import time
     import json
     import os
     import sys
