@@ -1,9 +1,9 @@
 FROM python:alpine
 
-LABEL version="0.8.8-dev" \
+LABEL version="0.8.8" \
     author="Author BlackArch (https://github.com/BlackArch)" \
-    docker_build="docker build -t blackarch/wordlistctl:0.8.8-dev ." \
-    docker_run_basic="docker run --rm blackarch/wordlistctl:0.8.8-dev -h"
+    docker_build="docker build -t blackarch/wordlistctl:0.8.8 ." \
+    docker_run_basic="docker run --rm blackarch/wordlistctl:0.8.8 -h"
 
 COPY [".", "/wordlistctl"]
 

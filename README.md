@@ -18,7 +18,7 @@ In the latest version of the Blackarch Linux it has been added to
 
 usage: wordlistctl [-h] [-v] {fetch,search,list} ...
 
-Fetch, install and search wordlist archives from websites
+Fetch, install and search wordlist archives from websites.
 
 positional arguments:
   {fetch,search,list}

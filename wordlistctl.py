@@ -33,7 +33,7 @@ except Exception as ex:
 # Internal Variables
 __organization__: str = "blackarch.org"
 __license__: str = "GPLv3"
-__version__: str = "v0.8.8-dev"
+__version__: str = "v0.8.8"
 __project__: str = "wordlistctl"
 __description__: str = "Fetch, install and search wordlist archives from websites."
 
