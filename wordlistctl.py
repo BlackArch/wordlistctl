@@ -113,23 +113,30 @@ def decompress_file(infilename: str) -> None:
 
 def fetch_file(url: str, path: str, useragent: str, decompress: bool) -> None:
     filename: str = os.path.basename(path)
+    partpath: str = f'{path}.part'
+    headers = {"User-Agent": useragent}
     try:
         if os.path.isfile(path):
             warning(f"{filename} already exists -- skipping")
         else:
-            info(f"downloading {filename} to {path}")
+            if os.path.isfile(partpath):
+                info(f"resume downloading {filename} to {partpath}")
+                size: int = os.stat(partpath).st_size
+                headers["Range"] = f'bytes={size}-'
+            else:
+                info(f"downloading {filename} to {partpath}")
             for retry in range(RETRY_COUNT):
-                rq: requests.Response = requests.get(url, stream=True,
-                                                     headers={"User-Agent": useragent})
+                rq: requests.Response = requests.get(url, stream=True, headers=headers)
                 if rq.status_code == 404:
                     raise FileNotFoundError("host returned 404")
-                elif rq.status_code != 200:
+                elif rq.status_code not in [200, 206]:
                     time.sleep(5)
                     continue
-                fp = open(path, "wb")
-                for data in rq.iter_content(chunk_size=1024):
-                    fp.write(data)
-                fp.close()
+                mode: str = "ab" if rq.status_code == 206 else "wb"
+                with open(partpath, mode) as fp:
+                    for data in rq.iter_content(chunk_size=1024):
+                        fp.write(data)
+                os.rename(partpath, path)
                 success(f"downloading {filename} completed")
                 break
         if decompress:
