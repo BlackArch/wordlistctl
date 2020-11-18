@@ -5,7 +5,7 @@
 #                                                                              #
 # DESCRIPTION                                                                  #
 # Script to fetch, install, update and search wordlist archives from websites  #
-# offering wordlists with more than 6300 wordlists available.                  #
+# offering wordlists with more than 6400 wordlists available.                  #
 #                                                                              #
 # AUTHORS                                                                      #
 # sepehrdad@blackarch.org                                                      #
@@ -33,7 +33,7 @@ except Exception as ex:
 # Internal Variables
 __organization__: str = "blackarch.org"
 __license__: str = "GPLv3"
-__version__: str = "v0.8.9"
+__version__: str = "v0.9.0"
 __project__: str = "wordlistctl"
 __description__: str = "Fetch, install and search wordlist archives from websites."
 
@@ -125,7 +125,7 @@ def fetch_file(url: str, path: str, useragent: str, decompress: bool) -> None:
                 headers["Range"] = f'bytes={size}-'
             else:
                 info(f"downloading {filename} to {partpath}")
-            for retry in range(RETRY_COUNT):
+            for _ in range(RETRY_COUNT):
                 rq: requests.Response = requests.get(url, stream=True, headers=headers)
                 if rq.status_code == 404:
                     raise FileNotFoundError("host returned 404")
