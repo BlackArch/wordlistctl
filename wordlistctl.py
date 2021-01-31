@@ -15,6 +15,7 @@
 import argparse
 import gzip
 import tarfile
+from zipfile import ZipFile
 import time
 import json
 import os
@@ -102,6 +103,9 @@ def decompress_file(infilename: str) -> None:
             outfile = open(infilename.split(".gz")[0], "wb")
             copyfileobj(gf, outfile)
             outfile.close()
+        elif filename.endswith(".zip"):
+            with ZipFile(f'{infilename}','r') as zipObj:
+                zipObj.extractall(path=os.path.dirname(infilename))
         else:
             warning(f"decompressing {infilename.split('.')[-1]} file type not supported")
             return
