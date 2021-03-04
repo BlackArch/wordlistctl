@@ -454,12 +454,12 @@ def main() -> int:
                         help="wordlists base directory [default: %(default)s]")
     search.set_defaults(func=search_func)
 
-    list = subparser.add_parser("list", help="list wordlists")
-    list.add_argument("-g", "--group",
+    lst = subparser.add_parser("list", help="list wordlists")
+    lst.add_argument("-g", "--group",
                       choices=["usernames", "passwords",
                                "discovery", "fuzzing", "misc"],
                       help="group")
-    list.set_defaults(func=lst_func)
+    lst.set_defaults(func=lst_func)
 
     # Parse command line
     results = parser.parse_args()
