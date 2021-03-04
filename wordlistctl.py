@@ -244,8 +244,9 @@ def lst_func(parser: argparse.ArgumentParser) -> None:
 
 
 class ArgumentParser(argparse.ArgumentParser):
-    def __init__(self, *args, width=78,
-                 **kwargs):  # this is basically just to get the variables for the screen, a bit like writing characters to the screen when youre making a kernel, place a character and then increase the y coordinates by x pixles
+    def __init__(self, *args, width=78, **kwargs):  # this is basically just to get the variables for the screen,
+        # a bit like writing characters to the screen when youre making a kernel, place a character and then increase
+        # the y coordinates by x pixels
         self.program = {key: kwargs[key] for key in kwargs}
         self.positionals = []
         self.options = []
@@ -256,7 +257,7 @@ class ArgumentParser(argparse.ArgumentParser):
         super(ArgumentParser, self).add_argument(*args, **kwargs)
         argument = {key: kwargs[key] for key in kwargs}
 
-        if (len(args) == 0 or (len(args) == 1 and isinstance(args[0], str) and not args[0].startswith("-"))):
+        if len(args) == 0 or (len(args) == 1 and isinstance(args[0], str) and not args[0].startswith("-")):
             argument["name"] = args[0] if (len(args) > 0) else argument["dest"]
             self.positionals.append(argument)
             return
@@ -267,12 +268,12 @@ class ArgumentParser(argparse.ArgumentParser):
         def format_usage(self):
 
             # Use user-defined usage message
-            if ("usage" in self.program):
+            if "usage" in self.program:
                 prefix = "Usage: "
                 wrapper = textwrap.TextWrapper(width=self.width)
                 wrapper.initial_indent = prefix
                 wrapper.subsequent_indent = len(prefix) * " "
-                if (self.program["usage"] == "" or str.isspace(self.program["usage"])):
+                if self.program["usage"] == "" or str.isspace(self.program["usage"]):
                     return wrapper.fill("No usage information available")
                 return wrapper.fill(self.program["usage"])
 
@@ -284,15 +285,16 @@ class ArgumentParser(argparse.ArgumentParser):
             left1 = "Usage: "
             left2 = self.program["prog"] if ("prog" in self.program and self.program["prog"] != "" and not str.isspace(
                 self.program["prog"])) else os.path.basename(sys.argv[0]) if (
-                        len(sys.argv[0]) > 0 and sys.argv[0] != "" and not str.isspace(sys.argv[0])) else "script.py"
+                    len(sys.argv[0]) > 0 and sys.argv[0] != "" and not str.isspace(sys.argv[0])) else "script.py"
             llen = len(left1) + len(left2)
             arglist = []
             for option in self.options:
                 flags = str.join("|", option["flags"])
                 arglist += ["[%s]" % flags if ("action" in option and (
-                            option["action"] == "store_true" or option["action"] == "store_false")) else "[%s %s]" % (
-                flags, option["metavar"]) if ("metavar" in option) else "[%s %s]" % (flags, option["dest"].upper()) if (
-                            "dest" in option) else "[%s]" % flags]
+                        option["action"] == "store_true" or option["action"] == "store_false")) else "[%s %s]" % (
+                    flags, option["metavar"]) if ("metavar" in option) else "[%s %s]" % (
+                    flags, option["dest"].upper()) if (
+                        "dest" in option) else "[%s]" % flags]
             for positional in self.positionals:
                 arglist += ["%s" % positional["metavar"] if ("metavar" in positional) else "%s" % positional["name"]]
             right = str.join(" ", arglist)
@@ -300,7 +302,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
             lwidth = llen
             rwidth = max(0, self.width - lwidth - 1)
-            if (lwidth > int(self.width / 2) - 1):
+            if lwidth > int(self.width / 2) - 1:
                 lwidth = max(0, int(self.width / 2) - 1)
                 rwidth = int(self.width / 2)
             outtmp = "%-" + str(lwidth) + "s %s"
@@ -344,7 +346,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 else:
                     option["left"] = str.join(", ", [
                         "%s %s" % (item, option["metavar"]) if ("metavar" in option) else "%s %s" % (
-                        item, option["dest"].upper()) if ("dest" in option) else item for item in option["flags"]])
+                            item, option["dest"].upper()) if ("dest" in option) else item for item in option["flags"]])
             for argument in self.positionals + self.options:
                 if ("help" in argument and argument["help"] != "" and not str.isspace(
                         argument["help"]) and "default" in argument and argument["default"] != argparse.SUPPRESS):
@@ -365,7 +367,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
             lwidth = lmaxlen
             rwidth = max(0, self.width - lwidth - 4)
-            if (lwidth > int(self.width / 2) - 4):
+            if lwidth > int(self.width / 2) - 4:
                 lwidth = max(0, int(self.width / 2) - 4)
                 rwidth = int(self.width / 2)
             outtmp = "  %-" + str(lwidth) + "s  %s"
@@ -376,7 +378,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 argument["left"] = lwrapper.wrap(argument["left"])
                 argument["right"] = rwrapper.wrap(argument["right"])
 
-            if (len(self.positionals) > 0):
+            if len(self.positionals) > 0:
                 output.append("")
                 output.append("Positionals:")
                 for positional in self.positionals:
@@ -385,7 +387,7 @@ class ArgumentParser(argparse.ArgumentParser):
                         right = positional["right"][i] if (i < len(positional["right"])) else ""
                         output.append(outtmp % (left, right))
 
-            if (len(self.options) > 0):
+            if len(self.options) > 0:
                 output.append("")
                 output.append("Options:")
                 for option in self.options:
@@ -394,7 +396,7 @@ class ArgumentParser(argparse.ArgumentParser):
                         right = option["right"][i] if (i < len(option["right"])) else ""
                         output.append(outtmp % (left, right))
 
-            if ("epilog" in self.program and self.program["epilog"] != "" and not str.isspace(self.program["epilog"])):
+            if "epilog" in self.program and self.program["epilog"] != "" and not str.isspace(self.program["epilog"]):
                 output.append("")
                 output.append(dewrapper.fill(self.program["epilog"]))
 
@@ -402,13 +404,13 @@ class ArgumentParser(argparse.ArgumentParser):
             return str.join("\n", output)
 
         def print_usage(self, file=None):
-            if (file == None):
+            if file is None:
                 file = sys.stdout
             file.write(self.format_usage() + "\n")
             file.flush()
 
         def print_help(self, file=None):
-            if (file == None):
+            if file is None:
                 file = sys.stdout
             file.write(self.format_help() + "\n")
             file.flush()
@@ -436,7 +438,6 @@ def main() -> int:
     fetch = subparser.add_parser("fetch", help="fetch wordlists")
     fetch.add_argument("-l", "--wordlist", nargs="+", dest="wordlist", help="Wordlist(s) to fetch")
     fetch.add_argument("-d", "--decompress", action="store_true", help="decompress and remove archive")
-
 
     fetch.add_argument("-w", "--workers", type=int, default=10, help="download workers [default: %(default)s]")
     fetch.add_argument("-u", "--useragent", default=f"{__project__}/{__version__}",
@@ -471,6 +472,7 @@ def main() -> int:
         results.func(results)
     except Exception as ex:
         error(f"Error while parsing arguments: {ex}")
+
 
 if __name__ == "__main__":
     sys.exit(main())
