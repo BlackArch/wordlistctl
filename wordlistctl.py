@@ -257,6 +257,7 @@ class ArgumentParser(argparse.ArgumentParser):
         super(ArgumentParser, self).add_argument(*args, **kwargs)
         argument = {key: kwargs[key] for key in kwargs}
 
+        # just checks for the - in front of a flag
         if len(args) == 0 or (len(args) == 1 and isinstance(args[0], str) and not args[0].startswith("-")):
             argument["name"] = args[0] if (len(args) > 0) else argument["dest"]
             self.positionals.append(argument)
@@ -341,7 +342,7 @@ class ArgumentParser(argparse.ArgumentParser):
             for positional in self.positionals:
                 positional["left"] = positional["metavar"] if ("metavar" in positional) else positional["name"]
             for option in self.options:
-                if ("action" in option and (option["action"] == "store_true" or option["action"] == "store_false")):
+                if "action" in option and (option["action"] == "store_true" or option["action"] == "store_false"):
                     option["left"] = str.join(", ", option["flags"])
                 else:
                     option["left"] = str.join(", ", [
@@ -354,9 +355,9 @@ class ArgumentParser(argparse.ArgumentParser):
                         "(default: '%s')" % argument["default"] if isinstance(argument["default"],
                                                                               str) else "(default: %s)" % str(
                             argument["default"]))
-                elif ("help" in argument and argument["help"] != "" and not str.isspace(argument["help"])):
+                elif "help" in argument and argument["help"] != "" and not str.isspace(argument["help"]):
                     argument["right"] = argument["help"]
-                elif ("default" in argument and argument["default"] != argparse.SUPPRESS):
+                elif "default" in argument and argument["default"] != argparse.SUPPRESS:
                     argument["right"] = "Default: '%s'" % argument["default"] if isinstance(argument["default"],
                                                                                             str) else "Default: %s" % str(
                         argument["default"])
@@ -470,8 +471,8 @@ def main() -> int:
 
     try:
         results.func(results)
-    except Exception as ex:
-        error(f"Error while parsing arguments: {ex}")
+    except Exception as err:
+        error(f"Error while parsing arguments: {err}")
 
 
 if __name__ == "__main__":
