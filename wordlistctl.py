@@ -41,6 +41,7 @@ __description__: str = "Fetch, install and search wordlist archives from website
 WORDLIST_PATH: str = "/usr/share/wordlists"
 REPOSITORY: dict = {}
 RETRY_COUNT: int = 5
+SEARCH_RESULTS: list = []
 
 
 def error(string: str) -> None:
@@ -200,9 +201,13 @@ def fetch_func(parser: argparse.ArgumentParser) -> None:
 
 def search_func(parser: argparse.ArgumentParser) -> None:
     global REPOSITORY
+    global SEARCH_RESULTS
+
+    SEARCH_RESULTS = []
 
     count: int = 0
     search_term: str = parser.search_term
+    search_results: list = []
     try:
         if parser.local:
             for root, _, files in os.walk(parser.basedir):
@@ -216,8 +221,9 @@ def search_func(parser: argparse.ArgumentParser) -> None:
             for wordlist in REPOSITORY:
                 if wordlist.__contains__(search_term):
                     size = REPOSITORY[wordlist]["size"]
-                    print(f"    > {wordlist} ({size})")
+                    print(f"    {count} > {wordlist} ({size})")
                     count += 1
+                    SEARCH_RESULTS.append(wordlist)
 
         if count == 0:
             error("no wordlists found")
@@ -227,19 +233,34 @@ def search_func(parser: argparse.ArgumentParser) -> None:
 
 def lst_func(parser: argparse.ArgumentParser) -> None:
     global REPOSITORY
+    global SEARCH_RESULTS
+
+    SEARCH_RESULTS = []
 
     success("available wordlists:")
 
     print()
 
+    count: int = 0
     for wordlist in REPOSITORY:
         if parser.group is not None:
             if REPOSITORY[wordlist]["group"] not in parser.group:
                 continue
         size: str = REPOSITORY[wordlist]["size"]
-        print(f"    > {wordlist} ({size})")
+        print(f"   {count} > {wordlist} ({size})")
+        SEARCH_RESULTS.append(wordlist)
+        count += 1
 
     print()
+
+
+def add_fetch_options(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("-d", "--decompress", action="store_true",
+                       help="decompress and remove archive")
+    parser.add_argument("-w", "--workers", type=int, default=10,
+                       help="download workers [default: %(default)s]")
+    parser.add_argument("-u", "--useragent", default=f"{__project__}/{__version__}",
+                       help="parser user agent [default: %(default)s]")
 
 
 def main() -> int:
@@ -252,7 +273,7 @@ def main() -> int:
     parser.add_argument("-v", "--version", action="version",
                         version=f"{__project__} {__version__}")
 
-    subparsers = parser.add_subparsers()
+    subparsers = parser.add_subparsers(dest="command")
 
     fetch = subparsers.add_parser("fetch", help="fetch wordlists")
     fetch.add_argument("-l", "--wordlist", nargs='+', dest="wordlist",
@@ -261,14 +282,10 @@ def main() -> int:
                        choices=["usernames", "passwords",
                                 "discovery", "fuzzing", "misc"],
                        help="wordlist group to fetch")
-    fetch.add_argument("-d", "--decompress", action="store_true",
-                       help="decompress and remove archive")
-    fetch.add_argument("-w", "--workers", type=int, default=10,
-                       help="download workers [default: %(default)s]")
-    fetch.add_argument("-u", "--useragent", default=f"{__project__}/{__version__}",
-                       help="fetch user agent [default: %(default)s]")
     fetch.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
                        help="wordlists base directory [default: %(default)s]")
+
+    add_fetch_options(fetch)
 
     fetch.set_defaults(func=fetch_func)
 
@@ -278,6 +295,13 @@ def main() -> int:
                         help="search local archives")
     search.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
                         help="wordlists base directory [default: %(default)s]")
+    search.add_argument("-f", "--fetch", type=int, nargs='+', dest="indexes", metavar="INDEX",
+                        help=("fetch the wordlists at the given indexes in the search "
+                              "results, see fetch options for additional options"))
+
+    search_fetch = search.add_argument_group("fetch options")
+    add_fetch_options(search_fetch)
+
     search.set_defaults(func=search_func)
 
     lst = subparsers.add_parser("list", help="list wordlists")
@@ -285,6 +309,13 @@ def main() -> int:
                      choices=["usernames", "passwords",
                               "discovery", "fuzzing", "misc"],
                      help="group")
+    lst.add_argument("-f", "--fetch", type=int, nargs='+', dest="indexes", metavar="INDEX",
+                        help=("fetch the wordlists at the given indexes in the list, "
+                              "see fetch options for additiional options"))
+
+    lst_fetch = lst.add_argument_group("fetch options")
+    add_fetch_options(lst_fetch)
+
     lst.set_defaults(func=lst_func)
 
     results = parser.parse_args()
@@ -295,6 +326,16 @@ def main() -> int:
 
     try:
         results.func(results)
+        if results.command != "fetch" and results.indexes is not None:
+            setattr(results, "wordlist", [])
+            # group argument added so `fetch_func` does not complain
+            setattr(results, "group", None)
+            for i in results.indexes:
+                try:
+                    results.wordlist.append(SEARCH_RESULTS[i])
+                except IndexError:
+                    error(f"no wordlist with index: {i}")
+            fetch_func(results)
     except Exception as ex:
         error(f"Error while parsing arguments: {ex}")
 
