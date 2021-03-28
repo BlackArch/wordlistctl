@@ -80,6 +80,18 @@ optional arguments:
   -b BASEDIR, --base-dir BASEDIR
                         wordlists base directory [default: /usr/share/wordlists]
 
+  -f INDEX [INDEX ...], --fetch INDEX [INDEX ...]
+                        fetch the wordlists at the given indexes in the search results, see
+                        fetch options for additional options
+
+fetch options:
+  -d, --decompress      decompress and remove archive
+
+  -w WORKERS, --workers WORKERS
+                        download workers [default: 10]
+
+  -u USERAGENT, --useragent USERAGENT
+                        parser user agent [default: wordlistctl/v0.9.0]
 ```
 
 ### List Options
@@ -98,6 +110,18 @@ optional arguments:
                           fuzzing
                           misc
 
+  -f INDEX [INDEX ...], --fetch INDEX [INDEX ...]
+                        fetch the wordlists at the given indexes in the list, see
+                        fetch options for additional options
+
+fetch options:
+  -d, --decompress      decompress and remove archive
+
+  -w WORKERS, --workers WORKERS
+                        download workers [default: 10]
+
+  -u USERAGENT, --useragent USERAGENT
+                        parser user agent [default: wordlistctl/v0.9.0]
 ```
 
 ## Get Involved
