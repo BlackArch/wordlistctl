@@ -33,7 +33,7 @@ except Exception as ex:
 # Internal Variables
 __organization__: str = "blackarch.org"
 __license__: str = "GPLv3"
-__version__: str = "v0.9.0"
+__version__: str = "v0.9.1"
 __project__: str = "wordlistctl"
 __description__: str = "Fetch, install and search wordlist archives from websites."
 
@@ -161,10 +161,10 @@ def check_dir(dir_name: str) -> None:
 def fetch_func(parser: argparse.ArgumentParser) -> None:
     global REPOSITORY
 
-    if parser.wordlist is None and parser.group is None:
+    if parser.wordlist is None and parser.group is None and parser.fetch_term is None:
         error("no wordlist specified")
         return
-
+    
     if parser.workers > 25:
         warning("Number of workers is too big, you might get banned.")
 
@@ -180,6 +180,11 @@ def fetch_func(parser: argparse.ArgumentParser) -> None:
 
     if parser.wordlist is not None:
         wordlists = [wordlist for wordlist in parser.wordlist]
+        
+    if parser.fetch_term is not None:
+        for wordlist in REPOSITORY:
+            if parser.fetch_term in wordlist:
+                wordlists.append(wordlist)
 
     if parser.group is not None:
         for wordlist in REPOSITORY:
@@ -223,7 +228,7 @@ def search_func(parser: argparse.ArgumentParser) -> None:
                     size = REPOSITORY[wordlist]["size"]
                     print(f"    {count} > {wordlist} ({size})")
                     count += 1
-                    SEARCH_RESULTS.append(wordlist)
+                    SEARCH_RESULTS.append(wordlist)      
 
         if count == 0:
             error("no wordlists found")
@@ -284,6 +289,7 @@ def main() -> int:
                        help="wordlist group to fetch")
     fetch.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
                        help="wordlists base directory [default: %(default)s]")
+    fetch.add_argument("fetch_term", help="fetch string filter")
 
     add_fetch_options(fetch)
 

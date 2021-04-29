@@ -34,7 +34,10 @@ optional arguments:
 ```
 $ wordlistctl fetch [-h] [-l WORDLIST [WORDLIST ...]]
                          [-g {usernames,passwords,discovery,fuzzing,misc} [{usernames,passwords,discovery,fuzzing,misc} ...]]
-                         [-d] [-w WORKERS] [-u USERAGENT] [-b BASEDIR]
+                         [-d] [-w WORKERS] [-u USERAGENT] [-b BASEDIR] fetch_term
+
+positional arguments:
+  fetch_term           fetch string filter
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -91,7 +94,7 @@ fetch options:
                         download workers [default: 10]
 
   -u USERAGENT, --useragent USERAGENT
-                        parser user agent [default: wordlistctl/v0.9.0]
+                        parser user agent [default: wordlistctl/v0.9.1]
 ```
 
 ### List Options
@@ -121,7 +124,7 @@ fetch options:
                         download workers [default: 10]
 
   -u USERAGENT, --useragent USERAGENT
-                        parser user agent [default: wordlistctl/v0.9.0]
+                        parser user agent [default: wordlistctl/v0.9.1]
 ```
 
 ## Get Involved
