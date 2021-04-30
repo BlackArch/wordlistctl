@@ -60,7 +60,7 @@ optional arguments:
                         download workers [default: 10]
 
   -u USERAGENT, --useragent USERAGENT
-                        fetch user agent [default: wordlistctl/v0.8.9]
+                        fetch user agent [default: wordlistctl/v0.9.x]
 
   -b BASEDIR, --base-dir BASEDIR
                         wordlists base directory [default: /usr/share/wordlists]
@@ -94,7 +94,7 @@ fetch options:
                         download workers [default: 10]
 
   -u USERAGENT, --useragent USERAGENT
-                        parser user agent [default: wordlistctl/v0.9.1]
+                        parser user agent [default: wordlistctl/v0.9.x]
 ```
 
 ### List Options
@@ -124,7 +124,7 @@ fetch options:
                         download workers [default: 10]
 
   -u USERAGENT, --useragent USERAGENT
-                        parser user agent [default: wordlistctl/v0.9.1]
+                        parser user agent [default: wordlistctl/v0.9.x]
 ```
 
 ## Get Involved
