@@ -25,6 +25,8 @@ from concurrent.futures import ThreadPoolExecutor
 try:
     import requests
     from termcolor import colored
+    import gzip
+    import tarfile
 except Exception as ex:
     print(f"[-] {ex}", file=sys.stderr)
     sys.exit(-1)
