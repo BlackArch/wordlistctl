@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.10-alpine
 
 LABEL version="0.8.8" \
     author="Author BlackArch (https://github.com/BlackArch)" \
