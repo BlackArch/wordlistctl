@@ -217,14 +217,14 @@ def search_func(parser: argparse.ArgumentParser) -> None:
         if parser.local:
             for root, _, files in os.walk(parser.basedir):
                 for f in files:
-                    if f.__contains__(search_term):
+                    if f.lower().__contains__(search_term.lower()):
                         wordlist = os.path.join(root, f)
                         size = to_readable_size(os.path.getsize(wordlist))
                         print(f"    > {wordlist} ({size})")
                         count += 1
         else:
             for wordlist in REPOSITORY:
-                if wordlist.__contains__(search_term):
+                if wordlist.lower().__contains__(search_term.lower()):
                     size = REPOSITORY[wordlist]["size"]
                     print(f"    {count} > {wordlist} ({size})")
                     count += 1
@@ -266,6 +266,8 @@ def add_fetch_options(parser: argparse.ArgumentParser) -> None:
                        help="download workers [default: %(default)s]")
     parser.add_argument("-u", "--useragent", default=f"{__project__}/{__version__}",
                        help="parser user agent [default: %(default)s]")
+    parser.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
+                       help="wordlists base directory [default: %(default)s]")
 
 
 def main() -> int:
@@ -287,8 +289,6 @@ def main() -> int:
                        choices=["usernames", "passwords",
                                 "discovery", "fuzzing", "misc"],
                        help="wordlist group to fetch")
-    fetch.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
-                       help="wordlists base directory [default: %(default)s]")
     fetch.add_argument("fetch_term", help="fetch string filter")
 
     add_fetch_options(fetch)
@@ -299,8 +299,6 @@ def main() -> int:
     search.add_argument("search_term", help="what to search")
     search.add_argument("-l", "--local", action="store_true", default=False,
                         help="search local archives")
-    search.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
-                        help="wordlists base directory [default: %(default)s]")
     search.add_argument("-f", "--fetch", type=int, nargs='+', dest="indexes", metavar="INDEX",
                         help=("fetch the wordlists at the given indexes in the search "
                               "results, see fetch options for additional options"))
@@ -334,8 +332,9 @@ def main() -> int:
         results.func(results)
         if results.command != "fetch" and results.indexes is not None:
             setattr(results, "wordlist", [])
-            # group argument added so `fetch_func` does not complain
+            # arguments added so `fetch_func` does not complain
             setattr(results, "group", None)
+            setattr(results, "fetch_term", None)
             for i in results.indexes:
                 try:
                     results.wordlist.append(SEARCH_RESULTS[i])
