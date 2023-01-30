@@ -33,7 +33,7 @@ except Exception as ex:
 # Internal Variables
 __organization__: str = "blackarch.org"
 __license__: str = "GPLv3"
-__version__: str = "v0.9.2"
+__version__: str = "v0.9.3"
 __project__: str = "wordlistctl"
 __description__: str = "Fetch, install and search wordlist archives from websites."
 
@@ -164,7 +164,7 @@ def fetch_func(parser: argparse.ArgumentParser) -> None:
     if parser.wordlist is None and parser.group is None and parser.fetch_term is None:
         error("no wordlist specified")
         return
-    
+
     if parser.workers > 25:
         warning("Number of workers is too big, you might get banned.")
 
@@ -180,7 +180,7 @@ def fetch_func(parser: argparse.ArgumentParser) -> None:
 
     if parser.wordlist is not None:
         wordlists = [wordlist for wordlist in parser.wordlist]
-        
+
     if parser.fetch_term is not None:
         for wordlist in REPOSITORY:
             if parser.fetch_term in wordlist:
@@ -228,7 +228,7 @@ def search_func(parser: argparse.ArgumentParser) -> None:
                     size = REPOSITORY[wordlist]["size"]
                     print(f"    {count} > {wordlist} ({size})")
                     count += 1
-                    SEARCH_RESULTS.append(wordlist)      
+                    SEARCH_RESULTS.append(wordlist)
 
         if count == 0:
             error("no wordlists found")
