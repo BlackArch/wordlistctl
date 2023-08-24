@@ -181,10 +181,16 @@ def fetch_func(parser: argparse.ArgumentParser) -> None:
     if parser.wordlist is not None:
         wordlists = [wordlist for wordlist in parser.wordlist]
 
-    if parser.fetch_term is not None:
-        for wordlist in REPOSITORY:
-            if parser.fetch_term in wordlist:
-                wordlists.append(wordlist)
+    if parser.regex:
+        if parser.fetch_term is not None:
+            for wordlist in REPOSITORY:
+                if parser.fetch_term in wordlist:
+                    wordlists.append(wordlist)
+    else:
+        if parser.fetch_term is not None:
+            for wordlist in REPOSITORY:
+                if parser.fetch_term == wordlist:
+                    wordlists.append(wordlist)
 
     if parser.group is not None:
         for wordlist in REPOSITORY:
@@ -266,6 +272,8 @@ def add_fetch_options(parser: argparse.ArgumentParser) -> None:
                        help="download workers [default: %(default)s]")
     parser.add_argument("-u", "--useragent", default=f"{__project__}/{__version__}",
                        help="parser user agent [default: %(default)s]")
+    parser.add_argument("-r", "--regex", action="store_true", 
+                       help="download all wordlists with titles matching fetch string filter")
     parser.add_argument("-b", "--base-dir", default=f"{WORDLIST_PATH}", dest="basedir",
                        help="wordlists base directory [default: %(default)s]")
 
