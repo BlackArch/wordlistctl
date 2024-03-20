@@ -14,7 +14,7 @@ In the latest version of the Blackarch Linux it has been added to
 
 ## Usage
 
-TODO: FIX
+TODO: FIX below, use mangen
 
 ```
 $ rwordlistctl [-h] [-v] {fetch,search,list} ...

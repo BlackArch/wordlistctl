@@ -129,3 +129,8 @@ venv.bak/
 .project
 .pydevproject
 .settings/
+
+
+# Added by cargo
+
+/target
