@@ -1,5 +1,7 @@
 ## Description
 
+Rust rewrite of original by Blackarch development team. Rewritten in Rust by Sable-20.
+
 Script to fetch, install, update and search wordlist archives from websites
 offering wordlists with more than 6400 wordlists available.
 
@@ -12,8 +14,10 @@ In the latest version of the Blackarch Linux it has been added to
 
 ## Usage
 
+TODO: FIX
+
 ```
-$ wordlistctl [-h] [-v] {fetch,search,list} ...
+$ rwordlistctl [-h] [-v] {fetch,search,list} ...
 
 Fetch, install and search wordlist archives from websites.
 
