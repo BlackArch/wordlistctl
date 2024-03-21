@@ -23,18 +23,17 @@ mod units {
     }
 
     pub fn readable_size(size: &mut f32) -> &str {
-        use Units;
         let mut counter: u8 = 0;
         while size > 1000 {
             size /= 1000;
             i++;
         }
         let unit: Units = match counter {
-            0 => Byte,
-            1 => Mb,
-            2 => Kb,
-            3 => Gb,
-            4 => Tb,
+            0 => Units::Byte,
+            1 => Units::Mb,
+            2 => Units::Kb,
+            3 => Units::Gb,
+            4 => Units::Tb,
             _ => panic!("Unknown size")
         };
 
