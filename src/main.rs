@@ -1,11 +1,20 @@
 use clap::{
-    arg, crate_authors, crate_description, crate_version, value_parser, Arg, ArgAction, ArgGroup, Command
+    crate_authors, crate_description, crate_version, value_parser, Arg, ArgAction, ArgGroup,
+    Command,
 };
 
+use toml;
+
+#[macro_use]
+extern crate log;
+
+mod data;
+mod repo;
 mod units;
 
-
 fn main() {
+    pretty_env_logger::init();
+
     #[allow(unused_variables)]
     let cli = Command::new("rwordlistctl")
         .author(crate_authors!())
@@ -14,30 +23,57 @@ fn main() {
         .subcommand(
             Command::new("fetch")
                 .about("Fetch wordlists")
-                .arg(
+                .args(&[
                     Arg::new("decompress")
                         .short('d')
                         .long("decompress")
-                        .help("Decompress and remove the archive file")
                         .action(ArgAction::SetTrue)
-                )
-                .arg( // implement validator later
-                    arg!(-w --workers [COUNT] "Number of download workers")
-                        .value_parser(value_parser!(u8).range(1..=100))
-                        .allow_negative_numbers(false)
+                        .help("Decompress and remove the archive file"),
+                    Arg::new("workers")
+                        .short('w')
+                        .long("workers")
+                        .value_name("COUNT")
+                        .help("Number of download workers")
+                        .num_args(1)
                         .require_equals(true)
-                )
-                // args to do
-                // -d --decompress store_true
-                // -w --workers type=int default=10
-                // -u --user-agent 
-                // -b --base-dir 
-                // -l --wordlist num_args=1 or more
-                // -g --group  num_args=1 or more choices=[usernames, passwords, discovery, fuzzing, misc]
-                // fetch-term `SEE WORDLISTCTL.PY`
+                        .allow_negative_numbers(false)
+                        .value_parser(value_parser!(u8).range(1..=100)),
+                        // .default_value(get_workers().as_str()),
+                    Arg::new("user-agent")
+                        .short('u')
+                        .long("user-agent")
+                        .value_name("USER_AGENT")
+                        .help("User agent to use for fetching")
+                        .num_args(1)
+                        .require_equals(true)
+                        .default_value("rwordlistctl/0.1.0"),
+                    Arg::new("base-dir")
+                        .short('b')
+                        .long("base-dir")
+                        .value_name("DIR")
+                        .help("Base directory to store wordlists")
+                        .num_args(1)
+                        .require_equals(true),
+                    Arg::new("wordlist")
+                        .short('l')
+                        .long("wordlist")
+                        .value_name("WORDLIST")
+                        .help("Wordlist to fetch")
+                        .num_args(1..)
+                        .require_equals(true)
+                        .value_delimiter(','),
+                ])
+                   // args to do
+                   // -g --group  num_args=1 or more choices=[usernames, passwords, discovery, fuzzing, misc]
+                   // fetch-term `SEE WORDLISTCTL.PY`
         )
-        .group(ArgGroup::new("fetch")
-            .args(["decompress", "workers", "user-agent", "base-dir", "wordlist", "group"])
-        )
+        .group(ArgGroup::new("fetch").args([
+            "decompress",
+            "workers",
+            "user-agent",
+            "base-dir",
+            "wordlist",
+            "group",
+        ]))
         .get_matches();
 }
