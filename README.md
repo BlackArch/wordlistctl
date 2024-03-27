@@ -1,3 +1,5 @@
+TODO: CONVERT BUILDER TO DERIVE AND USE RAW DERIVE ARGS
+
 ## Description
 
 Rust rewrite of original by Blackarch development team. Rewritten in Rust by Sable-20.
