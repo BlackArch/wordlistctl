@@ -1,4 +1,3 @@
-
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
     Arc, RwLock,
@@ -45,8 +44,11 @@ impl Data {
         self.human_readable_size.load(Ordering::Relaxed)
     }
 
-    pub fn set_human_readable_size(&mut self, size: usize) {
-        self.human_readable_size.store(size, Ordering::Relaxed);
+    pub fn set_human_readable_size(&mut self) {
+        self.human_readable_size.store(
+            crate::units::readable_size(self.get_size()).0 as usize, 
+            Ordering::Relaxed
+        );
     }
 
     pub fn chunk_data(&mut self) {

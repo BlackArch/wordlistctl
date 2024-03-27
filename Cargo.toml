@@ -1,6 +1,6 @@
 [package]
 name = "rwordlistctl"
-version = "0.10.0-alpha.1.0.0"
+version = "0.10.0-alpha.1.4.0"
 edition = "2021"
 authors = ["Sable-20", "blackarch"]
 description = "Rust rewrite of wordlistctl: Fetch, install and search wordlist archives from websites."
@@ -11,7 +11,8 @@ repository = "https://github.com/Sable-20/rwordlistctl"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.5.3", features = ["cargo"] }
+anyhow = "1.0.81"
+clap = { version = "4.5.3", features = ["cargo", "derive"] }
 log = "0.4.21"
 pretty_env_logger = "0.5.0"
 serde = { version = "1.0.197", features = ["derive"] }
