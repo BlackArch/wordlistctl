@@ -1,5 +1,7 @@
 ## Description
 
+Rust rewrite of original by Blackarch development team. Rewritten in Rust by Sable-20.
+
 Script to fetch, install, update and search wordlist archives from websites
 offering wordlists with more than 6400 wordlists available.
 
@@ -8,28 +10,19 @@ In the latest version of the Blackarch Linux it has been added to
 
 ## Installation
 
-`pacman -S wordlistctl`
+`pacman -S rwordlistctl`
 
 ## Usage
 
-```
-$ wordlistctl [-h] [-v] {fetch,search,list} ...
+TODO: FIX below, use mangen
 
-Fetch, install and search wordlist archives from websites.
+TODO: INSERT HELP VIEW HERE
 
-positional arguments:
-  {fetch,search,list}
-    fetch              fetch wordlists
+TODO: Write tests
 
-    search             search wordlists
 
-    list               list wordlists
-
-optional arguments:
-  -h, --help           show this help message and exit
-
-  -v, --version        show program's version number and exit
-```
+TODO: REDO OPTIONS HERE
+----------
 ### Fetch Options
 ```
 $ wordlistctl fetch [-h] [-l WORDLIST [WORDLIST ...]]
