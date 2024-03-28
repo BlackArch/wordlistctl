@@ -1,0 +1,2 @@
+wordlist_path = "/usr/share/wordlists"
+retry_count = 5

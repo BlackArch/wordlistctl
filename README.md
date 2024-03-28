@@ -10,30 +10,19 @@ In the latest version of the Blackarch Linux it has been added to
 
 ## Installation
 
-`pacman -S wordlistctl`
+`pacman -S rwordlistctl`
 
 ## Usage
 
-TODO: FIX
+TODO: FIX below, use mangen
 
-```
-$ rwordlistctl [-h] [-v] {fetch,search,list} ...
+TODO: INSERT HELP VIEW HERE
 
-Fetch, install and search wordlist archives from websites.
+TODO: Write tests
 
-positional arguments:
-  {fetch,search,list}
-    fetch              fetch wordlists
 
-    search             search wordlists
-
-    list               list wordlists
-
-optional arguments:
-  -h, --help           show this help message and exit
-
-  -v, --version        show program's version number and exit
-```
+TODO: REDO OPTIONS HERE
+----------
 ### Fetch Options
 ```
 $ wordlistctl fetch [-h] [-l WORDLIST [WORDLIST ...]]
